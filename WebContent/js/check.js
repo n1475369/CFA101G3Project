@@ -1,3 +1,4 @@
+//驗證是否為登入狀態
 let xhr = new XMLHttpRequest();
 let MemberName = null;
 xhr.open('GET', 'checkServlet', true);

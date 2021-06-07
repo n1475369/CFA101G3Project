@@ -1,7 +1,9 @@
 $(function(){
+    //設置驗證旗幟
     let u_flag = false;
     let p_flag = false;
 
+    //確認旗幟均為true按鈕才能按
     function checkFlag(){
         if(u_flag && p_flag){
             $("#login").removeAttr("disabled") 
@@ -10,6 +12,7 @@ $(function(){
         }
     }
 
+    //監聽帳號格式是否正確
     $('#username').on('input',function(){
         $('#u-prompt').text("");
         if(validateUsername()){
@@ -25,6 +28,7 @@ $(function(){
         checkFlag();
     });
 
+    //監聽密碼格式是否正確
     $('#password').on('input',function(){
         $('#p-prompt').text("");
         if(validatePassword()){
@@ -40,6 +44,7 @@ $(function(){
         checkFlag();
     });
 
+    //送出登入驗證
     $('#login').on('click',function(){
         let username = $('#username').val();
         let password = $('#password').val();
@@ -64,13 +69,14 @@ $(function(){
     });
 
 
-
+    //帳號正則表達式驗證
     function validateUsername() {
         let username = $('#username').val();
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(username);
     }
 
+    //密碼正則表達式驗證
     function validatePassword(){
         let password = $('#password').val();
         const re = /^[0-9A-Za-z]{6,20}$/;

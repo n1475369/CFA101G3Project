@@ -14,7 +14,7 @@ import com.member.model.*;
 @WebServlet("/checkServlet")
 public class CheckServlet extends HttpServlet {
        
-
+	//驗證是否為登入狀態
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");

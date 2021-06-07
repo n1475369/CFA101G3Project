@@ -24,7 +24,7 @@ public class MemberDaoImpl implements MemberDao{
 	
 	JdbcTemplate template = new JdbcTemplate(ds);
 	
-	
+	//驗證帳密是否存在
 	@Override
 	public Member findMemberByUsernameAndPassword(String username,String password) {
 		
@@ -33,10 +33,25 @@ public class MemberDaoImpl implements MemberDao{
 			Member member = template.queryForObject(sql, new BeanPropertyRowMapper<Member>(Member.class),username,password);
 			return member;
 		} catch (Exception e) {
-//			e.printStackTrace();
 			System.out.println("找不到用戶");
 			return null;
 		}
 	}
 	
+	//驗證帳號是否存在
+	@Override
+	public Member findByUsername(String username) {
+		
+		try {
+			String sql = "select * from member where username_email = ?";
+			Member member = template.queryForObject(sql, new BeanPropertyRowMapper<Member>(Member.class),username);
+			return member;
+		} catch (Exception e) {
+			System.out.println("帳號可以使用");
+			return null;
+		}
+	}
+
 }
+
+

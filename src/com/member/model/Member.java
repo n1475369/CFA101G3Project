@@ -1,5 +1,5 @@
 package com.member.model;
-
+//會員JavaBean
 public class Member {
 	private Integer id;
 	private String username;

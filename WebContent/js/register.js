@@ -1,17 +1,22 @@
 $(function(){
+    //設置驗證旗幟
     let u_flag = false;
+    let u_check_flag = false;
     let p_flag = false;
     let re_p_flag = false;
     let n_flag = false;
+    let phone_flag = false;
 
+    //確認旗幟均為true按鈕才能按
     function checkFlag(){
-        if(u_flag && p_flag && re_p_flag && n_flag){
+        if(u_flag && u_check_flag && p_flag && re_p_flag && n_flag && phone_flag){
             $("#register").removeAttr("disabled") 
         }else{
             $("#register").attr("disabled", "disabled") 
         }
     }
 
+    //監聽帳號格式是否正確
     $('#username').on('input',function(){
         $('#u-prompt').text("");
         if(validateUsername()){
@@ -27,6 +32,7 @@ $(function(){
         checkFlag();
     });
 
+    //監聽密碼格式是否正確
     $('#password').on('input',function(){
         $('#p-prompt').text("");
         if(validatePassword()){
@@ -45,11 +51,13 @@ $(function(){
         checkFlag();
     });
 
+    //監聽確認密碼格式是否正確
     $('#re-password').on('input',function(){
         checkPassword();
         checkFlag();
     });
 
+    //監聽會員名稱格式是否正確
     $('#name').on('input',function(){
         if($('#name').val() != ""){
             $('#name').css('border','2px solid #27da80');
@@ -61,16 +69,37 @@ $(function(){
         checkFlag();
     });
 
+    //監聽電話格式是否正確
+    $('#phone').on('input',function(){
+        $('#phone-prompt').text("");
+        if(validatePhone()){
+            $('#phone').css('border','2px solid #27da80')
+            phone_flag = true;
+        }else{
+            $('#phone-prompt').text("請輸入有效的手機號碼");
+            $('#phone-prompt').css('color','red');
+            $('#phone-prompt').css('font-size','10px');
+            $('#phone').css('border','2px solid red')
+            phone_flag = false;
+        }
+        checkFlag();
+    });
 
+    //送出註冊表單
     $('#register').on('click',function(){
         let username = $('#username').val();
         let password = $('#password').val();
+        let name = $('#name').val();
+        let phone = $('#phone').val();
+
         $.ajax({
             type:"post",
-            url:"loginServlet",
+            url:"registerServlet",
             data:{
                 "username":username,
-                "password":password
+                "password":password,
+                "name":name,
+                "phone":phone
             },
             success:function (result) {
                 if(result=="1"){
@@ -85,20 +114,49 @@ $(function(){
         });
     });
 
+    //驗證註冊帳號是否可用
+    $('#username').on('blur',function(){
+        if(!validateUsername()){
+            return;
+        }
+        $('#u-prompt').text("");
+        let username = $('#username').val();
+        $.ajax({ type:"post",
+        url:"memberCheckServlet",
+        data:{
+            "username":username,
+        },
+        success:function (result) {
+            if(result=="1"){
+                $('#username').css('border','2px solid #27da80')
+                u_check_flag = true;
+            }else{
+                $('#u-prompt').text("此Email已經有人使用");
+                $('#u-prompt').css('color','red');
+                $('#u-prompt').css('font-size','10px');
+                $('#username').css('border','2px solid red')
+                u_check_flag = false;
+            }
+            checkFlag();
+        }})
+    });
 
 
+    //帳號正則表達式驗證
     function validateUsername() {
         let username = $('#username').val();
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(username);
     }
 
+    //密碼正則表達式驗證
     function validatePassword(){
         let password = $('#password').val();
         const re = /^[0-9A-Za-z]{6,20}$/;
         return re.test(password);
     }
 
+    //確認密碼是否相同
     function checkPassword(){
         $('#re-p-prompt').text("");
         if($('#password').val() == $('#re-password').val()){
@@ -111,6 +169,13 @@ $(function(){
             $('#re-password').css('border','2px solid red')
             re_p_flag = false;
         }
+    }
+
+    //電話正則表達式驗證
+    function validatePhone(){
+        let phone = $('#phone').val();
+        const re = /^09[0-9]{8}$/;
+        return re.test(phone);
     }
 
 });

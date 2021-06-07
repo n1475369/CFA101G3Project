@@ -11,23 +11,19 @@ import javax.servlet.http.HttpSession;
 import com.member.model.*;
 
 
-@WebServlet("/loginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/memberCheckServlet")
+public class MemberCheckServlet extends HttpServlet {
        
-	//登入驗證
+	//驗證帳號是否有人使用
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		MemberService service = new MemberService();
 		Member member = new Member();
 		String username = request.getParameter("username");
-		String password = request.getParameter("password");
 		member.setUsername(username);
-		member.setPassword(password);
-		Member user = service.login(member);
-		HttpSession session = request.getSession();
-		if(user != null) {
-			session.setAttribute("user", user);
+		Member user = service.check(member);
+		if(user == null) {
 			response.getWriter().print("1");
 		}else {
 			response.getWriter().print("0");
