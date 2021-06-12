@@ -18,13 +18,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		MemberService service = new MemberService();
-		Member member = new Member();
+		MemService service = new MemService();
+		MemVO member = new MemVO();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		member.setUsername(username);
-		member.setPassword(password);
-		Member user = service.login(member);
+		member.setMem_username(username);
+		member.setMem_password(password);
+		MemVO user = service.login(member);
+		System.out.println(user);
 		HttpSession session = request.getSession();
 		if(user != null) {
 			session.setAttribute("user", user);

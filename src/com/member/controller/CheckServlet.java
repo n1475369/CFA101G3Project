@@ -19,9 +19,9 @@ public class CheckServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		HttpSession session = request.getSession();
-		Member user = (Member)session.getAttribute("user");
+		MemVO user = (MemVO)session.getAttribute("user");
 		if(user!= null) {
-			response.getWriter().print(user.getName());
+			response.getWriter().print(user.getMem_name());
 		}else {
 			response.getWriter().print("0");
 		}

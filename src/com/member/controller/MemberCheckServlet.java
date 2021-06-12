@@ -18,11 +18,11 @@ public class MemberCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		MemberService service = new MemberService();
-		Member member = new Member();
+		MemService service = new MemService();
+		MemVO member = new MemVO();
 		String username = request.getParameter("username");
-		member.setUsername(username);
-		Member user = service.check(member);
+		member.setMem_username(username);
+		MemVO user = service.check(member);
 		if(user == null) {
 			response.getWriter().print("1");
 		}else {
