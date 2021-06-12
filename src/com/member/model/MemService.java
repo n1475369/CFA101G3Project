@@ -11,4 +11,13 @@ public class MemService {
 	public MemVO check(MemVO member) {
 		return dao.findByUsername(member.getMem_username());
 	}
+	
+	//註冊買家帳號
+	public int registerBuy(MemVO member) {
+		if(check(member) == null) {
+			return dao.insert(member);
+		}else {
+			return 0;
+		}
+	}
 }

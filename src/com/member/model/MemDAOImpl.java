@@ -51,7 +51,14 @@ public class MemDAOImpl implements MemDAO{
 			return null;
 		}
 	}
-
+	
+	//註冊會員
+	@Override
+	public int insert(MemVO member) {
+		String sql = "insert into member (mem_username, mem_password, mem_name, mem_role, mem_phone, mem_city, mem_cityarea, mem_street, mem_shop_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		int count = template.update(sql, member.getMem_username(),member.getMem_password(),member.getMem_name(),member.getMem_role(),member.getMem_phone(),member.getMem_city(),member.getMem_cityarea(),member.getMem_street(),member.getMem_shop_name());
+		return count;
+	}
 }
 
 

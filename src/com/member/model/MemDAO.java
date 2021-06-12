@@ -5,4 +5,6 @@ public interface MemDAO {
 	public MemVO findByUsernameAndPassword(String username,String password);
 	//驗證帳號是否存在
 	public MemVO findByUsername(String username);
+	//註冊會員
+	public int insert(MemVO member);
 }

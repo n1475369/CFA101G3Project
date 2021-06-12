@@ -94,7 +94,7 @@ $(function(){
 
         $.ajax({
             type:"post",
-            url:"registerServlet",
+            url:"registerBuyServlet",
             data:{
                 "username":username,
                 "password":password,
@@ -105,7 +105,7 @@ $(function(){
                 if(result=="1"){
                     window.location.href="index.html";
                 }else{
-                    $('#u-prompt').text("帳號或密碼錯誤");
+                    $('#u-prompt').text("註冊失敗");
                     $('#u-prompt').css('color','red');
                     $('#u-prompt').css('font-size','10px');
                     $('#username').css('border','2px solid red')
