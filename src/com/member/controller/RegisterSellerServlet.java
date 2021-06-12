@@ -15,10 +15,10 @@ import com.member.model.MemService;
 import com.member.model.MemVO;
 
 
-@WebServlet("/registerBuyServlet")
-public class RegisterBuyServlet extends HttpServlet {
+@WebServlet("/registerSellerServlet")
+public class RegisterSellerServlet extends HttpServlet {
     
-	//註冊買家帳號
+	//註冊賣家帳號
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -28,11 +28,21 @@ public class RegisterBuyServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
+		Integer role = Integer.parseInt(request.getParameter("role"));
+		String shopname = request.getParameter("shopname");
+		String city = request.getParameter("city");
+		String cityarea = request.getParameter("cityarea");
+		String street = request.getParameter("street");
+		
 		member.setMem_username(username);
 		member.setMem_password(password);
 		member.setMem_name(name);
-		member.setMem_role(10);
+		member.setMem_role(role);
 		member.setMem_phone(phone);
+		member.setMem_shop_name(name);
+		member.setMem_city(city);
+		member.setMem_cityarea(cityarea);
+		member.setMem_street(street);
 		int count = service.register(member);
 		if(count == 1) {
 			RequestDispatcher rd = request.getRequestDispatcher("/loginServlet");
