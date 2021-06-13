@@ -1,6 +1,7 @@
 package com.member.controller;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
@@ -43,8 +44,14 @@ public class RegisterSellerServlet extends HttpServlet {
 		member.setMem_city(city);
 		member.setMem_cityarea(cityarea);
 		member.setMem_street(street);
+		member.setMem_code(UUID.randomUUID().toString());
 		int count = service.register(member);
 		if(count == 1) {
+			SendEmail se = new SendEmail();
+			se.email = member.getMem_username();
+			se.code = member.getMem_code();
+			se.start();
+			se = null;
 			RequestDispatcher rd = request.getRequestDispatcher("/loginServlet");
 			rd.forward(request, response);
 		}else {

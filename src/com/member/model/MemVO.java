@@ -19,6 +19,7 @@ public class MemVO {
 	private byte[] mem_shop_logo;
 	private byte[] mem_shop_banner;
 	private Integer mem_shop_status;
+	private String mem_code;
 	
 	public Integer getMem_id() {
 		return mem_id;
@@ -110,16 +111,10 @@ public class MemVO {
 	public void setMem_shop_status(Integer mem_shop_status) {
 		this.mem_shop_status = mem_shop_status;
 	}
-	@Override
-	public String toString() {
-		return "MemVO [mem_id=" + mem_id + ", mem_username=" + mem_username + ", mem_password=" + mem_password
-				+ ", mem_name=" + mem_name + ", mem_role=" + mem_role + ", mem_phone=" + mem_phone + ", mem_city="
-				+ mem_city + ", mem_cityarea=" + mem_cityarea + ", mem_street=" + mem_street + ", mem_status="
-				+ mem_status + ", mem_shop_name=" + mem_shop_name + ", mem_shop_content=" + mem_shop_content
-				+ ", mem_shop_logo=" + Arrays.toString(mem_shop_logo) + ", mem_shop_banner="
-				+ Arrays.toString(mem_shop_banner) + ", mem_shop_status=" + mem_shop_status + "]";
+	public String getMem_code() {
+		return mem_code;
 	}
-	
-	
-	
+	public void setMem_code(String mem_code) {
+		this.mem_code = mem_code;
+	}
 }

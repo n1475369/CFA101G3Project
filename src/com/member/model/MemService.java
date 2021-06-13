@@ -1,5 +1,6 @@
 package com.member.model;
 
+
 public class MemService {
 	private MemDAO dao = new MemDAOImpl();
 	//登入驗證方法
@@ -18,6 +19,17 @@ public class MemService {
 			return dao.insert(member);
 		}else {
 			return 0;
+		}
+	}
+	
+	//
+	public boolean active(String code) {
+		MemVO user = dao.findByCode(code);
+		if(user != null) {
+			dao.updateStatus(user);
+			return true;
+		}else {
+			return false;
 		}
 	}
 }

@@ -7,4 +7,8 @@ public interface MemDAO {
 	public MemVO findByUsername(String username);
 	//註冊會員
 	public int insert(MemVO member);
+	//利用驗證啟用碼尋找會員
+	public MemVO findByCode(String code);
+	//更新會員信箱驗證狀態
+	public void updateStatus(MemVO member);
 }

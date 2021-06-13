@@ -55,9 +55,29 @@ public class MemDAOImpl implements MemDAO{
 	//註冊會員
 	@Override
 	public int insert(MemVO member) {
-		String sql = "insert into member (mem_username, mem_password, mem_name, mem_role, mem_phone, mem_city, mem_cityarea, mem_street, mem_shop_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		int count = template.update(sql, member.getMem_username(),member.getMem_password(),member.getMem_name(),member.getMem_role(),member.getMem_phone(),member.getMem_city(),member.getMem_cityarea(),member.getMem_street(),member.getMem_shop_name());
+		String sql = "insert into member (mem_username, mem_password, mem_name, mem_role, mem_phone, mem_city, mem_cityarea, mem_street, mem_shop_name,mem_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		int count = template.update(sql, member.getMem_username(),member.getMem_password(),member.getMem_name(),member.getMem_role(),member.getMem_phone(),member.getMem_city(),member.getMem_cityarea(),member.getMem_street(),member.getMem_shop_name(),member.getMem_code());
 		return count;
+	}
+	
+	//利用驗證啟用碼尋找會員
+	@Override
+	public MemVO findByCode(String code) {
+		try {
+			String sql = "select * from member where mem_code = ?";
+			MemVO member = template.queryForObject(sql, new BeanPropertyRowMapper<MemVO>(MemVO.class),code);
+			return member;
+		} catch (Exception e) {
+			System.out.println("找不到此驗證碼用戶");
+			return null;
+		}
+	}
+	
+	//更新會員信箱驗證狀態
+	@Override
+	public void updateStatus(MemVO member) {
+		String sql = "update member set mem_status = 1 where mem_id = ?";
+		template.update(sql,member.getMem_id());
 	}
 }
 
