@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/cssreset.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/memberBuyProfile.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>會員中心｜MarryHappiness</title>
+</head>
+<body>
+    <div class="header">
+        <div class="top-container">
+            <a href="#" class="logo"><img src="images/MHlogo_04.svg" alt=""></a>
+            <div class="user">
+                <div class="headshot">
+                    <img src="images/music_castanet_girl.png" alt="">
+                </div>
+                <div class="user-name"></div>
+            </div>
+        </div>
+        <ul class="nav">
+            <li><a href="#">拍婚紗</a></li>
+            <li><a href="#">婚禮場地</a></li>
+            <li><a href="#">婚禮週邊</a></li>
+            <li><a href="#">找靈感</a></li>
+        </ul>
+    </div>
+    <div class="wrap">
+        <div class="side-bar">
+            <img src="images/music_castanet_girl.png" alt="">
+            <div class="user-name s-user-name"></div>
+            <div class="user-hr"><i class="fas fa-heart"></i></div>
+            <ul class="menu">
+                <li><a href="#"><i class="fas fa-user"></i>個人資料</a></li>
+                <li><a href="#"><i class="fas fa-file-invoice"></i>帳號設定</a></li>
+                <li><a href="#"><i class="fas fa-shopping-cart"></i>商品訂單</a></li>
+                <li><a href="#"><i class="fas fa-church"></i>婚禮場地</a></li>
+                <li><a href="#"><i class="fas fa-camera-retro"></i>婚紗攝影</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h2>個人資料</h2>
+            <div class="profile">
+                <h3>基本資料</h3>
+                <span>會員名稱</span><small>在MarryHappiness 使用的䁥稱</small><input type="button" value="編輯" id="edit" class="edit">
+                <div id="name" class="user-name"></div>
+                <span>手機號碼</span>
+                <div id="phone" class="h50"></div>
+                <span>居住縣市</span>
+                <div id="city" class="h50"></div>
+                <span>居住鄉鎮區</span>
+                <div id="cityarea" class="h50"></div>
+                <span>居住街道或街名</span>
+                <div id="street" class="h50"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            var resultData;
+            $.ajax({
+            type:"get",
+            url:"buyProfileServlet",
+            dataType : 'json',
+            success:function (result) {
+                if(result == "0"){
+                    window.location.href="index.html";
+                }else{
+                    resultData = result;
+                    $('.user-name').html(result.name!=null?result.name:"尚未填寫");
+                    $('#phone').html(result.phone!=null?result.phone:"尚未填寫");
+                    $('#city').html(result.city!=null?result.city:"尚未填寫");
+                    $('#cityarea').html(result.cityarea!=null?result.cityarea:"尚未填寫");
+                    $('#street').html(result.street!=null?result.street:"尚未填寫");
+                }
+            }
+            });
+
+            $('#edit').on('click',function(){
+                $('#name').replaceWith(`<input type="text" name="name" id="name" value="${resultData.name}">`)
+            });
+        });
+    </script>
+</body>
+</html>

@@ -57,7 +57,7 @@ $(function(){
             },
             success:function (result) {
                 if(result=="1"){
-                    window.location.href="index.html";
+                    window.location.href="memberBuyProfile.html";
                 }else{
                     $('#u-prompt').text("帳號或密碼錯誤");
                     $('#u-prompt').css('color','red');
