@@ -20,6 +20,7 @@ public class MemVO {
 	private byte[] mem_shop_banner;
 	private Integer mem_shop_status;
 	private String mem_code;
+	private byte[] mem_headshot;
 	
 	public Integer getMem_id() {
 		return mem_id;
@@ -117,4 +118,11 @@ public class MemVO {
 	public void setMem_code(String mem_code) {
 		this.mem_code = mem_code;
 	}
+	public byte[] getMem_headshot() {
+		return mem_headshot;
+	}
+	public void setMem_headshot(byte[] mem_headshot) {
+		this.mem_headshot = mem_headshot;
+	}
+	
 }

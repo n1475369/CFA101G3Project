@@ -10,5 +10,10 @@ public interface MemDAO {
 	//利用驗證啟用碼尋找會員
 	public MemVO findByCode(String code);
 	//更新會員信箱驗證狀態
-	public void updateStatus(MemVO member);
+	public void updateEmailStatus(MemVO member);
+	//更新買家會員個人資料
+	public void updateBuyProfile(MemVO member);
+	//更新買家會員個人頭像
+	public void updateBuyHeadshot(MemVO member);
+	
 }

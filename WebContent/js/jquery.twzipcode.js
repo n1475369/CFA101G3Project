@@ -290,10 +290,7 @@
                 wrap = self.wrap,
                 opts = self.options,
                 county = '',
-                list = {
-                    'county': '<option value="">縣市</option>',
-                    'district': '<option value="">鄉鎮市區</option>'
-                },
+                list = {},
                 tpl = [];
 
             switch (obj) {

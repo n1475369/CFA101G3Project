@@ -22,11 +22,31 @@ public class MemService {
 		}
 	}
 	
-	//
+	//啟用信箱驗證
 	public boolean active(String code) {
 		MemVO user = dao.findByCode(code);
 		if(user != null) {
-			dao.updateStatus(user);
+			dao.updateEmailStatus(user);
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	//更新買家會員個人資料
+	public boolean updateBuyProfile(MemVO member) {
+		if(member != null) {
+			dao.updateBuyProfile(member);
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	//更新買家會員個人頭像
+	public boolean updateBuyHeadshot(MemVO member) {
+		if(member != null) {
+			dao.updateBuyHeadshot(member);
 			return true;
 		}else {
 			return false;

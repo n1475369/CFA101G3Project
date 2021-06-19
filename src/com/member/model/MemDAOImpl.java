@@ -75,9 +75,23 @@ public class MemDAOImpl implements MemDAO{
 	
 	//更新會員信箱驗證狀態
 	@Override
-	public void updateStatus(MemVO member) {
+	public void updateEmailStatus(MemVO member) {
 		String sql = "update member set mem_status = 1 where mem_id = ?";
 		template.update(sql,member.getMem_id());
+	}
+	
+	//更新買家會員個人資料
+	@Override
+	public void updateBuyProfile(MemVO member) {
+		String sql = "update member set mem_name = ?, mem_phone = ?, mem_city = ?, mem_cityarea = ?, mem_street = ? where mem_username = ?";
+		template.update(sql,member.getMem_name(),member.getMem_phone(),member.getMem_city(),member.getMem_cityarea(),member.getMem_street(),member.getMem_username());
+	}
+	
+	//更新買家會員個人頭像
+	@Override
+	public void updateBuyHeadshot(MemVO member) {
+		String sql = "update member set mem_headshot = ? where mem_username = ?";
+		template.update(sql,member.getMem_headshot(),member.getMem_username());
 	}
 }
 
