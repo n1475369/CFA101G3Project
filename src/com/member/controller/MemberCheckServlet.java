@@ -22,7 +22,7 @@ public class MemberCheckServlet extends HttpServlet {
 		MemVO member = new MemVO();
 		String username = request.getParameter("username");
 		member.setMem_username(username);
-		MemVO user = service.check(member);
+		MemVO user = service.findByUsername(member);
 		if(user == null) {
 			response.getWriter().print("1");
 		}else {

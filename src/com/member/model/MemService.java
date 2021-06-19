@@ -9,13 +9,13 @@ public class MemService {
 	}
 	
 	//驗證帳號是否存在
-	public MemVO check(MemVO member) {
+	public MemVO findByUsername(MemVO member) {
 		return dao.findByUsername(member.getMem_username());
 	}
 	
 	//註冊會員帳號
 	public int register(MemVO member) {
-		if(check(member) == null) {
+		if(findByUsername(member) == null) {
 			return dao.insert(member);
 		}else {
 			return 0;

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.member.model.MemService;
 import com.member.model.MemVO;
 
 
@@ -24,12 +25,15 @@ public class BuyProfileServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemVO user = (MemVO)session.getAttribute("user");
 		if(user!= null) {
-			String username = user.getMem_username();
-			String name = user.getMem_name();
-			String phone = user.getMem_phone();
-			String city = user.getMem_city();
-			String cityarea = user.getMem_cityarea();
-			String street = user.getMem_street();
+			MemService service = new MemService();
+			MemVO member = service.findByUsername(user);
+			String username = member.getMem_username();
+			String name = member.getMem_name();
+			String phone = member.getMem_phone();
+			String city = member.getMem_city();
+			String cityarea = member.getMem_cityarea();
+			String street = member.getMem_street();
+			Integer mem_status = member.getMem_status();
 			Map map = new HashMap();
 			map.put("username", username);
 			map.put("name", name);
@@ -37,6 +41,7 @@ public class BuyProfileServlet extends HttpServlet {
 			map.put("city", city);
 			map.put("cityarea", cityarea);
 			map.put("street", street);
+			map.put("mem_status", mem_status);
 			ObjectMapper mapper = new ObjectMapper();
 	        mapper.writeValue(response.getWriter(), map);
 		}else {
