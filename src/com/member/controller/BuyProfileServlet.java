@@ -16,7 +16,7 @@ import com.member.model.MemService;
 import com.member.model.MemVO;
 
 
-@WebServlet("/buyProfileServlet")
+@WebServlet("/member/buyProfileServlet")
 public class BuyProfileServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

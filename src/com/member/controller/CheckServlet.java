@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.member.model.*;
 
 
-@WebServlet("/checkServlet")
+@WebServlet("/member/checkServlet")
 public class CheckServlet extends HttpServlet {
        
 	//驗證是否為登入狀態

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.member.model.*;
 
 
-@WebServlet("/loginServlet")
+@WebServlet("/member/loginServlet")
 public class LoginServlet extends HttpServlet {
        
 	//登入驗證

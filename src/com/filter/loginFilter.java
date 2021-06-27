@@ -28,7 +28,6 @@ public class loginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
-		
 		String uri = req.getRequestURI();
 		if(uri.contains("memberBuyProfile.html")) {
 			HttpSession session = req.getSession();
@@ -36,7 +35,7 @@ public class loginFilter implements Filter {
 			if(user != null) {
 				chain.doFilter(request, response);
 			}else {
-				res.sendRedirect(req.getContextPath()+"/login.html");
+				res.sendRedirect(req.getContextPath()+"/front_end/member/login.html");
 			}
 		}else {
 			chain.doFilter(request, response);

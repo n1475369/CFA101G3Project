@@ -81,7 +81,7 @@ $(function(){
     function Ajaxprofile(){
         $.ajax({
             type:"get",
-            url:"buyProfileServlet",
+            url:"../../member/buyProfileServlet",
             dataType : 'json',
             success:function (result) {
                 if(result == "0"){
@@ -103,7 +103,7 @@ $(function(){
     function Ajaxheadshot(){
         $.ajax({
             type:"post",
-            url:"headshotBuyServlet",
+            url:"../../member/headshotBuyServlet",
             data:{"headshot":"headshot"},
             xhrFields: {
                 // 將回傳結果以Blob保持原本二進位的格式回傳
@@ -228,7 +228,7 @@ $(function(){
     $('#content').on('click','#edit-submit',function(){
         $.ajax({
         type:"post",
-        url:"updateBuyProfileServlet",
+        url:"../../member/updateBuyProfileServlet",
         data:$('#profile-form').serialize(),
         success:function (result) {
             if(result == "1"){
@@ -297,7 +297,7 @@ $(function(){
             $.ajax({
             type:"post",
             enctype : 'multipart/form-data',
-            url:"headshotBuyServlet",
+            url:"../../member/headshotBuyServlet",
             data:myForm,
             processData: false,
             contentType : false,

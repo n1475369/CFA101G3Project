@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.member.model.MemService;
 
-@WebServlet("/activeServlet")
+@WebServlet("/member/activeServlet")
 public class ActiveServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

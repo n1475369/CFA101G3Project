@@ -15,11 +15,7 @@ public class MemService {
 	
 	//註冊會員帳號
 	public int register(MemVO member) {
-		if(findByUsername(member) == null) {
-			return dao.insert(member);
-		}else {
-			return 0;
-		}
+		return dao.insert(member);
 	}
 	
 	//啟用信箱驗證

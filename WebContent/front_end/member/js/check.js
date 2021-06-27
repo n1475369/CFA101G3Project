@@ -1,7 +1,7 @@
 //驗證是否為登入狀態
 let xhr = new XMLHttpRequest();
 let MemberName = null;
-xhr.open('GET', 'checkServlet', true);
+xhr.open('GET', '../../member/checkServlet', true);
 xhr.send(null);
 xhr.onreadystatechange = function (e) {
     if (xhr.readyState == 4 && xhr.status == 200) {

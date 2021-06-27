@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>My WebSocket</title>
+</head>
+<style>
+    .message-box{
+        width: 300px;
+        height: 300px;
+        border: 1px solid #000;
+        margin-bottom: 3px;
+        overflow-y: scroll;
+    }
+
+    .message-wrap button{
+    display: inline-block;
+    height: 32px;
+    width: 54px;
+    color:#fff;
+    background:#fc9086ce;
+    border: 1px solid #fc9086ce;
+    border-radius: 5px;
+    font-size: 16px;
+    }
+
+    .message-wrap button:hover{
+        background:#fc9086;
+        border: 1px solid #fc9086;
+        cursor: pointer;
+    }
+
+    #text{
+        line-height: 25px;
+        width: 175px;
+    }
+</style>
+<body>
+    <div class="message-wrap">
+        <div id="fromUser"></div>
+        <div id="toUser"></div>
+        <div class="message-box">
+            <div id="message">
+    
+            </div>
+        </div>
+        <input id="text" type="text" />
+        <button id="send">發送</button> 
+        <button id="closeWebSocket">關閉</button>
+    </div>
+    <ul id="list">
+    </ul>
+    
+    
+</body>
+<script>
+    $(function(){
+        var fromName;//發送端帳號
+        var toName;//接收端帳號
+        //請求個人資料
+        $.ajax({
+            type: "get",
+            url: "buyProfileServlet",
+            dataType: 'json',
+        }).done(function(result){
+            fromName = result.username;
+            $('#fromUser').html("用戶："+fromName);
+            //宣告websocket全域變數
+            var websocket = null;
+            //判斷當前瀏覽器是否支持WebSocket
+            if ('WebSocket' in window) {
+                websocket = new WebSocket("ws://" + window.location.host + "/CFA101G3/webSocketMessage");
+            }
+            else {
+                alert('Not support websocket');
+            }
+
+            //連接發生錯誤的回調方法
+            websocket.onerror = function () {
+                setMessageInnerHTML("WebSocket連接發生錯誤");
+            };
+
+            //連接成功建立的回調方法
+            websocket.onopen = function () {
+                setMessageInnerHTML("WebSocket連接成功");
+            };
+
+            //接收到消息的回調方法
+            websocket.onmessage = function (e) {
+                let data = JSON.parse(e.data);
+                let names = "";
+                    if(data.isSystem){
+                        for (let name of data.username) {
+                            if(fromName!=name){
+                                names += ` <li><a href="javascript:void(0)">${name}</a></li>`;
+                            }
+                        }
+                    }else{
+                        setMessageInnerHTML(data.fromName+":"+data.message);
+                    }
+                    
+                $('#list').html(names);
+                
+            };
+
+            //連接關閉的回調方法
+            websocket.onclose = function () {
+                setMessageInnerHTML("WebSocket連接關閉");
+            };
+
+            //監聽窗口關閉事件，當窗口關閉時，主動去關閉websocket連接，防止連接還沒斷開就關閉窗口，server端會拋異常。
+            window.onbeforeunload = function () {
+                websocket.close();
+            };
+
+            //將消息顯示在網頁上
+            function setMessageInnerHTML(innerHTML) {
+                document.getElementById('message').innerHTML += innerHTML + '<br/>';
+            }
+
+            //關閉連接
+            function closeWebSocket() {
+                websocket.close();
+            }
+
+            //發送消息
+            function send() {
+                let message = document.getElementById('text').value;
+                let data = {
+                    "fromName":fromName,
+                    "toName":toName,
+                    "message":message
+                };
+                setMessageInnerHTML(fromName+":"+message);
+                websocket.send(JSON.stringify(data));
+            }
+
+            //綁定傳送按鈕點擊事件
+            $("#send").on('click',function(){
+                send();
+                $('#text').val("");
+            });
+            //綁定關閉連線按鈕點擊事件
+            $('#closeWebSocket').on('click',function(){
+                closeWebSocket();
+            });
+
+            //綁定list下的a連結點擊事件
+            $('#list').on('click',$('#list a'),function(e){
+                toName = e.target.innerText;
+                $('#toUser').html("正在和"+toName+"聊天");
+            })
+
+        });
+    });
+
+</script>
+
+</html>

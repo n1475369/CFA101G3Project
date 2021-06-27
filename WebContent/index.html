@@ -4,9 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="js/check.js"></script>
 </head>
 <body>
-    
+    <script>
+    let xhr = new XMLHttpRequest();
+    let MemberName = null;
+    xhr.open('GET', 'member/checkServlet', true);
+    xhr.send(null);
+    xhr.onreadystatechange = function (e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            if(xhr.responseText == "0"){
+                console.log(xhr.responseText);
+            }else{
+                MemberName = xhr.responseText
+                document.write(MemberName + ",歡迎登入");
+            }
+        }
+    };
+    </script>
 </body>
 </html>

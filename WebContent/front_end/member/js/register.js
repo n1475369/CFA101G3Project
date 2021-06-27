@@ -6,11 +6,10 @@ $(function(){
     let re_p_flag = false;
     let n_flag = false;
     let phone_flag = false;
-    let shopname_flag = false;
-    let street_flag = false;
+
     //確認旗幟均為true按鈕才能按
     function checkFlag(){
-        if(u_flag && u_check_flag && p_flag && re_p_flag && n_flag && phone_flag && shopname_flag && street_flag){
+        if(u_flag && u_check_flag && p_flag && re_p_flag && n_flag && phone_flag){
             $("#register").removeAttr("disabled") 
         }else{
             $("#register").attr("disabled", "disabled") 
@@ -86,59 +85,25 @@ $(function(){
         checkFlag();
     });
 
-    //商店名稱格式是否正確
-    $('#shopname').on('input',function(){
-        if($('#shopname').val() != ""){
-            $('#shopname').css('border','2px solid #27da80');
-            shopname_flag = true;
-        }else{
-            $('#shopname').css('border','2px solid #f1a7c0');
-            shopname_flag = false;
-        }
-        checkFlag();
-    });
-
-    //道路或街名格式是否正確
-    $('#street').on('input',function(){
-        if($('#street').val() != ""){
-            $('#street').css('border','2px solid #27da80');
-            street_flag = true;
-        }else{
-            $('#street').css('border','2px solid #f1a7c0');
-            street_flag = false;
-        }
-        checkFlag();
-    });
-
     //送出註冊表單
     $('#register').on('click',function(){
         let username = $('#username').val();
         let password = $('#password').val();
         let name = $('#name').val();
         let phone = $('#phone').val();
-        let role = $('#role').val();
-        let shopname = $('#shopname').val();
-        let city = $('select[name="city"]').val();
-        let cityarea = $('select[name="cityarea"]').val();
-        let street = $('#street').val();
 
         $.ajax({
             type:"post",
-            url:"registerSellerServlet",
+            url:"../../member/registerBuyServlet",
             data:{
                 "username":username,
                 "password":password,
                 "name":name,
-                "phone":phone,
-                "role":role,
-                "shopname":shopname,
-                "city":city,
-                "cityarea":cityarea,
-                "street":street
+                "phone":phone
             },
             success:function (result) {
                 if(result=="1"){
-                    window.location.href="index.html";
+                    window.location.href="../../index.html";
                 }else{
                     $('#u-prompt').text("註冊失敗");
                     $('#u-prompt').css('color','red');
@@ -157,7 +122,7 @@ $(function(){
         $('#u-prompt').text("");
         let username = $('#username').val();
         $.ajax({ type:"post",
-        url:"memberCheckServlet",
+        url:"../../member/memberCheckServlet",
         data:{
             "username":username,
         },

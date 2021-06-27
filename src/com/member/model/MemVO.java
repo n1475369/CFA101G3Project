@@ -1,9 +1,9 @@
 package com.member.model;
 
-import java.util.Arrays;
+import java.io.Serializable;
 
 //會員JavaBean
-public class MemVO {
+public class MemVO implements Serializable{
 	private Integer mem_id;
 	private String mem_username;
 	private String mem_password;
@@ -19,8 +19,9 @@ public class MemVO {
 	private byte[] mem_shop_logo;
 	private byte[] mem_shop_banner;
 	private Integer mem_shop_status;
-	private String mem_code;
 	private byte[] mem_headshot;
+	private Integer mem_review_count;
+	private Integer mem_review_score;
 	
 	public Integer getMem_id() {
 		return mem_id;
@@ -112,17 +113,24 @@ public class MemVO {
 	public void setMem_shop_status(Integer mem_shop_status) {
 		this.mem_shop_status = mem_shop_status;
 	}
-	public String getMem_code() {
-		return mem_code;
-	}
-	public void setMem_code(String mem_code) {
-		this.mem_code = mem_code;
-	}
+
 	public byte[] getMem_headshot() {
 		return mem_headshot;
 	}
 	public void setMem_headshot(byte[] mem_headshot) {
 		this.mem_headshot = mem_headshot;
+	}
+	public Integer getMem_review_count() {
+		return mem_review_count;
+	}
+	public void setMem_review_count(Integer mem_review_count) {
+		this.mem_review_count = mem_review_count;
+	}
+	public Integer getMem_review_score() {
+		return mem_review_score;
+	}
+	public void setMem_review_score(Integer mem_review_score) {
+		this.mem_review_score = mem_review_score;
 	}
 	
 }

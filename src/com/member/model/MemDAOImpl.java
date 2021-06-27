@@ -1,5 +1,9 @@
 package com.member.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -10,6 +14,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MemDAOImpl implements MemDAO{
+	//註冊會員
+	private static final String INSERT = "insert into member (mem_username, mem_password, mem_name, mem_role, mem_phone, mem_city, mem_cityarea, mem_street, mem_shop_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	
 	private static DataSource ds = null;
@@ -55,9 +61,41 @@ public class MemDAOImpl implements MemDAO{
 	//註冊會員
 	@Override
 	public int insert(MemVO member) {
-		String sql = "insert into member (mem_username, mem_password, mem_name, mem_role, mem_phone, mem_city, mem_cityarea, mem_street, mem_shop_name,mem_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		int count = template.update(sql, member.getMem_username(),member.getMem_password(),member.getMem_name(),member.getMem_role(),member.getMem_phone(),member.getMem_city(),member.getMem_cityarea(),member.getMem_street(),member.getMem_shop_name(),member.getMem_code());
-		return count;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT);
+			pstmt.setString(1, member.getMem_username());
+			pstmt.setString(2, member.getMem_password());
+			pstmt.setString(3, member.getMem_name());
+			pstmt.setInt(4, member.getMem_role());
+			pstmt.setString(5, member.getMem_phone());
+			pstmt.setString(6, member.getMem_city());
+			pstmt.setString(7, member.getMem_cityarea());
+			pstmt.setString(8, member.getMem_street());
+			pstmt.setString(9, member.getMem_shop_name());
+			int executeUpdate = pstmt.executeUpdate();
+			return executeUpdate;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			if(pstmt != null)	{
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	//利用驗證啟用碼尋找會員

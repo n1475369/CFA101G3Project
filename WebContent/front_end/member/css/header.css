@@ -16,6 +16,48 @@
 .user{
     display: flex;
     justify-content: space-between;
+    position: relative;
+}
+
+.user-menu{
+    width: 130px;
+    padding-top: 10px;
+    position: absolute;
+    border: 1px solid #6b666621;
+    left: -30px;
+    top: 55px; 
+    background: #fff;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: left;
+    line-height: 30px;
+    height: 110px;
+    border-radius: 5px;
+    display: none;
+    box-shadow: 5px 5px 5px 1px #b6b3b33f;
+}
+
+.user-menu i {
+    color: #fc9086ce;
+    text-indent: 10px;
+}
+
+.user-menu a{
+    text-decoration: none;
+    color:#000;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.user-menu li:hover{
+    background:#fc90861e;
+    cursor: pointer;
+}
+
+.user:hover .user-menu{
+    display: block;
+    animation: backInUp;
+    animation-duration: 0.4s;
 }
 
 .headshot{

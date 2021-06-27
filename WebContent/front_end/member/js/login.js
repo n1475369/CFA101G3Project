@@ -50,7 +50,7 @@ $(function(){
         let password = $('#password').val();
         $.ajax({
             type:"post",
-            url:"loginServlet",
+            url:"../../member/loginServlet",
             data:{
                 "username":username,
                 "password":password
@@ -58,6 +58,8 @@ $(function(){
             success:function (result) {
                 if(result=="1"){
                     window.location.href="memberBuyProfile.html";
+                    // window.location.href="websocket.html";
+
                 }else{
                     $('#u-prompt').text("帳號或密碼錯誤");
                     $('#u-prompt').css('color','red');

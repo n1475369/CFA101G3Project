@@ -14,7 +14,7 @@ import com.member.model.MemService;
 import com.member.model.MemVO;
 
 
-@WebServlet("/registerBuyServlet")
+@WebServlet("/member/registerBuyServlet")
 public class RegisterBuyServlet extends HttpServlet {
     
 	//註冊買家帳號
@@ -32,15 +32,9 @@ public class RegisterBuyServlet extends HttpServlet {
 		member.setMem_name(name);
 		member.setMem_role(10);
 		member.setMem_phone(phone);
-		member.setMem_code(UUID.randomUUID().toString());
 		int count = service.register(member);
 		if(count == 1) {
-			SendEmail se = new SendEmail();
-			se.email = member.getMem_username();
-			se.code = member.getMem_code();
-			se.start();
-			se = null;
-			RequestDispatcher rd = request.getRequestDispatcher("/loginServlet");
+			RequestDispatcher rd = request.getRequestDispatcher("/member/loginServlet");
 			rd.forward(request, response);
 		}else {
 			response.getWriter().print("0");

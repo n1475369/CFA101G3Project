@@ -4,6 +4,7 @@ package com.member.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +19,7 @@ import com.member.model.MemVO;
 //當數據量大於fileSizeThreshold值時，內容將被寫入磁碟
 //上傳過程中無論是單個文件超過maxFileSize值，或者上傳的總量大於maxRequestSize 值都會拋出IllegalStateException 異常
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
-@WebServlet("/headshotBuyServlet")
+@WebServlet("/member/headshotBuyServlet")
 public class HeadshotBuyServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,7 +37,6 @@ public class HeadshotBuyServlet extends HttpServlet {
 			}
 			return;
 		}
-		
 		
 		//修改個人頭像
 		Part part = request.getPart("blob");
