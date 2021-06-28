@@ -6,28 +6,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.member.model.*;
+import com.member.model.MemService;
+import com.member.model.MemVO;
 
-
-@WebServlet("/member/loginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/member/forgetPasswordServlet")
+public class ForgetPasswordServlet extends HttpServlet {
        
-	//登入驗證
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+		String email = request.getParameter("email");
 		MemService service = new MemService();
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		MemVO user = service.login(username,password);
-		HttpSession session = request.getSession();
+		MemVO user = service.findByUsername(email);
 		if(user != null) {
-			session.setAttribute("user", user);
-			response.getWriter().print("1");
-		}else {
-			response.getWriter().print("0");
+			SendEmailPassword sep = new SendEmailPassword(email,user.getMem_password());
+			sep.start();
+			sep = null;
 		}
 	}
 

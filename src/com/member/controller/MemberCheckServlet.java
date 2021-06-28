@@ -19,10 +19,8 @@ public class MemberCheckServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		MemService service = new MemService();
-		MemVO member = new MemVO();
 		String username = request.getParameter("username");
-		member.setMem_username(username);
-		MemVO user = service.findByUsername(member);
+		MemVO user = service.findByUsername(username);
 		if(user == null) {
 			response.getWriter().print("1");
 		}else {

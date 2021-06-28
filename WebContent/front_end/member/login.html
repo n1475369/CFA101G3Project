@@ -21,12 +21,21 @@
                 <input type="password" id="password" name="password" maxlength="20" placeholder="請輸入您的密碼">
                 <h3 id="p-prompt"></h3>
                 <input type="button" id="login" value="登入" disabled>
-                <a href="#">忘記密碼</a>
+                <a href="javascript:void(0)" id="forget">忘記密碼</a>
                 <span>|</span>
                 <a href="register.html">免費註冊</a>
             </form>
         </div>
         <h2 class="login-footer"><a href="registerSeller.html">立即加入 </a>MarryHappiness 嫁給幸福的商家吧！</h2>
+        <div class="popup-wrap">
+            <div class="popup"> 
+                <label for="email">請輸入您的信箱</label>
+                <input type="text" id="email" name="email" class="email">
+                <h3 id="prompt"></h3>
+                <button id="submit-email" class="submit-email">確定</button> 
+                <button id="popup-cancel" class="popup-cancel">取消</button>
+            </div> 
+        </div>
     </div>
     <script src="js/login.js"></script>
 </body>

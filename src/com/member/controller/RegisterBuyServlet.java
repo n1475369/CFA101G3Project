@@ -34,6 +34,9 @@ public class RegisterBuyServlet extends HttpServlet {
 		member.setMem_phone(phone);
 		int count = service.register(member);
 		if(count == 1) {
+			SendEmail se = new SendEmail(username);
+			se.start();
+			se = null;
 			RequestDispatcher rd = request.getRequestDispatcher("/member/loginServlet");
 			rd.forward(request, response);
 		}else {

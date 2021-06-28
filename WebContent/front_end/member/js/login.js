@@ -85,4 +85,62 @@ $(function(){
         return re.test(password);
     }
 
+
+    //忘記密碼-開啟圈選範圍面板
+    $('#forget').on('click', function(){
+        $(".popup-wrap").fadeIn(250);
+        $(".popup").fadeIn(250); 
+    });
+
+    //忘記密碼-關閉圈選面板
+    $('#popup-cancel').on('click',function(){
+        $(".popup").fadeOut();
+        $(".popup-wrap").fadeOut(250);
+        $('#email').val("");
+        $('#prompt').text("");
+        $('#email').css('border','1px solid #a1a0a0')
+    });
+
+    
+    //忘記密碼-監聽email格式是否正確
+    $('#email').on('input',checkEmail);
+    function checkEmail(){
+        $('#prompt').text("");
+        if(validateEmail()){
+            $('#email').css('border','2px solid #27da80')
+            return true;
+        }else{
+            $('#prompt').text("請輸入有效的電子郵件地址");
+            $('#prompt').css('color','red');
+            $('#prompt').css('font-size','10px');
+            $('#email').css('border','2px solid red')
+            return false;
+        }
+    }
+
+    //忘記密碼-信箱正則表達式驗證
+    function validateEmail() {
+        let email = $('#email').val();
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+
+    //忘記密碼-送出表單
+    $('#submit-email').on('click',function(){
+        if(checkEmail()){
+            let email = $('#email').val();
+            $.ajax({
+                type:"post",
+                url:"../../member/forgetPasswordServlet",
+                data:{"email":email},
+                success:function(){
+                    alert("已將密碼成功寄到您的信箱");
+                    window.location.reload();
+                }
+            });
+        }
+    });
+
+
 });

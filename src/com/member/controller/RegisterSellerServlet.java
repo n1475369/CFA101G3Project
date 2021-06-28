@@ -1,16 +1,13 @@
 package com.member.controller;
 
 import java.io.IOException;
-import java.util.UUID;
 
-import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.member.model.MemService;
 import com.member.model.MemVO;
@@ -46,6 +43,9 @@ public class RegisterSellerServlet extends HttpServlet {
 		member.setMem_street(street);
 		int count = service.register(member);
 		if(count == 1) {
+			SendEmail se = new SendEmail(username);
+			se.start();
+			se = null;
 			RequestDispatcher rd = request.getRequestDispatcher("/member/loginServlet");
 			rd.forward(request, response);
 		}else {

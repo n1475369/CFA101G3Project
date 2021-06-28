@@ -26,7 +26,7 @@ public class BuyProfileServlet extends HttpServlet {
 		MemVO user = (MemVO)session.getAttribute("user");
 		if(user!= null) {
 			MemService service = new MemService();
-			MemVO member = service.findByUsername(user);
+			MemVO member = service.findByUsername(user.getMem_username());
 			String username = member.getMem_username();
 			String name = member.getMem_name();
 			String phone = member.getMem_phone();

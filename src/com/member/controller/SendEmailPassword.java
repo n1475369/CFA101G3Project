@@ -13,13 +13,13 @@ import javax.mail.internet.MimeMessage;
 
 import redis.clients.jedis.Jedis;
 
-public class SendEmail extends Thread{
+public class SendEmailPassword extends Thread{
 	public String email;//收件人信箱
-	public String code;//傳入啟用驗證
+	public String memberPassword;//密碼
 	
-	public SendEmail(String email) {
+	public SendEmailPassword(String email,String memberPassword) {
 		this.email = email;
-		this.code = UUID.randomUUID().toString();
+		this.memberPassword = memberPassword;
 	}
 	
 	@Override
@@ -32,10 +32,6 @@ public class SendEmail extends Thread{
 	      final String username = "aka9988test@gmail.com";//change accordingly
 	      final String password = "aazz7788";//change accordingly
 	      
-	      
-	      //Redis存入信箱對應的驗證碼
-	      Jedis jedis = new Jedis("34.81.27.105", 6379);
-	      jedis.hset(email, "email", code);
 	      
 	      
 	      
@@ -69,12 +65,12 @@ public class SendEmail extends Thread{
 	         InternetAddress.parse(to));
 
 	         // Set Subject: header field(信箱標題)
-	         message.setSubject("請驗證您的信箱");
+	         message.setSubject("嫁給幸福-密碼通知信件");
 
 	         // Now set the actual message
 
 	         //信件內容以HTML格式傳出去
-	         message.setContent("<h1>請點擊下列連結啟用您的帳號</h1><br><a href=\"http://localhost:8081/CFA101G3/member/activeServlet?username="+email+"&code="+code+"\">點擊後啟用您的帳號</a>","text/html; charset=UTF-8" );
+	         message.setContent("<h1>建議您登入後立即變更您的密碼</h1><br><p>您的密碼：</p>"+memberPassword,"text/html; charset=UTF-8" );
 	         
 	         
 	         // Send message
