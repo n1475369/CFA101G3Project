@@ -37,6 +37,31 @@
     box-shadow: 5px 5px 5px 1px #b6b3b33f;
 }
 
+.user-menu::after{
+    position: absolute;
+    content: "";
+    top: -10px;
+    left: 55px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #b6b3b33f transparent;
+}
+
+.user-menu::before{
+    position: absolute;
+    content: "";
+    top: -8px;
+    left: 55px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent white transparent;
+    z-index: 10;
+}
+
 .user-menu i {
     color: #fc9086ce;
     text-indent: 10px;
@@ -56,8 +81,8 @@
 
 .user:hover .user-menu{
     display: block;
-    animation: backInUp;
-    animation-duration: 0.4s;
+    animation: fadeIn;
+    animation-duration: 1s;
 }
 
 .headshot{

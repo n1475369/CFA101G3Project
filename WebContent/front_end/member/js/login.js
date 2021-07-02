@@ -132,8 +132,11 @@ $(function(){
             let email = $('#email').val();
             $.ajax({
                 type:"post",
-                url:"../../member/forgetPasswordServlet",
-                data:{"email":email},
+                url:"../../member/passwordServlet",
+                data:{
+                    "email":email,
+                    "action":"forget"
+                },
                 success:function(){
                     alert("已將密碼成功寄到您的信箱");
                     window.location.reload();

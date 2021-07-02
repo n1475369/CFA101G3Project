@@ -42,4 +42,12 @@ public class MemService {
 			return false;
 		}
 	}
+	
+	//更新會員密碼
+	public void updatePassword(String username,String passowrd) {
+		MemVO memVO = new MemVO();
+		memVO.setMem_username(username);
+		memVO.setMem_password(passowrd);
+		dao.updatePassword(memVO);
+	}
 }

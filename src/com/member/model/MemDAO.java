@@ -13,5 +13,7 @@ public interface MemDAO {
 	public void updateBuyProfile(MemVO member);
 	//更新買家會員個人頭像
 	public void updateBuyHeadshot(MemVO member);
+	//更新會員密碼
+	public void updatePassword(MemVO member);
 	
 }

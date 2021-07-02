@@ -19,6 +19,7 @@ public class MemDAOImpl implements MemDAO{
 	private static final String GET_ONE_USERNAME_PASSWORD = "SELECT * FROM member WHERE mem_username = ? and mem_password = ?";
 	private static final String GET_ONE_USERNAME = "SELECT * FROM member WHERE mem_username = ?";
 	private static final String UPDATE_EMAILSTATUS = "update member set mem_status = 1 where mem_username = ?";
+	private static final String UPDATE_PASSWORD = "update member set mem_password = ? where mem_username = ?";
 	
 	
 	private static DataSource ds = null;
@@ -237,6 +238,39 @@ public class MemDAOImpl implements MemDAO{
 	public void updateBuyHeadshot(MemVO member) {
 		String sql = "update member set mem_headshot = ? where mem_username = ?";
 		template.update(sql,member.getMem_headshot(),member.getMem_username());
+	}
+	
+	//更新會員密碼
+	@Override
+	public void updatePassword(MemVO member) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_PASSWORD);
+			pstmt.setString(1, member.getMem_password());
+			pstmt.setString(2, member.getMem_username());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 }
 
