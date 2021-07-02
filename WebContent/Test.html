@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</head>
+<body>
+	<a href="Test.html?wed_wor_id=1">1號攝影師</a>
+	<a href="Test.html?wed_wor_id=2">2號攝影師</a>
+	<a href="Test.html?wed_wor_id=3">3號攝影師</a>
+	<a href="Test.html?wed_wor_id=4">4號攝影師</a>
+	<a href="Test.html?wed_wor_id=5">5號攝影師</a>
+	<a href="Test.html?wed_wor_id=6">6號攝影師</a>
+	<div id="img">
+		<img src="" alt="">
+	</div>
+	<script>
+		let urlParams = new URLSearchParams(window.location.search);
+		let param = urlParams.get("wed_wor_id");
+		console.log(param);
+		if(param != null){
+			$.ajax({
+			type:"get",
+			url:"weddingPhoto/workPhotoServlet",
+			dataType:"json",
+			data:{
+				"wed_wor_id":param,
+				"action":"ajax"
+				},
+			success:function(data){
+				for (let i = 0; i < data.length; i++) {
+					let template = `<img src="weddingPhoto/wedPhotoServlet?wed_id=${data[i].wed_id}" alt="">`;
+					$('#img').append(template);
+				}
+				
+			}
+		})
+		}
+		
+	</script>
+</body>
+</html>
