@@ -287,6 +287,7 @@ $(function(){
     $('#content').on('click','#crop-cancel',function(){
         $(".crop").fadeOut();
         $(".popup-wrap").fadeOut(250);
+        $('#upload').val("");
     });
 
     //送出圈選後的頭像至資料庫

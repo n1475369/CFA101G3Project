@@ -53,7 +53,8 @@ $(function(){
             url:"../../member/loginServlet",
             data:{
                 "username":username,
-                "password":password
+                "password":password,
+                "action":"login"
             },
             success:function (result) {
                 if(result=="1"){
@@ -138,8 +139,9 @@ $(function(){
                     "action":"forget"
                 },
                 success:function(){
-                    alert("已將密碼成功寄到您的信箱");
-                    window.location.reload();
+                    swal("密碼信件", "已將密碼成功寄到您的信箱", "success").then((result) => {
+                        window.location.reload();
+                    });
                 }
             });
         }

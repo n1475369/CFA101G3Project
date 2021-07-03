@@ -12,7 +12,7 @@ import com.member.model.MemService;
 import com.member.model.MemVO;
 
 @WebServlet("/member/passwordServlet")
-public class passwordServlet extends HttpServlet {
+public class PasswordServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

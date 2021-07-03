@@ -27,6 +27,13 @@ public class RegisterBuyServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
+		String usernameReg = "^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$";
+		String passwordReg = "^[0-9A-Za-z]{6,20}$";
+		String phoneReg = "^09[0-9]{8}$";
+		if(username.trim().isEmpty()||password.trim().isEmpty()||name.trim().isEmpty()||phone.trim().isEmpty()||!username.matches(usernameReg)||!password.matches(passwordReg)||!phone.matches(phoneReg)) {
+			response.getWriter().print("0");
+			return;
+		}
 		member.setMem_username(username);
 		member.setMem_password(password);
 		member.setMem_name(name);
