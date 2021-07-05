@@ -15,6 +15,7 @@ import com.weddingPhoto.model.WedVO;
 public class WedPhotoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("image/*");
 		Integer wed_id = null;
 		try {
 			wed_id = Integer.parseInt(request.getParameter("wed_id"));

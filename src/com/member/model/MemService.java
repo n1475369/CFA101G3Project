@@ -1,5 +1,6 @@
 package com.member.model;
 
+import java.util.List;
 
 public class MemService {
 	private MemDAO dao = new MemDAOImpl();
@@ -49,5 +50,10 @@ public class MemService {
 		memVO.setMem_username(username);
 		memVO.setMem_password(passowrd);
 		dao.updatePassword(memVO);
+	}
+	
+	//獲取所有買家會員
+	public List<MemVO> getAllByBuyMember(){
+		return dao.getAllByBuyMember();
 	}
 }

@@ -1,6 +1,10 @@
 package com.member.model;
 
+import java.util.List;
+
 public interface MemDAO {
+	//獲取所有買家會員
+	public List<MemVO> getAllByBuyMember();
 	//驗證帳密是否存在
 	public MemVO findByUsernameAndPassword(String username,String password);
 	//驗證帳號是否存在

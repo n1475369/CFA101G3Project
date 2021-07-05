@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,10 +18,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MemDAOImpl implements MemDAO{
 	private static final String INSERT = "INSERT INTO member (mem_username, mem_password, mem_name, mem_role, mem_phone, mem_city, mem_cityarea, mem_street, mem_shop_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ONE_USERNAME_PASSWORD = "SELECT * FROM member WHERE mem_username = ? and mem_password = ?";
+	private static final String GET_ONE_USERNAME_PASSWORD = "SELECT * FROM member WHERE mem_username = ? AND mem_password = ?";
 	private static final String GET_ONE_USERNAME = "SELECT * FROM member WHERE mem_username = ?";
-	private static final String UPDATE_EMAILSTATUS = "update member set mem_status = 1 where mem_username = ?";
-	private static final String UPDATE_PASSWORD = "update member set mem_password = ? where mem_username = ?";
+	private static final String UPDATE_EMAILSTATUS = "UPDATE member SET mem_status = 1 WHERE mem_username = ?";
+	private static final String UPDATE_PASSWORD = "UPDATE member SET mem_password = ? WHERE mem_username = ?";
+	private static final String GET_ALL_BUYMEMBER = "SELECT * FROM member WHERE mem_role = 10";
 	
 	
 	private static DataSource ds = null;
@@ -271,6 +274,58 @@ public class MemDAOImpl implements MemDAO{
 			}
 		}
 		
+	}
+
+	@Override
+	public List<MemVO> getAllByBuyMember() {
+		List<MemVO> list = new ArrayList();
+		MemVO memVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_BUYMEMBER);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				memVO = new MemVO();
+				memVO.setMem_id(rs.getInt("mem_id"));
+				memVO.setMem_username(rs.getString("mem_username"));
+				memVO.setMem_name(rs.getString("mem_name"));
+				memVO.setMem_phone(rs.getString("mem_phone"));
+				memVO.setMem_city(rs.getString("mem_city"));
+				memVO.setMem_cityarea(rs.getString("mem_cityarea"));
+				memVO.setMem_street(rs.getString("mem_street"));
+				memVO.setMem_status(rs.getInt("mem_status"));
+				list.add(memVO);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 }
 
