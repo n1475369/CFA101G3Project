@@ -37,6 +37,14 @@ public class loginFilter implements Filter {
 			}else {
 				res.sendRedirect(req.getContextPath()+"/front_end/member/login.html");
 			}
+		}else if(uri.contains("memberServlet")) {
+			HttpSession session = req.getSession();
+			Object admin = session.getAttribute("admin");
+			if(admin != null) {
+				chain.doFilter(request, response);
+			}else {
+				res.sendRedirect(req.getContextPath()+"/back_end/admin/login.jsp");
+			}
 		}else {
 			chain.doFilter(request, response);
 		}

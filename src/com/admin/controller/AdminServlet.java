@@ -56,7 +56,7 @@ public class AdminServlet extends HttpServlet {
 				if(admin != null) {
 					HttpSession session = request.getSession();
 					session.setAttribute("admin", admin);
-					response.sendRedirect(request.getContextPath()+"/back_end/admin/backEnd.jsp");
+					response.sendRedirect(request.getContextPath()+"/member/memberServlet?action=buyMember");
 				}else {
 					errorMsgs.put("username", "帳號或密碼錯誤");
 					request.getRequestDispatcher("/back_end/admin/login.jsp").forward(request, response);
