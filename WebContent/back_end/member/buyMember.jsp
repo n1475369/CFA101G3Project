@@ -28,15 +28,15 @@
 			<div class="find-form">
 				<form action="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=1&rowsPerPage=5" method="post">
 					<label for="">帳號</label>
-					<input type="text" name="find_username">
+					<input type="text" name="find_username" value="${condition.find_username[0]}">
 					<label for="">會員名稱</label>
-					<input type="text" name="find_name">
+					<input type="text" name="find_name" value="${condition.find_name[0]}">
 					<label for="">會員狀態</label>
-					<select name="find_status" id="">
+					<select name="find_status">
 						<option value="">請選擇</option>
-						<option value="0">Email未驗證</option>
-						<option value="1">Email已驗證</option>
-						<option value="2">停權</option>
+						<option value="0" id="find_status0">Email未驗證</option>
+						<option value="1" id="find_status1">Email已驗證</option>
+						<option value="2" id="find_status2">停權</option>
 					</select>
 					<button type="submit" class="btn btn-primary">送出查詢</button>
 				</form>
@@ -81,7 +81,7 @@
 				<li
 					class="page-item <c:if test="${pageVO.whichPage==1}">disabled</c:if>">
 					<a class="page-link"
-					href="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=${pageVO.whichPage-1}&rowsPerPage=5"
+					href="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=${pageVO.whichPage-1}&rowsPerPage=5&find_username=${condition.find_username[0]}&find_name=${condition.find_name[0]}&find_status=${condition.find_status[0]}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a>
 				</li>
@@ -89,13 +89,13 @@
 					<li
 						class="page-item <c:if test="${pageVO.whichPage==i}">active</c:if>">
 						<a class="page-link"
-						href="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=${i}&rowsPerPage=5">${i}</a>
+						href="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=${i}&rowsPerPage=5&find_username=${condition.find_username[0]}&find_name=${condition.find_name[0]}&find_status=${condition.find_status[0]}">${i}</a>
 					</li>
 				</c:forEach>
 				<li
 					class="page-item <c:if test="${pageVO.whichPage>=pageVO.pageNumber}">disabled</c:if>">
 					<a class="page-link"
-					href="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=${pageVO.whichPage+1}&rowsPerPage=5"
+					href="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=${pageVO.whichPage+1}&rowsPerPage=5&find_username=${condition.find_username[0]}&find_name=${condition.find_name[0]}&find_status=${condition.find_status[0]}"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a>
 				</li>
@@ -195,6 +195,8 @@
 			});
 			e.preventDefault();
 		})
+
+		$('#find_status${condition.find_status[0]}').prop('selected',true)
 	</script>
 </body>
 </html>

@@ -503,7 +503,7 @@ public class MemDAOImpl implements MemDAO{
 	//分頁顯示返回多重查詢總筆數
 	@Override
 	public int getBuyMemberRowNumber(String find_username, String find_name, String find_status) {
-		String sql = "select count(*) from member where 1 = 1";
+		String sql = "select count(*) from member where mem_role = 10";
 		StringBuilder sb = new StringBuilder();
 		sb.append(sql);
 		if(find_username != null && !find_username.trim().isEmpty()) {

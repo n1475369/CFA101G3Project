@@ -2,6 +2,7 @@ package com.member.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,6 +49,9 @@ public class MemberServlet extends HttpServlet {
     	    }else if(whichPage >= pageNumber) {
     	    	whichPage = pageNumber;
     	    }
+    	    
+    	    Map<String, String[]> condition = request.getParameterMap();//請求參數的查詢條件
+    	    request.setAttribute("condition", condition);//轉發回去給jsp作查詢後資料不清除
     	    
     	    List<MemVO> list = memService.findBuyMemberByPagination(whichPage, rowsPerPage,find_username,find_name,find_status);//分頁查詢顯示結果集list
     	    PageVO pageVO = new PageVO();
