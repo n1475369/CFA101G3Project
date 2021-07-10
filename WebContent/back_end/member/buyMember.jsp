@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/back_end/member/css/all.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/back_end/member/css/buyMember.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>買家會員帳號管理系統</title>
 </head>
 <body>
@@ -186,8 +187,9 @@
 					"mem_status":mem_status
 				},
 				success: function (response) {
-					alert("修改成功!");
-					window.location.reload();
+					 swal("恭喜您!", "已修改成功", "success").then((result) => {
+                        window.location.reload();
+                    });
 				},
 				 error:function(xhr){
 					alert(xhr.responseText);

@@ -349,7 +349,6 @@ public class MemDAOImpl implements MemDAO{
 		}
 		sb.append(" limit ?,?");
 		sql = sb.toString();
-		System.out.println(sql);
 		
 		List<MemVO> list = new ArrayList();
 		MemVO memVO = null;

@@ -41,8 +41,7 @@ public class MemberServlet extends HttpServlet {
     	    MemService memService = new MemService();
     	    int rowNumber = memService.getBuyMemberRowNumber(find_username,find_name,find_status);//總筆數
     	    int pageNumber = rowNumber % rowsPerPage != 0 ? rowNumber/rowsPerPage + 1 : rowNumber/rowsPerPage;//總頁數
-    	    System.out.println(rowNumber);
-    	    System.out.println(pageNumber);
+
     	    //判斷當前頁面是否超過邊界
     	    if(whichPage <= 0) {
     	    	whichPage = 1;
