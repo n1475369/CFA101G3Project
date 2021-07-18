@@ -10,10 +10,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/back_end/member/css/all.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/back_end/member/css/buyMember.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/back_end/member/css/sellerMember.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<title>買家會員帳號管理系統</title>
+<title>賣家會員帳號管理系統</title>
 </head>
 <body>
 	<div class="wrap">
@@ -24,20 +24,37 @@
 			</ul>
 		</div>
 		<div class="content" id="content">
-			<%-- 買家帳號展示 --%>
-			<h5>買家帳號管理</h5>
+			<%-- 賣家帳號展示 --%>
+			<h5>賣家帳號管理</h5>
 			<div class="find-form">
-				<form action="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=1&rowsPerPage=5" method="post">
+				<form action="<%=request.getContextPath() %>/member/memberServlet?action=sellerMember&whichPage=1&rowsPerPage=5" method="post">
 					<label for="">帳號</label>
 					<input type="text" name="find_username" value="${condition.find_username[0]}">
 					<label for="">會員名稱</label>
 					<input type="text" name="find_name" value="${condition.find_name[0]}">
+					<br>
 					<label for="">會員狀態</label>
 					<select name="find_status">
 						<option value="">請選擇</option>
 						<option value="0" id="find_status0">Email未驗證</option>
 						<option value="1" id="find_status1">Email已驗證</option>
 						<option value="2" id="find_status2">停權</option>
+					</select>
+					<label for="">店家狀態</label>
+					<select name="find_shop_status">
+						<option value="">請選擇</option>
+						<option value="0" id="find_shop_status0">未開通店家身份</option>
+						<option value="1" id="find_shop_status1">已開通店家身份</option>
+						<option value="2" id="find_shop_status2">申請開店中</option>
+						<option value="3" id="find_shop_status3">商店上架</option>
+						<option value="4" id="find_shop_status4">商店下架</option>
+					</select>
+					<label for="">店家身份</label>
+					<select name="mem_role">
+						<option value="">請選擇</option>
+						<option value="20" id="find_mem_role20">婚攝店家</option>
+						<option value="30" id="find_mem_role30">場地店家</option>
+						<option value="40" id="find_mem_role40">週邊店家</option>
 					</select>
 					<button type="submit" class="btn btn-primary">送出查詢</button>
 				</form>
@@ -51,6 +68,8 @@
 							<th scope="col">會員名稱</th>
 							<th scope="col">會員手機</th>
 							<th scope="col">會員狀態</th>
+							<th scope="col">店家狀態</th>
+							<th scope="col">會員身份</th>
 							<th scope="col">會員修改</th>
 						</tr>
 					</thead>
@@ -70,6 +89,30 @@
 								<c:if test="${memVO.mem_status==2}">
 									<td class="text-dark">停權</td>
 								</c:if>
+								<c:if test="${memVO.mem_shop_status==0}">
+									<td class="text-dark">未開通店家身份</td>
+								</c:if>
+								<c:if test="${memVO.mem_shop_status==1}">
+									<td class="text-dark">已開通店家身份</td>
+								</c:if>
+								<c:if test="${memVO.mem_shop_status==2}">
+									<td class="text-dark">申請開店中</td>
+								</c:if>
+								<c:if test="${memVO.mem_shop_status==3}">
+									<td class="text-dark">商店上架</td>
+								</c:if>
+								<c:if test="${memVO.mem_shop_status==4}">
+									<td class="text-dark">商店下架</td>
+								</c:if>
+								<c:if test="${memVO.mem_role==20}">
+									<td class="text-dark">婚攝店家</td>
+								</c:if>
+								<c:if test="${memVO.mem_role==30}">
+									<td class="text-dark">場地店家</td>
+								</c:if>
+								<c:if test="${memVO.mem_role==40}">
+									<td class="text-dark">週邊店家</td>
+								</c:if>
 								<td><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-memid="${memVO.mem_id}">編輯</button></td>
 							</tr>
 						</c:forEach>
@@ -82,7 +125,8 @@
 				<li
 					class="page-item <c:if test="${pageVO.whichPage==1}">disabled</c:if>">
 					<a class="page-link"
-					href="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=${pageVO.whichPage-1}&rowsPerPage=5&find_username=${condition.find_username[0]}&find_name=${condition.find_name[0]}&find_status=${condition.find_status[0]}"
+					href="<%=request.getContextPath() %>/member/memberServlet?action=sellerMember&whichPage=${pageVO.whichPage-1}&rowsPerPage=5&find_username=${condition.find_username[0]}&
+					find_name=${condition.find_name[0]}&find_status=${condition.find_status[0]}&find_shop_status=${condition.find_shop_status[0]}&mem_role=${condition.mem_role[0]}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a>
 				</li>
@@ -90,13 +134,15 @@
 					<li
 						class="page-item <c:if test="${pageVO.whichPage==i}">active</c:if>">
 						<a class="page-link"
-						href="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=${i}&rowsPerPage=5&find_username=${condition.find_username[0]}&find_name=${condition.find_name[0]}&find_status=${condition.find_status[0]}">${i}</a>
+						href="<%=request.getContextPath() %>/member/memberServlet?action=sellerMember&whichPage=${i}&rowsPerPage=5&find_username=${condition.find_username[0]}&
+						find_name=${condition.find_name[0]}&find_status=${condition.find_status[0]}&find_shop_status=${condition.find_shop_status[0]}&mem_role=${condition.mem_role[0]}">${i}</a>
 					</li>
 				</c:forEach>
 				<li
 					class="page-item <c:if test="${pageVO.whichPage>=pageVO.pageNumber}">disabled</c:if>">
 					<a class="page-link"
-					href="<%=request.getContextPath() %>/member/memberServlet?action=buyMember&whichPage=${pageVO.whichPage+1}&rowsPerPage=5&find_username=${condition.find_username[0]}&find_name=${condition.find_name[0]}&find_status=${condition.find_status[0]}"
+					href="<%=request.getContextPath() %>/member/memberServlet?action=sellerMember&whichPage=${pageVO.whichPage+1}&rowsPerPage=5&find_username=${condition.find_username[0]}&
+					find_name=${condition.find_name[0]}&find_status=${condition.find_status[0]}&find_shop_status=${condition.find_shop_status[0]}&mem_role=${condition.mem_role[0]}"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a>
 				</li>
@@ -130,7 +176,27 @@
 								<label for="status1">Email已驗證</label>
 								<input type="radio" name="mem_status" value="1" id="status1">
 								<label for="status2">停權</label>
-								<input type="radio" name="mem_status" value="2" id="status2">
+								<input type="radio" name="mem_status" value="2" id="status2"><br>
+								<label for="" style="margin-top: 5px">店家狀態</label><br>
+								<label for="shop_status0">未開通店家身份</label>
+								<input type="radio" name="mem_shop_status" value="0" id="shop_status0">
+								<label for="shop_status1">已開通店家身份</label>
+								<input type="radio" name="mem_shop_status" value="1" id="shop_status1">
+								<label for="shop_status2">申請開店中</label>
+								<input type="radio" name="mem_shop_status" value="2" id="shop_status2">
+								<label for="shop_status3">商店上架</label>
+								<input type="radio" name="mem_shop_status" value="3" id="shop_status3">
+								<label for="shop_status4">商店下架</label>
+								<input type="radio" name="mem_shop_status" value="4" id="shop_status4"><br>
+								<label for="" style="margin-top: 5px">會員身份</label><br>
+								<label for="mem_role20">婚攝店家</label>
+								<input type="radio" name="mem_role" value="20" id="mem_role20">
+								<label for="mem_role30">場地店家</label>
+								<input type="radio" name="mem_role" value="30" id="mem_role30">
+								<label for="mem_role40">週邊店家</label>
+								<input type="radio" name="mem_role" value="40" id="mem_role40">
+
+
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
@@ -157,12 +223,17 @@
 					},
                 dataType: "json",
                 success: function (response) {
+					console.log(response);
 					$('#mem_id').val(response.mem_id);
 					$('#mem_username').val(response.mem_username);
 					$('#mem_name').val(response.mem_name);
 					$('#mem_phone').val(response.mem_phone);
 					let mem_status = response.mem_status;
+					let mem_shop_status = response.mem_shop_status;
+					let mem_role = response.mem_role;
 					$('input[name=mem_status]').eq(mem_status).prop('checked',true);
+					$('input[name=mem_shop_status]').eq(mem_shop_status).prop('checked',true);
+					$('input[name=mem_role]').eq((mem_role/10)-2).prop('checked',true);
                 }
             });
 		});
@@ -174,17 +245,22 @@
 			let mem_name = $('#mem_name').val();
 			let mem_phone = $('#mem_phone').val();
 			let mem_status = $('input[name=mem_status]:checked').val();
+			let mem_shop_status = $('input[name=mem_shop_status]:checked').val();
+			let mem_role = $('input[name=mem_role]:checked').val();
+
 			
 			$.ajax({
 				type: "post",
 				url:  "<%=request.getContextPath()%>/member/memberServlet",
 				data: {
-					"action":"buyMemberUpdate",
+					"action":"sellerMemberUpdate",
 					"mem_id":mem_id,
 					"mem_username":mem_username,
 					"mem_name":mem_name,
 					"mem_phone":mem_phone,
-					"mem_status":mem_status
+					"mem_status":mem_status,
+					"mem_shop_status":mem_shop_status,
+					"mem_role":mem_role
 				},
 				success: function (response) {
 					 swal("恭喜您!", "已修改成功", "success").then((result) => {
@@ -199,6 +275,9 @@
 		})
 
 		$('#find_status${condition.find_status[0]}').prop('selected',true)
+		$('#find_shop_status${condition.find_shop_status[0]}').prop('selected',true)
+		$('#find_mem_role${condition.mem_role[0]}').prop('selected',true)
+
 	</script>
 </body>
 </html>

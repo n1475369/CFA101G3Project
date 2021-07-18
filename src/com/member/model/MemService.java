@@ -84,4 +84,30 @@ public class MemService {
 		memVO.setMem_status(mem_status);
 		dao.updateBuyMember(memVO);
 	}
+	
+	//賣家分頁顯示返回多重查詢總筆數
+	public int getSellerMemberRowNumber(String find_username,String find_name,String find_status,String find_shop_status,String mem_role) {
+		return dao.getSellerMemberRowNumber(find_username, find_name, find_status, find_shop_status, mem_role);
+	}
+	//分頁顯示返回賣家會員list集合 start:從哪頁開始查詢 rowsPerPage:每次查幾筆
+	public List<MemVO> findSellerMemberByPagination(int whichPage,int rowsPerPage,String find_username,String find_name,String find_status,String find_shop_status,String mem_role){
+		int start = (whichPage - 1) * rowsPerPage;//起始頁面=(當前頁面-1)*每次查幾筆
+		List<MemVO> list = dao.findSellerMemberByPagination(start, rowsPerPage, find_username, find_name, find_status, find_shop_status, mem_role);
+		return list;
+	}
+	
+	//管理員修改買家會員資料
+	public void updateSellerMember(Integer mem_id,String mem_username,String mem_name,String mem_phone,Integer mem_status,Integer mem_shop_status,Integer mem_role) {
+		MemVO memVO = new MemVO();
+		memVO.setMem_id(mem_id);
+		memVO.setMem_username(mem_username);
+		memVO.setMem_name(mem_name);
+		memVO.setMem_phone(mem_phone);
+		memVO.setMem_status(mem_status);
+		memVO.setMem_shop_status(mem_shop_status);
+		memVO.setMem_role(mem_role);
+		dao.updateSellerMember(memVO);
+	}
+
+
 }
