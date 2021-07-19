@@ -58,8 +58,7 @@ $(function(){
             },
             success:function (result) {
                 if(result=="1"){
-                    window.location.href="memberBuyProfile.html";
-                    // window.location.href="websocket.html";
+                    window.location.href="memberBuyProfile.html?action=profile";
 
                 }else{
                     $('#u-prompt').text("帳號或密碼錯誤");

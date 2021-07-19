@@ -19,7 +19,9 @@ $(function(){
         </div> 
     </div>
     </div>`;
-    $('#setting').on('click',function(){
+    let urlParams = new URLSearchParams(window.location.search);
+    let param = urlParams.get("action");
+    if(param=="setting"){
         $('#content').html(setting);
         //跟資料庫請求個人資料
         $.ajax({
@@ -41,8 +43,8 @@ $(function(){
                 }
             }
         });
-    });
-
+    }
+    
     //顯示修改密碼頁面
     $('#content').on('click','#password-edit',function(){
         $(".edit-password-wrap").fadeIn(250);

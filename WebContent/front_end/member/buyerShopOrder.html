@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/cssreset.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/buyerShopOrder.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>會員中心｜MarryHappiness</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="top-container">
+            <a href="#" class="logo"><img src="images/MHlogo_04.svg" alt=""></a>
+            <div class="user">
+                <div class="headshot">
+                    <img class="imgdata" src="" alt="">
+                </div>
+                <div class="user-name"></div>
+                <ul class="user-menu">
+                    <li><a href="memberBuyProfile.html"><i class="fas fa-home"></i> 會員系統</a></li>
+                    <li><a href="../../member/loginServlet?action=logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <ul class="nav">
+            <li><a href="#">拍婚紗</a></li>
+            <li><a href="#">婚禮場地</a></li>
+            <li><a href="#">婚禮週邊</a></li>
+            <li><a href="#">找靈感</a></li>
+        </ul>
+    </div>
+    <div class="wrap">
+        <div class="side-bar">
+            <img class="imgdata" src="" alt="">
+            <div class="user-name s-user-name"></div>
+            <div class="user-hr"><i class="fas fa-heart"></i></div>
+            <ul class="menu">
+                <li><a href="memberBuyProfile.html?action=profile" id="profile"><i class="fas fa-user"></i>個人資料</a></li>
+                <li><a href="memberBuyProfile.html?action=setting" id="setting"><i
+                            class="fas fa-file-invoice"></i>帳號設定</a></li>
+                <li><a href="buyerShopOrder.html"><i class="fas fa-shopping-cart"></i>商品訂單</a></li>
+                <li><a href="#"><i class="fas fa-church"></i>婚禮場地</a></li>
+                <li><a href="#"><i class="fas fa-camera-retro"></i>婚紗攝影</a></li>
+            </ul>
+        </div>
+        <div class="content" id="content">
+            <div class="order">
+                <ul class="order-nav">
+                    <li><a href="buyerShopOrder.html?action=getAll">全部</a></li>
+                    <li><a href="#">待付款</a></li>
+                    <li><a href="#">待出貨</a></li>
+                    <li><a href="#">待收貨</a></li>
+                    <li><a href="#">訂單已完成</a></li>
+                </ul>
+                <ul class="order-main" id="order-main">
+                    <!-- <li>
+                        <i class="fas fa-store"></i><span class="seller">33333333</span>
+                        <div id="order-block-wrap">
+                            <div class="order-block">
+                                <img src="images/animal_penguin_couple.png" alt="">
+                                <div class="product-wrap">
+                                    <div class="product-title">一隻企鵝</div>
+                                    <div class="product-content">
+                                        生長在南極的企鵝生長在南極的企鵝生長在南極的企鵝生長在南極的企鵝生長在南極的企鵝生長在南極的企鵝生長在南極的企鵝生長在南極的企鵝</div>
+                                    <div class="product-count">x2</div>
+                                </div>
+                                <div class="price">$199</div>
+                            </div>
+                        </div>
+                        <div class="order-footer clearfix">
+                            <div class="order-price">
+                                <span>訂單金額：</span>
+                                <span class="price mr10">$398</span>
+                            </div>
+                            <div class="order-status">
+                                <span>未付款</span>
+                            </div>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        //跟資料庫請求個人頭像
+        Ajaxheadshot();
+        function Ajaxheadshot() {
+            $.ajax({
+                type: "post",
+                url: "../../member/headshotBuyServlet",
+                data: { "headshot": "headshot" },
+                xhrFields: {
+                    // 將回傳結果以Blob保持原本二進位的格式回傳
+                    //jquery的dataType無法設定返回格式為blob需要手動修改
+                    responseType: "blob"
+                },
+                success: function (result) {
+                    let img = document.getElementsByClassName('imgdata');
+                    if (result.size != "0") {
+                        let url = URL.createObjectURL(result);
+                        for (let i = 0; i < img.length; i++) {
+                            img[i].src = url;
+                        }
+                    } else {
+                        for (let i = 0; i < img.length; i++) {
+                            img[i].src = "images/music_castanet_girl.png";
+                        }
+                    }
+
+                }
+            });
+        }
+
+        let urlParams = new URLSearchParams(window.location.search);
+        let action = urlParams.get("action");
+
+        //取得全部買家訂單
+        if (action == "getAll") {
+            $.ajax({
+                type: "post",
+                url: "../../shop_order/buyerSpoServlet?action=getAll",
+                dataType: "json",
+                success: function (data) {
+                    for (const key in data) {
+                        let orderTmp =
+                            `<li>
+                        <i class="fas fa-store"></i><span class="seller">${getMemberName(data[key].spo_smem_id)}</span>
+                        <div id="order-block-wrap${key}">
+                        </div>
+                        <div class="order-footer clearfix">
+                            <div class="order-price">
+                                <span>訂單金額：</span>
+                                <span class="price mr10">$${data[key].spo_payment}</span>
+                            </div>
+                            <div class="order-status">
+                                <span class="spo_status">訂單狀態：${spo_status(data[key].spo_status, data[key].spo_id)}</span>
+                                <span class="spo_pay_status">付款狀態：${spo_pay_status(data[key].spo_pay_status, data[key].spo_id)}</span>
+                                <span class="spo_cargo_status">發貨狀態：${spo_cargo_status(data[key].spo_cargo_status, data[key].spo_id)}</span>
+                            </div>
+                        </div>
+                    </li>`;
+                        $('#order-main').append(orderTmp);
+                        let result = getSpoiVOList(data[key].spo_id);
+                        for (const key2 in result) {
+                            let spoiTmp = `<div class="order-block">
+                                    <img src="../../product/ProImgOutServlet?proi_id=${getProductImg(result[key2].provo.pro_id)}" alt="">
+                                    <div class="product-wrap">
+                                        <div class="product-title">${result[key2].provo.pro_name}</div>
+                                        <div class="product-content">
+                                            ${result[key2].provo.pro_content}
+                                        </div>
+                                        <div class="product-count">x${result[key2].spoi_quantity}</div>
+                                    </div>
+                                    <div class="price">$${result[key2].spoi_totalprice}</div>
+                                </div>`;
+                            $(`#order-block-wrap${key}`).append(spoiTmp);
+                        }
+                    }
+                }
+            });
+        }
+
+        //會員編號找到會員名稱
+        function getMemberName(mem_id) {
+            let mem_name = "";
+            $.ajax({
+                type: "post",
+                url: "../../member/memServlet",
+                data: {
+                    "action": "getMemberVO",
+                    "mem_id": mem_id
+                },
+                async: false,
+                dataType: "json",
+                success: function (response) {
+                    mem_name = response.mem_name;
+                }
+            });
+            return mem_name;
+        }
+
+        //取得商品照片ID
+        function getProductImg(pro_id) {
+            let proi_id = 0;
+            $.ajax({
+                type: "post",
+                url: "../../product/ProImgSelServlet",
+                data: { "proi_pro_id": pro_id },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    proi_id = data[0].proi_id;
+                }
+            });
+            return proi_id;
+        }
+
+        //取得商品資料
+        function getSpoiVOList(spo_id) {
+            let result;
+            $.ajax({
+                type: "post",
+                url: "../../shop_order/buyerSpoServlet?action=getBySpo_id",
+                data: { "spo_id": spo_id },
+                dataType: "json",
+                async: false,
+                success: function (response) {
+                    result = response;
+                }
+            });
+            return result;
+        }
+
+        //取得商品訂單VO
+        function getSpoVO(spo_id) {
+            let spoVO;
+            $.ajax({
+                type: "post",
+                url: "../../shop_order/buyerSpoServlet?action=getSpoVO",
+                data: { "spo_id": spo_id },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    spoVO = data;
+                }
+            });
+            return spoVO;
+        }
+
+        function spo_status(status, spo_id) {
+            //0:處理中	1:已確認	2:已完成	3:已取消
+            let spoVO = getSpoVO(spo_id);
+            let spo_cargo_status = spoVO.spo_cargo_status;
+            if (status == 0) {
+                if (spo_cargo_status == 0) {
+                    return `處理中 <button data-spo_id="${spo_id}">取消訂單</button>`;
+                } else {
+                    return "處理中";
+                }
+            } else if (status == 1) {
+                if (spo_cargo_status == 0) {
+                    return `已確認 <button data-spo_id="${spo_id}">取消訂單</button>`;
+                } else {
+                    return "已確認";
+                }
+            } else if (status == 2) {
+                return "已完成";
+            } else if (status == 3) {
+                return "已取消";
+            }
+        }
+        function spo_pay_status(status, spo_id) {
+            //0:未付款	1:付款失敗	2:超過付款時間	3:已付款	4:退款中	5:已退款
+            let spoVO = getSpoVO(spo_id);
+            let spo_status = spoVO.spo_status;
+            if (status == 0) {
+                if(spo_status == 3){
+                    return `未付款`;
+                }else{
+                    return `未付款 <button data-spo_id="${spo_id}">付款去</button>`;
+                }
+            } else if (status == 1) {
+                if(spo_status == 3){
+                    return `付款失敗`;
+                }else{
+                    return `付款失敗 <button data-spo_id="${spo_id}">付款去</button>`;
+                }
+            } else if (status == 2) {
+                return "超過付款時間";
+            } else if (status == 3) {
+                return "已付款";
+            } else if (status == 4) {
+                return "退款中";
+            } else if (status == 5) {
+                return "已退款";
+            }
+        }
+        function spo_cargo_status(status, spo_id) {
+            //0:未發貨	1:已發貨	2:已取貨	3:已退貨
+            if (status == 0) {
+                return "未發貨";
+            } else if (status == 1) {
+                return `已發貨 <button data-spo_id="${spo_id}">確定收貨</button><button data-spo_id="${spo_id}">退貨</button>`;
+            } else if (status == 2) {
+                return "已取貨";
+            } else if (status == 3) {
+                return "已退貨";
+            }
+        }
+
+        //對訂單狀態處理綁定點擊事件
+        $('#order-main').on('click', '.spo_status button', function (e) {
+            Swal.fire({
+                title: '您確定要取消訂單嗎?',
+                text: "取消後將無法返回唷～",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '是的, 忍痛取消!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let spo_id = e.currentTarget.dataset.spo_id;
+                    $.ajax({
+                        type: "post",
+                        url: "../../shop_order/buyerSpoServlet",
+                        data: {
+                            "action": "cancelOrder",
+                            "spo_id": spo_id
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if (response) {
+                                Swal.fire(
+                                    '已經取消了!',
+                                    '您已經將此筆訂單取消',
+                                    'success'
+                                ).then((response) => {
+                                    window.location.reload();
+                                });
+                            } else {
+                                swal("發生異常", "取消失敗，請聯絡客服人員", "error").then((response) => {
+                                    window.location.reload();
+                                });
+                            }
+                        }
+                    });
+                }
+            })
+        });
+
+    </script>
+</body>
+
+</html>

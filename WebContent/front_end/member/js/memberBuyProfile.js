@@ -51,29 +51,15 @@ $(function(){
                 </div> 
             </div>`;
     
-    //預設載入個人資料頁面
-    $('#content').html(profile);
-
-    //跳轉個人資料頁面
-    $('#profile').on('click',function(){
-        $('#content').html(profile);
-        Ajaxprofile();
-        Ajaxheadshot();
-        //設定croppie初始值
-        $uploadCrop = $('#upload-demo').croppie({ 
-            viewport: { 
-                width: 200, 
-                height: 200, 
-                type: 'circle',
-            }, 
-            showZoomer:false,
-            boundary: { 
-                width: 300,
-                height: 300
-            }
-        }); 
-    });
-
+    let urlParams = new URLSearchParams(window.location.search);
+    let param = urlParams.get("action");
+    if(param=="profile"){
+        $('#content').html(profile).promise().done(function(){
+            Ajaxprofile();
+            Ajaxheadshot();
+        });
+    }
+    
 
     var resultData;
     //profile跟資料庫請求個人資料
