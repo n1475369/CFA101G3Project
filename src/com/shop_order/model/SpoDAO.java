@@ -23,4 +23,6 @@ public interface SpoDAO {
 	public void update_spo_pay_status(Integer spo_id,Integer spo_pay_status);
 	//更新發貨狀態
 	public void update_spo_cargo_status(Integer spo_id,Integer spo_cargo_status);
+	//更新付款方式
+	public void update_spo_paytype(Integer spo_id,Integer spo_paytype);
 }

@@ -40,6 +40,12 @@ public class SpoService {
 	public void update_spo_cargo_status(Integer spo_id,Integer spo_cargo_status) {
 		dao.update_spo_cargo_status(spo_id, spo_cargo_status);
 	}
+	
+	//更新付款方式
+	public void update_spo_paytype(Integer spo_id, Integer spo_paytype) {
+		dao.update_spo_paytype(spo_id, spo_paytype);
+	}
+
 	//取消訂單
 	public void cancelOrder(Integer spo_id) {
 		SpoVO spoVO = dao.getOne(spo_id);

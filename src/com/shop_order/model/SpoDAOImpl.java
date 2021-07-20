@@ -324,5 +324,12 @@ public class SpoDAOImpl implements SpoDAO{
 		String sql = "update shop_order set spo_cargo_status = ? where spo_id = ?";
 		template.update(sql,spo_cargo_status,spo_id);
 	}
+	
+	//更新付款方式
+	@Override
+	public void update_spo_paytype(Integer spo_id, Integer spo_paytype) {
+		String sql = "update shop_order set spo_paytype = ? where spo_id = ?";
+		template.update(sql,spo_paytype,spo_id);
+	}
 
 }

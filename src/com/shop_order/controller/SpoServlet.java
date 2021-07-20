@@ -163,20 +163,26 @@ public class SpoServlet extends HttpServlet {
 		
 		//WebATM付款確認
 		if("webATM".equals(action)) {
-			Integer payment = Integer.parseInt(request.getParameter("payment").trim());
-			Integer pay = Integer.parseInt(request.getParameter("pay").trim());
-			request.removeAttribute("payment");
 			HttpSession session = request.getSession();
 			List<Integer> spo_idList = (List<Integer>)session.getAttribute("spo_idList");//取得訂單ID List
-			session.removeAttribute("spo_idList");
 			SpoService spoService = new SpoService();
-			if(pay.equals(payment)) {
-				spoService.updateAllSpo_pay_status(spo_idList, 3);//更新為付款成功
-				request.getRequestDispatcher("/front_end/product/Success.jsp").forward(request, response);
-			}else {
+			request.removeAttribute("payment");
+			session.removeAttribute("spo_idList");
+			try {
+				Integer payment = Integer.parseInt(request.getParameter("payment").trim());
+				Integer pay = Integer.parseInt(request.getParameter("pay").trim());
+				if(pay.equals(payment)) {
+					spoService.updateAllSpo_pay_status(spo_idList, 3);//更新為付款成功
+					request.getRequestDispatcher("/front_end/product/Success.jsp").forward(request, response);
+				}else {
+					spoService.updateAllSpo_pay_status(spo_idList, 1);//更新為付款失敗
+					request.getRequestDispatcher("/front_end/product/Error.jsp").forward(request, response);
+				}
+			} catch (Exception e) {
+				System.out.println("WebATM輸入異常:"+e.getMessage());
 				spoService.updateAllSpo_pay_status(spo_idList, 1);//更新為付款失敗
 				request.getRequestDispatcher("/front_end/product/Error.jsp").forward(request, response);
-			}
+			} 
 		}
 	}
 

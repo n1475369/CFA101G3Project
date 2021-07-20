@@ -108,10 +108,6 @@
     width: 100%;
 }
 
-.order-nav a:hover{
-    color: #fa3e2c;
-    background: #fc908621;
-}
 
 .seller{
     margin-left: 5px;
@@ -130,6 +126,11 @@
     width: 100px;
     height: 100px;
     margin-right: 10px;
+}
+
+.order-main a{
+    text-decoration: none;
+    color: #495057;
 }
 
 .order-block{
@@ -179,14 +180,105 @@
 .order-status button{
     margin-right: 5px;
 }
-.spo_status{
-    color: #422a13;
+
+.spo_status button{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.spo_status button:hover{
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
 }
 
-.spo_pay_status{
-    color: #584b52;
+
+.spo_pay_status button{
+    background-color: #fc9086;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.spo_pay_status button:hover{
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
 }
 
-.spo_cargo_status{
-    color: #4d5045;
+.spo_cargo_status button{
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
 }
+.spo_cargo_status button:hover{
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+}
+
+.popup-wrap{
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    content: '';
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.popup-container{
+    width: 60%;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.popup-container{
+    font-size: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.spo-wrap{
+    border: 1px solid #fa3e2c;
+    padding: 10px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+.spo-wrap label{
+    margin-right: 10px;
+    display: inline-block;
+    background: #f1a59e86;
+    width: 140px;
+    text-align: right;
+    padding: 7px 10px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+}
+
+.spo-wrap button{
+    display: none;
+}
+
+.mb10{
+    margin-bottom: 10px;
+}
+
