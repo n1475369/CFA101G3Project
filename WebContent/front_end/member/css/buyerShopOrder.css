@@ -26,6 +26,7 @@
     padding-bottom: 30px;
     margin-right: 30px;
     padding-top: 30px;
+    height: 100%;
 }
 
 .s-user-name{
@@ -126,6 +127,7 @@
     width: 100px;
     height: 100px;
     margin-right: 10px;
+    margin-bottom: 5px;
 }
 
 .order-main a{

@@ -118,7 +118,7 @@ a{
 }
 
 .post img{
-    width: 80px;
+    width: 70px;
     height: 70px;
     border-radius: 50%;
 }
@@ -146,7 +146,6 @@ a{
     color: #495057;
     margin-left: 13px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     position: relative;
 }
@@ -164,9 +163,12 @@ a{
 
 
 .post-article p{
-    overflow: hidden;
     height: 16px;
     margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
 }
 
 .post-tag{
@@ -177,8 +179,46 @@ a{
     padding: 5px;
     border-radius: 5px;
     margin-left: 10px;
+    display: inline-block;
 }
 
 .post-box{
     margin-bottom: 20px;
+}
+
+.post-box a{
+    width: 80%;
+}
+
+.post-tag-box{
+    width: 100px;
+}
+
+.c1{
+    color: #df3e3e;
+    border: 1px solid #df3e3e;
+}
+.c2{
+    color: #c3e252;
+    border: 1px solid #c3e252;
+}
+.c3{
+    color: #3bc9d5;
+    border: 1px solid #3bc9d5;
+}
+.c4{
+    color: #fc9086;
+    border: 1px solid #fc9086;
+}
+.c5{
+    color: #e4824a;
+    border: 1px solid #e4824a;
+}
+.c6{
+    color: #59ac5d;
+    border: 1px solid #59ac5d;
+}
+.c7{
+    color: #52a8ee;
+    border: 1px solid #52a8ee;
 }

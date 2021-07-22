@@ -6,12 +6,17 @@
 <%@ page import="org.springframework.dao.DataAccessException"%>
 <%@ page import="org.springframework.jdbc.core.BeanPropertyRowMapper"%>
 <%@ page import="org.springframework.jdbc.core.JdbcTemplate"%>
+<%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
 <%@ page import="com.product_images.model.*"%>
 <%@ page import="com.product.model.*"%>
 <%@ page import="com.workphoto.model.*"%>
 <%@ page import="com.weddingphoto.model.*"%>
-<%@ page import="java.util.*"%>
+<%@ page import="com.locationroom.model.*"%>
+<%@ page import="com.locationimages.model.*"%>
+<%@ page import="com.post.model.*"%>
+<%@ page import="com.category.model.*"%>
+<%@ page import="com.message.model.*"%>
 
 
 <%
@@ -25,11 +30,21 @@ try {
 JdbcTemplate template = new JdbcTemplate(ds);
 String prdSql = "select * from product order by pro_id desc limit 0,6";//獲取最新商品
 String worSql = "select * from work_photo order by wor_id desc limit 0,6";//獲取最新婚紗作品
+String locSql = "select * from location_room order by locr_id desc limit 0,6";//獲取最新婚禮場地
+String postSql = "select * from post order by post_id desc limit 0,6";//獲取最新文章
+String mesSql = "select * from message";//取得所有留言
+
 List<ProVO> proList = template.query(prdSql, new BeanPropertyRowMapper(ProVO.class));
 List<WorVO> worList = template.query(worSql, new BeanPropertyRowMapper(WorVO.class));
+List<LocrVO> locrList = template.query(locSql, new BeanPropertyRowMapper(LocrVO.class));
+List<PostVO> postList = template.query(postSql, new BeanPropertyRowMapper(PostVO.class));
+
 
 pageContext.setAttribute("proList", proList);//將商品list存入scope
 pageContext.setAttribute("worList", worList);//將婚紗作品list存入scope
+pageContext.setAttribute("locrList", locrList);//將場地廳房list存入scope
+pageContext.setAttribute("postList",postList);//將文章list存入scope
+
 
 //將商品各取一張照片存入list
 ProImgService proImgSvc = new ProImgService();
@@ -43,14 +58,37 @@ pageContext.setAttribute("proImgList", proImgList);//將商品照片存入scope
 //將婚紗作品集各取一張照片存入list
 WedService wedSvc = new WedService();
 List<WedVO> wedImgList = new ArrayList<WedVO>();
-for(WorVO worVO : worList){
+for (WorVO worVO : worList) {
 	WedVO wedVO = wedSvc.findByForeignKey(worVO.getWor_id()).get(0);
 	wedImgList.add(wedVO);
 }
-pageContext.setAttribute("wedImgList",wedImgList);//將婚紗照片存入scope
+pageContext.setAttribute("wedImgList", wedImgList);//將婚紗照片存入scope
 
+//將場地廳房各取一張照片存入list
+LociService lociSvc = new LociService();
+List<LociVO> lociImgList = new ArrayList<LociVO>();
+for (LocrVO locrVO : locrList) {
+	LociVO lociVO = lociSvc.findByForeignKey(locrVO.getLOCR_ID()).get(0);
+	lociImgList.add(lociVO);
+}
+pageContext.setAttribute("lociImgList", lociImgList);//將廳房照片存入scope
 
+//取得文章分類list
+CategoryService catSvc = new CategoryService();
+List<CategoryVO> catList = catSvc.getAll();
+pageContext.setAttribute("catList",catList);
+
+//計算文章留言數
+MessageService mesSvc = new MessageService();
+HashMap<Integer,Integer> mesCountMap = new HashMap<Integer,Integer>();
+for(PostVO postVO : postList){
+	Integer count = mesSvc.getBy_mes_post_id(postVO.getPost_id()).size();
+	Integer post_id = postVO.getPost_id();
+	mesCountMap.put(post_id,count);
+}
+pageContext.setAttribute("mesCountMap",mesCountMap);
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -222,89 +260,28 @@ pageContext.setAttribute("wedImgList",wedImgList);//將婚紗照片存入scope
 						</a>
 					</div>
 					<div class="post-content">
-						<div class="post-box d-flex">
-							<img src="images/wed1.jpeg" alt=""> <a href="">
-								<div class="post-article">
-									<div class="post-tag">婚禮心事</div>
-									<div class="post-chat">
-										<p>婚禮因疫情取消，婚紗工作室不退訂金ssssssssssssssss</p>
-										<div class="post-article-reply">
-											<i class="far fa-comment-dots"></i> <span>2個回覆</span>
+						<c:forEach var="postVO" items="${postList}">
+							<div class="post-box d-flex">
+								<img src="<%=request.getContextPath()%>/member/memImgServlet?action=headShot&mem_id=${postVO.post_mem_id}" alt=""> 
+								<a href="">
+									<div class="post-article">
+										<div class="post-tag-box">
+											<div class="post-tag c${postVO.post_cat_id}">
+												<c:forEach var="catVO" items="${catList}">
+													<c:if test="${catVO.cat_id==postVO.post_cat_id}">${catVO.cat_name}</c:if>
+												</c:forEach>
+											</div>
+										</div>
+										<div class="post-chat">
+											<p>${postVO.post_title}</p>
+											<div class="post-article-reply">
+												<i class="far fa-comment-dots"></i> <span>${mesCountMap[postVO.post_id]}個回覆</span>
+											</div>
 										</div>
 									</div>
-								</div>
-							</a>
-						</div>
-						<div class="post-box d-flex">
-							<img src="images/animal_penguin_couple.png" alt=""> <a
-								href="">
-								<div class="post-article">
-									<div class="post-tag">婚禮心事</div>
-									<div class="post-chat">
-										<p>婚禮因疫情取消，婚紗工作室不退訂金ssssssssssssssss</p>
-										<div class="post-article-reply">
-											<i class="far fa-comment-dots"></i> <span>2個回覆</span>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="post-box d-flex">
-							<img src="images/animal_penguin_couple.png" alt=""> <a
-								href="">
-								<div class="post-article">
-									<div class="post-tag">婚禮心事</div>
-									<div class="post-chat">
-										<p>婚禮因疫情取消，婚紗工作室不退訂金ssssssssssssssss</p>
-										<div class="post-article-reply">
-											<i class="far fa-comment-dots"></i> <span>2個回覆</span>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="post-box d-flex">
-							<img src="images/animal_penguin_couple.png" alt=""> <a
-								href="">
-								<div class="post-article">
-									<div class="post-tag">婚禮心事</div>
-									<div class="post-chat">
-										<p>婚禮因疫情取消，婚紗工作室不退訂金ssssssssssssssss</p>
-										<div class="post-article-reply">
-											<i class="far fa-comment-dots"></i> <span>2個回覆</span>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="post-box d-flex">
-							<img src="images/animal_penguin_couple.png" alt=""> <a
-								href="">
-								<div class="post-article">
-									<div class="post-tag">婚禮心事</div>
-									<div class="post-chat">
-										<p>婚禮因疫情取消，婚紗工作室不退訂金ssssssssssssssss</p>
-										<div class="post-article-reply">
-											<i class="far fa-comment-dots"></i> <span>2個回覆</span>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="post-box d-flex">
-							<img src="images/animal_penguin_couple.png" alt=""> <a
-								href="">
-								<div class="post-article">
-									<div class="post-tag">婚禮心事</div>
-									<div class="post-chat">
-										<p>婚禮因疫情取消，婚紗工作室不退訂金ssssssssssssssss</p>
-										<div class="post-article-reply">
-											<i class="far fa-comment-dots"></i> <span>2個回覆</span>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
+								</a>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -379,38 +356,32 @@ pageContext.setAttribute("wedImgList",wedImgList);//將婚紗照片存入scope
 			</div>
 			<div class="wedding-content">
 				<div class="row">
-					<div class="wed-box col">
-						<a href=""> <img src="images/wed1.jpeg">
-							<h3>J2 Wedding 手工訂製婚紗 體驗館 板橋 中壢</h3>
-						</a>
-					</div>
-					<div class="wed-box col">
-						<a href=""> <img src="images/wed2.jpeg">
-							<h3>Duncan Photo Story</h3>
-						</a>
-					</div>
-					<div class="wed-box col">
-						<a href=""> <img src="images/wed3.jpeg">
-							<h3>HCstudio攝影工作室 | 桃園▫中壢</h3>
-						</a>
-					</div>
+					<c:forEach var="worVO" items="${worList}" begin="0" end="2">
+						<div class="wed-box col">
+							<a href=""> <c:forEach var="wedVO" items="${wedImgList}">
+									<c:if test="${wedVO.wed_wor_id == worVO.wor_id}">
+										<img
+											src="<%=request.getContextPath()%>/weddingphoto/wedPhotoServlet?wed_id=${wedVO.wed_id}">
+									</c:if>
+								</c:forEach>
+								<h3>${worVO.wor_name}</h3>
+							</a>
+						</div>
+					</c:forEach>
 				</div>
 				<div class="row">
-					<div class="wed-box col">
-						<a href=""> <img src="images/wed4.jpeg">
-							<h3>ONLY YOU 唯你婚紗攝影</h3>
-						</a>
-					</div>
-					<div class="wed-box col">
-						<a href=""> <img src="images/wed5.jpeg">
-							<h3>花朵影像製作</h3>
-						</a>
-					</div>
-					<div class="wed-box col">
-						<a href=""> <img src="images/wed6.jpeg">
-							<h3>荳蔻攝影工作室 Cardamom Studio</h3>
-						</a>
-					</div>
+					<c:forEach var="worVO" items="${worList}" begin="3" end="5">
+						<div class="wed-box col">
+							<a href=""> <c:forEach var="wedVO" items="${wedImgList}">
+									<c:if test="${wedVO.wed_wor_id==worVO.wor_id }">
+										<img
+											src="<%=request.getContextPath()%>/weddingphoto/wedPhotoServlet?wed_id=${wedVO.wed_id}">
+									</c:if>
+								</c:forEach>
+								<h3>${worVO.wor_name}</h3>
+							</a>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -426,38 +397,32 @@ pageContext.setAttribute("wedImgList",wedImgList);//將婚紗照片存入scope
 			</div>
 			<div class="location-content">
 				<div class="row">
-					<div class="loc-box col">
-						<a href=""> <img src="images/loc1.jpeg">
-							<h3>大院子- 台北小婚宴場地</h3>
-						</a>
-					</div>
-					<div class="loc-box col">
-						<a href=""> <img src="images/loc2.jpeg">
-							<h3>板橋凱撒大飯店</h3>
-						</a>
-					</div>
-					<div class="loc-box col">
-						<a href=""> <img src="images/loc3.jpeg">
-							<h3>青青格麗絲莊園</h3>
-						</a>
-					</div>
+					<c:forEach var="locrVO" items="${locrList}" begin="0" end="2">
+						<div class="loc-box col">
+							<a href="">
+								<c:forEach var="lociVO" items="${lociImgList}">
+									<c:if test="${lociVO.LOCI_LOCR_ID==locrVO.LOCR_ID}">
+										<img src="<%=request.getContextPath()%>/locationimages/imgLociServlet?LOCI_ID=${lociVO.LOCI_ID}">
+									</c:if>
+								</c:forEach>
+								<h3>${locrVO.LOCR_NAME }</h3>
+							</a>
+						</div>
+					</c:forEach>
 				</div>
 				<div class="row">
-					<div class="loc-box col">
-						<a href=""> <img src="images/loc4.jpeg">
-							<h3>孫立人將軍官邸</h3>
-						</a>
-					</div>
-					<div class="loc-box col">
-						<a href=""> <img src="images/loc5.jpeg">
-							<h3>青青風車莊園</h3>
-						</a>
-					</div>
-					<div class="loc-box col">
-						<a href=""> <img src="images/loc6.jpeg">
-							<h3>Shangri-La Taipei 香格里拉台北遠東國際大飯店</h3>
-						</a>
-					</div>
+					<c:forEach var="locrVO" items="${locrList}" begin="3" end="5">
+						<div class="loc-box col">
+							<a href=""> 
+								<c:forEach var="lociVO" items="${lociImgList}">
+									<c:if test="${lociVO.LOCI_LOCR_ID==locrVO.LOCR_ID}">
+										<img src="<%=request.getContextPath()%>/locationimages/imgLociServlet?LOCI_ID=${lociVO.LOCI_ID}">
+									</c:if>
+								</c:forEach>
+								<h3>${locrVO.LOCR_NAME}</h3>
+							</a>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -472,9 +437,9 @@ pageContext.setAttribute("wedImgList",wedImgList);//將婚紗照片存入scope
 				el : '.swiper-pagination',
 				clickable : true,
 			},
-		// autoplay: {
-		//     delay: 5000
-		// }
+		autoplay: {
+		     delay: 5000
+		 }
 		});
 	</script>
 </body>

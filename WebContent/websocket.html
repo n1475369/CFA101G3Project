@@ -62,7 +62,7 @@
         //請求個人資料
         $.ajax({
             type: "get",
-            url: "buyProfileServlet",
+            url: "member/buyProfileServlet",
             dataType: 'json',
         }).done(function(result){
             fromName = result.username;
