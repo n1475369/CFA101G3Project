@@ -35,6 +35,7 @@ public class SendEmail extends Thread{
 	      
 	      //Redis存入信箱對應的驗證碼
 	      Jedis jedis = new Jedis("34.81.27.105", 6379);
+	      jedis.auth("CFA101G3");
 	      jedis.hset(email, "email", code);
 	      
 	      

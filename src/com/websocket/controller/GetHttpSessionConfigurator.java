@@ -1,4 +1,4 @@
-package com.websocket;
+package com.websocket.controller;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.HandshakeResponse;

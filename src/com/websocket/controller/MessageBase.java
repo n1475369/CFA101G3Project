@@ -1,4 +1,4 @@
-package com.websocket;
+package com.websocket.controller;
 
 public class MessageBase {
 	private String fromName;

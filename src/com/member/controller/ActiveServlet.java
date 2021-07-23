@@ -23,6 +23,7 @@ public class ActiveServlet extends HttpServlet {
 		String code = request.getParameter("code");
 		String username = request.getParameter("username");
 		Jedis jedis = new Jedis("34.81.27.105",6379);
+		jedis.auth("CFA101G3");
 		String checkCode = jedis.hget(username, "email");
 		
 		if(code.equals(checkCode)) {

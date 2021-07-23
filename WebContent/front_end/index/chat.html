@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/friendchat.css">
+    <link rel="stylesheet" href="css/all.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>最大私人聊天室</title>
+</head>
+
+<body>
+    <a data-mem_id="1" data-chat="active">1</a>
+    <a data-mem_id="2" data-chat="active">2</a>
+    <a data-mem_id="3" data-chat="active">3</a>
+    <a data-mem_id="4" data-chat="active">4</a>
+    <a data-mem_id="5" data-chat="active">5</a>
+    <div class="chatWrap">
+        <div class="chat-title">聊聊</div>
+        <div class="flexbox">
+            <div class="messages-block">
+                <div id="statusOutput" class="statusOutput" data-mem_id=""></div>
+                <div id="messagesArea" class="panel message-area">
+                    <ul id="area"></ul>
+                </div>
+                <div class="panel input-area">
+                    <input id="message" class="text-field" type="text" placeholder="輸入文字" onkeydown="if (event.keyCode == 13) sendMessage();" />
+                    <a href="javascript:void(0)" id="sendMessage"><i class="far fa-paper-plane"></i></a>
+                </div>
+            </div>
+            <div id="row">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var chat_mem_id; //登入會員ID
+    //取得目前登入會員ID
+    $.ajax({
+        type: "post",
+        url: "../../member/buyProfileServlet",
+        dataType: "json",
+        async: false,
+        success: function(result) {
+            chat_mem_id = result.mem_id;
+
+        }
+    });
+
+    //載入頁面時建立WebSocket連線
+    window.onload = function() {
+            connect();
+        }
+        //離開頁面時關閉WebSocket連線
+    window.onunload = function() {
+        disconnect();
+    }
+
+
+    var MyPoint = "/FriendWS/" + chat_mem_id;
+    var host = window.location.host;
+    var path = window.location.pathname;
+    var webCtx = path.substring(0, path.indexOf('/', 1));
+    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+    var statusOutput = document.getElementById("statusOutput");
+    var messagesArea = document.getElementById("messagesArea");
+    var self = chat_mem_id;
+    var webSocket;
+
+    function connect() {
+        // create a websocket
+        webSocket = new WebSocket(endPointURL);
+
+        webSocket.onopen = function(event) {
+            console.log("Connect Success!");
+            document.getElementById('sendMessage').disabled = false;
+        };
+
+        webSocket.onmessage = function(event) {
+            var jsonObj = JSON.parse(event.data);
+            console.log(jsonObj);
+            if ("open" === jsonObj.type) {
+                refreshFriendList(jsonObj);
+            } else if ("history" === jsonObj.type) {
+                // messagesArea.innerHTML = '';
+                // var ul = document.createElement('ul');
+                // ul.id = "area";
+                $('#area').html("");
+                // messagesArea.appendChild(ul);
+                // 這行的jsonObj.message是從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
+                var messages = JSON.parse(jsonObj.message);
+                for (var i = 0; i < messages.length; i++) {
+                    var historyData = JSON.parse(messages[i]);
+                    var showMsg = historyData.message;
+                    var li = document.createElement('li');
+                    // 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
+                    historyData.sender === self ? li.className += 'me' : li.className += 'friend';
+                    li.innerHTML = showMsg;
+                    // ul.appendChild(li);
+                    $('#area').append(li);
+                }
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+            } else if ("chat" === jsonObj.type) {
+                var li = document.createElement('li');
+                jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
+                if (statusOutput.dataset.mem_id == jsonObj.sender || jsonObj.sender == self) { //如果切到對應的人才會顯示li或者是自己發送的訊息
+                    li.innerHTML = jsonObj.message;
+                    console.log(li);
+                    document.getElementById("area").appendChild(li);
+                    messagesArea.scrollTop = messagesArea.scrollHeight;
+                } else {
+                    var jsonObj = {
+                        "type": "newChat",
+                        "sender": self,
+                        "receiver": jsonObj.sender,
+                        "message": ""
+                    };
+                    webSocket.send(JSON.stringify(jsonObj));
+                }
+
+            } else if ("newChat" === jsonObj.type) {
+                refreshFriendList(jsonObj).then(function() { //更新完列表後觸發抓取好友名字以取得歷史訊息事件
+                    $(`#friend${jsonObj.receiver}`).click();
+                });
+            }
+            // else if ("close" === jsonObj.type) {
+            //     refreshFriendList(jsonObj);
+            // }
+
+        };
+
+        webSocket.onclose = function(event) {
+            console.log("Disconnected!");
+        };
+    }
+
+    //綁定點擊發送訊息事件
+    $('#sendMessage').on('click', function() {
+        sendMessage()
+    });
+
+    function sendMessage() {
+        var inputMessage = document.getElementById("message");
+        var friend = statusOutput.dataset.mem_id;
+        var message = inputMessage.value.trim();
+
+        if (message === "") {
+            alert("Input a message");
+            inputMessage.focus();
+        } else if (friend === "") {
+            alert("Choose a friend");
+        } else {
+            var jsonObj = {
+                "type": "chat",
+                "sender": self,
+                "receiver": friend,
+                "message": message
+            };
+            webSocket.send(JSON.stringify(jsonObj));
+            inputMessage.value = "";
+            inputMessage.focus();
+        }
+    }
+
+    // 更新好友列表
+    async function refreshFriendList(jsonObj) {
+        if (jsonObj.type == "newChat") {
+            var friends = JSON.parse(jsonObj.message);
+            console.log(friends);
+        } else {
+            var friends = jsonObj.users;
+        }
+        var row = document.getElementById("row");
+        row.innerHTML = '';
+        for (var i = 0; i < friends.length; i++) {
+            if (friends[i] == self) {
+                continue;
+            }
+            let tmp = `<a class="column" id="friend${friends[i]}" data-mem_id="${friends[i]}"><img src="../../member/memImgServlet?action=headShot&mem_id=${friends[i]}">${await getMemberName(friends[i])}</a>`;
+            $(row).append(tmp);
+            // row.innerHTML += '<a id=' + i + ' class="column" name="friendName" data-mem_id=' + friends[i] + ' >' + await getMemberName(friends[i]) + '</a>';
+        }
+    }
+
+    // 註冊列表點擊事件並抓取好友名字以取得歷史訊息
+    $('#row').on('click', 'a', function(e) {
+        $(e.currentTarget).addClass('active');
+        $(e.currentTarget).siblings('a').removeClass('active');
+        let mem_id = e.currentTarget.dataset.mem_id;
+        let friend = e.currentTarget.textContent;
+        statusOutput.dataset.mem_id = mem_id;
+        updateFriendName(friend);
+        console.log(mem_id);
+        var jsonObj = {
+            "type": "history",
+            "sender": self,
+            "receiver": mem_id,
+            "message": ""
+        };
+        webSocket.send(JSON.stringify(jsonObj));
+    })
+
+
+    function disconnect() {
+        webSocket.close();
+        document.getElementById('sendMessage').disabled = true;
+    }
+
+    function updateFriendName(name) {
+        statusOutput.innerHTML = name;
+    }
+
+    //會員編號找到會員名稱
+    function getMemberName(mem_id) { //做一個 Promise 物件
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                url: "../../member/memServlet",
+                type: "post",
+                data: {
+                    "action": "getMemberVO",
+                    "mem_id": mem_id
+                },
+                dataType: 'json',
+                success: function(res) {
+                    resolve(res.mem_name); // 成功的結果用 resolve
+                },
+                error: function(res) {
+                    reject("error"); // 失敗的結果用 reject
+                }
+            });
+        });
+    }
+
+
+    //點擊我要聊聊要開始聊天
+    $('[data-chat="active"]').on('click', async function(e) {
+        let mem_id = e.currentTarget.dataset.mem_id;
+        if (mem_id != chat_mem_id) {
+            let friend = await getMemberName(mem_id);
+            statusOutput.dataset.mem_id = mem_id;
+            updateFriendName(friend);
+            var jsonObj = {
+                "type": "newChat",
+                "sender": self,
+                "receiver": mem_id,
+                "message": ""
+            };
+            webSocket.send(JSON.stringify(jsonObj));
+        }
+    });
+</script>
+
+</html>

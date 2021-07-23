@@ -2,6 +2,7 @@ package com.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ public class MemServlet extends HttpServlet {
     	//取得買家會員個人資料(分頁顯示)
     	if("getMemberVO".equals(action)) {
     		String mem_idStr = request.getParameter("mem_id");
+    		System.out.println(mem_idStr);
     		if(mem_idStr != null) {
     			int mem_id = Integer.parseInt(mem_idStr);
     			MemService memService = new MemService();

@@ -27,6 +27,7 @@ public class BuyProfileServlet extends HttpServlet {
 		if(user!= null) {
 			MemService service = new MemService();
 			MemVO member = service.findByUsername(user.getMem_username());
+			Integer mem_id = member.getMem_id();
 			String username = member.getMem_username();
 			String name = member.getMem_name();
 			String phone = member.getMem_phone();
@@ -35,6 +36,7 @@ public class BuyProfileServlet extends HttpServlet {
 			String street = member.getMem_street();
 			Integer mem_status = member.getMem_status();
 			Map map = new HashMap();
+			map.put("mem_id", mem_id);
 			map.put("username", username);
 			map.put("name", name);
 			map.put("phone", phone);
