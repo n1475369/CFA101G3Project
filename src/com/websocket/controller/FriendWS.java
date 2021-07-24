@@ -2,6 +2,7 @@ package com.websocket.controller;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,11 +36,16 @@ public class FriendWS {
 		
 		/* 取得之前聊天過的會員 */
 		Set<String> userNames = JedisHandleMessage.getHistoryFriends(userName);
-
-		/* 所有上線的會員 */
-//		Set<String> userNames = sessionsMap.keySet();
 		
-		State stateMessage = new State("open", userName,userNames);
+		/* 會員對應未讀數量 */
+		Map<String,Integer> unreadMap = new HashMap<String,Integer>();
+		
+		/*將對應的會員及未讀數量加到unreadMap*/
+		for(String receiver:userNames) {
+			Integer count = JedisHandleMessage.getUnReadCount(userName, receiver);
+			unreadMap.put(receiver, count);
+		}
+		State stateMessage = new State("open", userName,userNames,unreadMap);
 		String stateMessageJson = gson.toJson(stateMessage);
 		
 		/*傳給建立連線的會員*/
@@ -75,13 +81,21 @@ public class FriendWS {
 				System.out.println("history = " + gson.toJson(cmHistory));
 				return;
 			}
-		
+		}
 		//與新會員聊天
-		}else if("newChat".equals(chatMessage.getType())) {
+		else if("newChat".equals(chatMessage.getType())) {
 			Set<String> historyFriendsData = JedisHandleMessage.getHistoryFriends(sender);
 			historyFriendsData.add(receiver);
 			String historyFriends = gson.toJson(historyFriendsData);
 			ChatMessage cmHistory = new ChatMessage("newChat", sender, receiver, historyFriends);
+			if (userSession != null && userSession.isOpen()) {
+				userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
+				return;
+			}
+		}
+		//新訊息
+		else if("newMsg".equals(chatMessage.getType())) {
+			ChatMessage cmHistory = new ChatMessage("newMsg", sender, receiver, "");
 			if (userSession != null && userSession.isOpen()) {
 				userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
 				return;

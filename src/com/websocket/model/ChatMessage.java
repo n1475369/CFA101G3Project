@@ -7,6 +7,7 @@ public class ChatMessage {
 	private String sender;
 	private String receiver;
 	private String message;
+	private String status;
 	
 	public ChatMessage(String type, String sender, String receiver, String message) {
 		super();
@@ -47,4 +48,14 @@ public class ChatMessage {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 }

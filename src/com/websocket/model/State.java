@@ -1,5 +1,6 @@
 package com.websocket.model;
 
+import java.util.Map;
 import java.util.Set;
 
 public class State {
@@ -8,12 +9,15 @@ public class State {
 	private String user;
 	// total users
 	private Set<String> users;
+	
+	private Map<String,Integer> unread;
 
-	public State(String type, String user, Set<String> users) {
+	public State(String type, String user, Set<String> users, Map<String, Integer> unread) {
 		super();
 		this.type = type;
 		this.user = user;
 		this.users = users;
+		this.unread = unread;
 	}
 
 	public String getType() {
@@ -40,4 +44,11 @@ public class State {
 		this.users = users;
 	}
 
+	public Map<String, Integer> getUnread() {
+		return unread;
+	}
+
+	public void setUnread(Map<String, Integer> unread) {
+		this.unread = unread;
+	}
 }

@@ -1,26 +1,40 @@
 package com.websocket.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.google.gson.Gson;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 public class JedisHandleMessage {
-	// 此範例key的設計為(發送者名稱:接收者名稱)，實際應採用(發送者會員編號:接收者會員編號)
+	//(sender發送者會員編號:receiver接收者會員編號)
 
 	private static JedisPool pool = JedisPoolUtil.getJedisPool();
+	private static Gson gson = new Gson();
 
+	//取得歷史訊息並把未讀改為已讀
 	public static List<String> getHistoryMsg(String sender, String receiver) {
 		String key = new StringBuilder(sender).append(":").append(receiver).toString();
 		Jedis jedis = null;
 		jedis = pool.getResource();
 		List<String> historyData = jedis.lrange(key, 0, -1);
+		List<String> list = new ArrayList<String>();//將未讀狀態改為已讀
+		for (int i = 0; i < historyData.size(); i++) {
+			ChatMessage chatMessage = gson.fromJson(historyData.get(i), ChatMessage.class);
+			chatMessage.setStatus("1");
+			String json = gson.toJson(chatMessage);
+			jedis.lset(key, i, json);
+			list.add(json);
+		}
 		jedis.close();
-		return historyData;
+		return list;
 	}
 
+	//儲存對話紀錄
 	public static void saveChatMessage(String sender, String receiver, String message) {
 		// 對雙方來說，都要各存著歷史聊天記錄
 		String senderKey = new StringBuilder(sender).append(":").append(receiver).toString();
@@ -53,5 +67,21 @@ public class JedisHandleMessage {
 		jedis.close();
 		return FriendsSet;
 	}
-
+	
+	//取得未讀數量
+	public static Integer getUnReadCount(String sender, String receiver) {
+		String key = new StringBuilder(sender).append(":").append(receiver).toString();
+		Jedis jedis = null;
+		jedis = pool.getResource();
+		Integer count = 0;
+		List<String> historyData = jedis.lrange(key, 0, -1);
+		for (int i = 0; i < historyData.size(); i++) {
+			ChatMessage chatMessage = gson.fromJson(historyData.get(i), ChatMessage.class);
+			if(chatMessage.getStatus().equals("0")) {
+				count++;
+			}
+		}
+		jedis.close();
+		return count;
+	}
 }
