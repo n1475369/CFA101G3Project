@@ -10,9 +10,9 @@ public class State {
 	// total users
 	private Set<String> users;
 	
-	private Map<String,Integer> unread;
+	private Map<String,Long> unread;
 
-	public State(String type, String user, Set<String> users, Map<String, Integer> unread) {
+	public State(String type, String user, Set<String> users, Map<String, Long> unread) {
 		super();
 		this.type = type;
 		this.user = user;
@@ -44,11 +44,11 @@ public class State {
 		this.users = users;
 	}
 
-	public Map<String, Integer> getUnread() {
+	public Map<String, Long> getUnread() {
 		return unread;
 	}
 
-	public void setUnread(Map<String, Integer> unread) {
+	public void setUnread(Map<String, Long> unread) {
 		this.unread = unread;
 	}
 }

@@ -114,7 +114,7 @@
                     var showMsg = historyData.message;
                     var li = document.createElement('li');
                     // 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
-                    historyData.sender === self ? li.className += 'me' : li.className += 'friend';
+                    historyData.sender == self ? li.className += 'me' : li.className += 'friend';
                     li.innerHTML = showMsg;
                     $('#area').append(li);
                 }
@@ -127,6 +127,13 @@
                     console.log(li);
                     document.getElementById("area").appendChild(li);
                     messagesArea.scrollTop = messagesArea.scrollHeight;
+                    var jsonObj = {
+                        "type": "clearUnRead",
+                        "sender": self,
+                        "receiver": jsonObj.sender,
+                        "message": ""
+                    };
+                    webSocket.send(JSON.stringify(jsonObj)); //如果雙方都在聊天則刪除未讀
                 } else {
                     var jsonObj = {
                         "type": "newMsg",
@@ -164,6 +171,11 @@
 
     //綁定點擊圖片觸發圖片選擇
     $('#sendImg').on('click', function() {
+        var friend = statusOutput.dataset.mem_id;
+        if (friend == "") {
+            alert("請選擇一位好友");
+            return;
+        }
         $('#ChatFile').click();
     });
 
@@ -195,7 +207,7 @@
                             "sender": self,
                             "receiver": friend,
                             "message": template,
-                            "status": 0
+                            "status": 1
                         };
                         webSocket.send(JSON.stringify(jsonObj));
                     }
@@ -222,7 +234,7 @@
                 "sender": self,
                 "receiver": friend,
                 "message": message,
-                "status": 0
+                "status": 1
             };
             webSocket.send(JSON.stringify(jsonObj));
             inputMessage.value = "";
@@ -259,7 +271,7 @@
         var row = document.getElementById("row");
         $(`#friend${friends}`).remove();
         let tmp = `<a class="column newMsg" id="friend${friends}" data-mem_id="${friends}"><img src="../../member/memImgServlet?action=headShot&mem_id=${friends}">${await getMemberName(friends)}</a>`;
-        $(row).append(tmp);
+        $(row).prepend(tmp);
     }
 
     // 註冊列表點擊事件並抓取好友名字以取得歷史訊息

@@ -38,11 +38,11 @@ public class FriendWS {
 		Set<String> userNames = JedisHandleMessage.getHistoryFriends(userName);
 		
 		/* 會員對應未讀數量 */
-		Map<String,Integer> unreadMap = new HashMap<String,Integer>();
+		Map<String,Long> unreadMap = new HashMap<String,Long>();
 		
 		/*將對應的會員及未讀數量加到unreadMap*/
 		for(String receiver:userNames) {
-			Integer count = JedisHandleMessage.getUnReadCount(userName, receiver);
+			Long count = JedisHandleMessage.getUnReadCount(userName, receiver);
 			unreadMap.put(receiver, count);
 		}
 		State stateMessage = new State("open", userName,userNames,unreadMap);
@@ -60,9 +60,8 @@ public class FriendWS {
 //			}
 //		}
 
-		String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(),
-				userName, userNames);
-		System.out.println(text);
+
+		System.out.println(sessionsMap);
 	}
 
 	@OnMessage
@@ -102,13 +101,21 @@ public class FriendWS {
 			}
 		}
 		
+		//清除未讀數量
+		else if("clearUnRead".equals(chatMessage.getType())) {
+			JedisHandleMessage.clearUnReadCount(sender, receiver);
+			System.out.println("第二部");
+			return;
+		}
+		
 		
 		Session receiverSession = sessionsMap.get(receiver);
 		if (receiverSession != null && receiverSession.isOpen()) {
 			receiverSession.getAsyncRemote().sendText(message);
-			System.out.println(message);
 			userSession.getAsyncRemote().sendText(message);
 			JedisHandleMessage.saveChatMessage(sender, receiver, message);
+			System.out.println("第三部");
+
 		}else {
 			userSession.getAsyncRemote().sendText(message);
 			JedisHandleMessage.saveChatMessage(sender, receiver, message);

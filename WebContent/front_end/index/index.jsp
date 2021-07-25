@@ -120,6 +120,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 <link rel="stylesheet" href="css/header.css">
 <link rel="stylesheet" href="css/cart.css">
 <link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/friendchat.css">
 <title>嫁給幸福｜MarryHappiness</title>
 </head>
 <style>
@@ -427,8 +428,47 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 			</div>
 		</div>
 	</div>
+
+
+	<!-- 聊天室以下開始 -->
+	    <div class="chatWrap" id="chatWrap">
+        <div class="chat-title">聊聊</div>
+        <div class="flexbox">
+            <div class="messages-block">
+                <div id="statusOutput" class="statusOutput" data-mem_id=""></div>
+                <div id="messagesArea" class="panel message-area">
+                    <ul id="area">
+                        <div class="area-msg" id="area-msg">
+                            <h3>歡迎使用聊聊</h3>
+                            <p>趕緊和一位會員聊聊天吧～</p>
+                        </div>
+                    </ul>
+                </div>
+                <div class="panel input-area">
+                    <input id="message" class="text-field" type="text" placeholder="輸入文字" onkeydown="if (event.keyCode == 13) sendMessage();" />
+                    <a href="javascript:void(0)" id="sendMessage"><i class="far fa-paper-plane"></i></a>
+                    <a href="javascript:void(0)" id="sendImg"><i class="far fa-images"></i></a>
+                    <input type="file" name="ChatFile" id="ChatFile">
+                </div>
+            </div>
+            <div id="row">
+
+            </div>
+        </div>
+        <div class="chat-close" id="chat-close">-</div>
+    </div>
+    <div class="chat-components" id="chat-components">
+        <i class="far fa-comments"></i>
+        <span>聊聊</span>
+    </div>
+	<!-- 聊天室到此為止 -->
+
+
+
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script src="js/cart.js"></script>
+	<script src="js/friendchat.js"></script>
+
 	<!-- Initialize Swiper -->
 	<script>
 		let swiper = new Swiper('.swiper-container', {
