@@ -33,5 +33,7 @@ public interface MemDAO {
 	public List<MemVO> findSellerMemberByPagination(int start,int rowsPerPage,String find_username,String find_name,String find_status,String find_shop_status,String mem_role);
 	//管理員修改賣家會員資料
 	public void updateSellerMember(MemVO memVO);
+	//更新商店資料
+	public void updateSellerShop(MemVO memVO);
 
 }

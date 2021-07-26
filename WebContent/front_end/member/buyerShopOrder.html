@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="css/buyerShopOrder.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -92,17 +91,20 @@
     <script>
         //跟資料庫請求個人頭像
         Ajaxheadshot();
+
         function Ajaxheadshot() {
             $.ajax({
                 type: "post",
                 url: "../../member/headshotBuyServlet",
-                data: { "headshot": "headshot" },
+                data: {
+                    "headshot": "headshot"
+                },
                 xhrFields: {
                     // 將回傳結果以Blob保持原本二進位的格式回傳
                     //jquery的dataType無法設定返回格式為blob需要手動修改
                     responseType: "blob"
                 },
-                success: function (result) {
+                success: function(result) {
                     let img = document.getElementsByClassName('imgdata');
                     if (result.size != "0") {
                         let url = URL.createObjectURL(result);
@@ -119,6 +121,27 @@
             });
         }
 
+
+        //profile跟資料庫請求個人資料
+        Ajaxprofile();
+
+        function Ajaxprofile() {
+            $.ajax({
+                type: "get",
+                url: "../../member/buyProfileServlet",
+                dataType: 'json',
+                success: function(result) {
+                    if (result == "0") {
+                        window.location.href = "../../front_end/index/index.jsp";
+                    } else {
+                        resultData = result;
+                        $('.user-name').html(result.name != null ? result.name : "尚未填寫");
+                    }
+                }
+            });
+        };
+
+
         let urlParams = new URLSearchParams(window.location.search);
         let action = urlParams.get("action");
 
@@ -130,7 +153,7 @@
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=getAll",
                 dataType: "json",
-                success: function (data) {
+                success: function(data) {
                     for (const key in data) {
                         let orderTmp =
                             `<li>
@@ -178,7 +201,7 @@
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=outstanding",
                 dataType: "json",
-                success: function (data) {
+                success: function(data) {
                     for (const key in data) {
                         let orderTmp =
                             `<li>
@@ -226,7 +249,7 @@
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=unshipped",
                 dataType: "json",
-                success: function (data) {
+                success: function(data) {
                     for (const key in data) {
                         let orderTmp =
                             `<li>
@@ -274,7 +297,7 @@
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=shipped",
                 dataType: "json",
-                success: function (data) {
+                success: function(data) {
                     for (const key in data) {
                         let orderTmp =
                             `<li>
@@ -322,7 +345,7 @@
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=finish",
                 dataType: "json",
-                success: function (data) {
+                success: function(data) {
                     for (const key in data) {
                         let orderTmp =
                             `<li>
@@ -374,7 +397,7 @@
                 },
                 async: false,
                 dataType: "json",
-                success: function (response) {
+                success: function(response) {
                     mem_name = response.mem_name;
                 }
             });
@@ -387,10 +410,12 @@
             $.ajax({
                 type: "post",
                 url: "../../product/ProImgSelServlet",
-                data: { "proi_pro_id": pro_id },
+                data: {
+                    "proi_pro_id": pro_id
+                },
                 dataType: "json",
                 async: false,
-                success: function (data) {
+                success: function(data) {
                     proi_id = data[0].proi_id;
                 }
             });
@@ -403,10 +428,12 @@
             $.ajax({
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=getBySpo_id",
-                data: { "spo_id": spo_id },
+                data: {
+                    "spo_id": spo_id
+                },
                 dataType: "json",
                 async: false,
-                success: function (response) {
+                success: function(response) {
                     result = response;
                 }
             });
@@ -419,10 +446,12 @@
             $.ajax({
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=getSpoVO",
-                data: { "spo_id": spo_id },
+                data: {
+                    "spo_id": spo_id
+                },
                 dataType: "json",
                 async: false,
-                success: function (data) {
+                success: function(data) {
                     spoVO = data;
                 }
             });
@@ -451,6 +480,7 @@
                 return "已取消";
             }
         }
+
         function spo_pay_status(status, spo_id) {
             //0:未付款	1:付款失敗	2:超過付款時間	3:已付款	4:退款中	5:已退款
             let spoVO = getSpoVO(spo_id);
@@ -477,6 +507,7 @@
                 return "已退款";
             }
         }
+
         function spo_cargo_status(status, spo_id) {
             //0:未發貨	1:已發貨	2:已取貨	3:已退貨
             if (status == 0) {
@@ -491,7 +522,7 @@
         }
 
         //對訂單狀態處理綁定點擊事件
-        $('#order-main').on('click', '.spo_status button', function (e) {
+        $('#order-main').on('click', '.spo_status button', function(e) {
             Swal.fire({
                 title: '您確定要取消訂單嗎?',
                 text: "取消後將無法返回唷～",
@@ -511,7 +542,7 @@
                             "spo_id": spo_id
                         },
                         dataType: "json",
-                        success: function (response) {
+                        success: function(response) {
                             if (response) {
                                 Swal.fire(
                                     '已經取消了!',
@@ -532,7 +563,7 @@
         });
 
         //綁定付款點擊事件
-        $('#order-main').on('click', '.spo_pay_status button', function (e) {
+        $('#order-main').on('click', '.spo_pay_status button', function(e) {
             let spo_id = e.currentTarget.dataset.spo_id;
             $('#spo_id').val(spo_id);
             Swal.fire({
@@ -553,7 +584,7 @@
         });
 
         //綁定確認收貨or退貨點擊事件
-        $('#order-main').on('click', '.spo_cargo_status button', function (e) {
+        $('#order-main').on('click', '.spo_cargo_status button', function(e) {
             let spo_id = e.currentTarget.dataset.spo_id;
             let action = e.currentTarget.value;
             if (action == "Receipt") {
@@ -575,7 +606,7 @@
                                 "spo_id": spo_id
                             },
                             dataType: "json",
-                            success: function (response) {
+                            success: function(response) {
                                 if (response) {
                                     Swal.fire(
                                         '確定收貨成功!',
@@ -614,7 +645,7 @@
                                 "spo_id": spo_id
                             },
                             dataType: "json",
-                            success: function (response) {
+                            success: function(response) {
                                 if (response) {
                                     Swal.fire(
                                         '已退貨成功!',
@@ -636,7 +667,7 @@
         });
 
         //綁定查看詳情
-        $('#order-main').on('click', 'a', function (e) {
+        $('#order-main').on('click', 'a', function(e) {
             let spo_id = e.currentTarget.dataset.spo_id;
             $.ajax({
                 type: "post",
@@ -646,8 +677,8 @@
                     "spo_id": spo_id
                 },
                 dataType: "json",
-                success: function (response) {
-                let tmp = `<div class="mb10"><label>訂單編號:</label><span>${response.spo_id}</span></div>
+                success: function(response) {
+                    let tmp = `<div class="mb10"><label>訂單編號:</label><span>${response.spo_id}</span></div>
                 <div class="mb10"><label>訂單成立時間:</label><span>${new Date(response.spo_time).toLocaleString()}</span></div>
                 <div class="mb10"><label>訂單金額:</label><span>${response.spo_payment}</span></div>
                 <div class="mb10"><label>運費:</label><span>${response.spo_postage}</span></div>
@@ -657,19 +688,18 @@
                 <div class="mb10"><label>訂單狀態:</label><span>${spo_status(response.spo_status,response.spo_id)}</span></div>
                 <div class="mb10"><label>付款狀態:</label><span>${spo_pay_status(response.spo_pay_status,response.spo_id)}</span></div>
                 <div class="mb10"><label>發貨狀態:</label><span>${spo_cargo_status(response.spo_cargo_status,response.spo_id)}</span></div>`;
-                $('#spo-wrap').html(tmp);
+                    $('#spo-wrap').html(tmp);
                 }
             });
             $('.popup-wrap').fadeIn();
         })
-        
+
         //點擊查看詳情外的div可關閉視窗
-        $('.popup-wrap').on('click',function(e){
-            if(e.currentTarget == e.target){
+        $('.popup-wrap').on('click', function(e) {
+            if (e.currentTarget == e.target) {
                 $('.popup-wrap').fadeOut();
             }
         })
-    
     </script>
 </body>
 

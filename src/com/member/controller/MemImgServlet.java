@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.member.model.MemService;
 import com.member.model.MemVO;
@@ -22,6 +23,8 @@ public class MemImgServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
+		
+		//取得大頭照
 		if("headShot".equals(action)) {
 			String mem_idStr = request.getParameter("mem_id");
 			if(mem_idStr != null) {
@@ -42,6 +45,54 @@ public class MemImgServlet extends HttpServlet {
 				}else {
 					ServletOutputStream out = response.getOutputStream();
 					out.write(headshot);
+					out.close();
+				}
+			}
+		}
+		
+		//取得會員logo圖片
+		if("logoBlob".equals(action)) {
+			HttpSession session = request.getSession();
+			MemVO memVO = (MemVO)session.getAttribute("user");
+			if(memVO != null) {
+				byte[] shop_logo = memVO.getMem_shop_logo();
+				if(shop_logo == null) {
+					String filePath = getServletContext().getRealPath("/front_end/member/images/logo.jpg");
+					File file = new File(filePath);
+					InputStream in = new FileInputStream(file);
+					byte[] buf = new byte[in.available()];
+					in.read(buf);
+					in.close();
+					ServletOutputStream out = response.getOutputStream();
+					out.write(buf);
+					out.close();
+				}else {
+					ServletOutputStream out = response.getOutputStream();
+					out.write(shop_logo);
+					out.close();
+				}
+			}
+		}
+		
+		//取得會員banner圖片
+		if("bannerBlob".equals(action)) {
+			HttpSession session = request.getSession();
+			MemVO memVO = (MemVO)session.getAttribute("user");
+			if(memVO != null) {
+				byte[] shop_banner = memVO.getMem_shop_banner();
+				if(shop_banner == null) {
+					String filePath = getServletContext().getRealPath("/front_end/member/images/banner.jpg");
+					File file = new File(filePath);
+					InputStream in = new FileInputStream(file);
+					byte[] buf = new byte[in.available()];
+					in.read(buf);
+					in.close();
+					ServletOutputStream out = response.getOutputStream();
+					out.write(buf);
+					out.close();
+				}else {
+					ServletOutputStream out = response.getOutputStream();
+					out.write(shop_banner);
 					out.close();
 				}
 			}

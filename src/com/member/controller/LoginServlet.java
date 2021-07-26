@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 		if("logout".equals(action)) {
 			HttpSession session = request.getSession();
 			session.invalidate();
-			response.sendRedirect(request.getContextPath()+"/index.html");
+			response.sendRedirect(request.getContextPath()+"/front_end/index/index.jsp");
 		}
 	}
 

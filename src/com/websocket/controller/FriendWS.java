@@ -104,23 +104,21 @@ public class FriendWS {
 		//清除未讀數量
 		else if("clearUnRead".equals(chatMessage.getType())) {
 			JedisHandleMessage.clearUnReadCount(sender, receiver);
-			System.out.println("第二部");
-			return;
+				return;
 		}
-		
+
 		
 		Session receiverSession = sessionsMap.get(receiver);
 		if (receiverSession != null && receiverSession.isOpen()) {
+			JedisHandleMessage.saveChatMessage(sender, receiver, message);
 			receiverSession.getAsyncRemote().sendText(message);
 			userSession.getAsyncRemote().sendText(message);
-			JedisHandleMessage.saveChatMessage(sender, receiver, message);
-			System.out.println("第三部");
-
 		}else {
 			userSession.getAsyncRemote().sendText(message);
 			JedisHandleMessage.saveChatMessage(sender, receiver, message);
 		}
-		System.out.println("Message received: " + message);
+		
+		
 	}
 
 	@OnError

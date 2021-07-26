@@ -103,10 +103,8 @@ public class JedisHandleMessage {
 		jedis = pool.getResource();
 		if (jedis.exists("unread"+sender+","+receiver)) {
 			jedis.del("unread"+sender+","+receiver);
-			System.out.println("進來了"+sender+":"+receiver);
-
+			System.out.println("已清除"+sender+":"+receiver);
 		}
-		System.out.println("清除了"+sender+":"+receiver);
 		jedis.close();
 	}
 }

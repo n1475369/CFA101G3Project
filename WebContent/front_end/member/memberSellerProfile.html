@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/cssreset.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/memberSellerProfile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <title>會員中心｜MarryHappiness</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="top-container">
+            <a href="#" class="logo"><img src="images/MHlogo_04.svg" alt=""></a>
+            <div class="user">
+                <div class="headshot">
+                    <img class="imgdata" src="" alt="">
+                </div>
+                <div class="user-name"></div>
+                <ul class="user-menu">
+                    <li><a href="memberSellerProfile.html"><i class="fas fa-home"></i> 會員系統</a></li>
+                    <li><a href="../../member/loginServlet?action=logout"><i class="fas fa-sign-out-alt"></i> 登出</a></li>
+                </ul>
+            </div>
+        </div>
+        <ul class="nav">
+            <li><a href="#">拍婚紗</a></li>
+            <li><a href="#">婚禮場地</a></li>
+            <li><a href="#">婚禮週邊</a></li>
+            <li><a href="#">找靈感</a></li>
+        </ul>
+    </div>
+    <div class="wrap">
+        <div class="side-bar">
+            <img class="imgdata" src="" alt="">
+            <div class="user-name s-user-name"></div>
+            <div class="user-hr"><i class="fas fa-heart"></i></div>
+            <ul class="menu">
+                <li><a href="memberSellerProfile.html?action=profile" id="profile"><i class="fas fa-user"></i>個人資料</a></li>
+                <li><a href="memberSellerProfile.html?action=setting" id="setting"><i class="fas fa-file-invoice"></i>帳號設定</a></li>
+                <li><a href="memberSellerProfile.html"><i class="fas fa-shopping-cart"></i>店家資料</a></li>
+            </ul>
+        </div>
+        <div class="content" id="content">
+            <h2>店家資料</h2>
+            <div class="shop-form">
+                <form action="" id="shop-form" name="shop-form">
+                    <h3>編輯商店資料</h3>
+                    <div id="shop-prompt"></div>
+                    <label for="shop-name">商店名稱</label><br>
+                    <input type="text" name="shop-name" id="shop-name" class="shop-name" maxlength="30">
+                    <div id="shop-name-prompt"></div>
+                    <label for="shop-content-form">商店介紹</label><br>
+                    <div id="shop-content-form" class="shop-content-form" contenteditable="true"></div>
+                    <div id="shop-content-prompt"></div>
+                    <label for="shop-logo-form">商店Logo</label><a href="javascript:void(0)" id="edit-logo"><i class="far fa-edit"></i></a><br>
+                    <input type="file" name="file-logo" id="file-logo" accept="image/*">
+                    <div id="shop-logo-form"></div>
+
+                    <label for="shop-banner-form">商店Banner</label><a href="javascript:void(0)" id="edit-banner"><i class="far fa-edit"></i></a><br>
+                    <input type="file" name="file-banner" id="file-banner" accept="image/*">
+                    <div id="shop-banner-form"></div>
+
+                    <input type="button" value="上傳修改" id="shop-edit-submit" class="edit-submit">
+
+
+                    <div class="popup-wrap-logo" id="popup-wrap-logo">
+                        <div class="crop-logo" id="crop-logo">
+                            <div id="upload-demo-logo"></div>
+                            <input type="button" value="確定" id="upload-result-logo" class="upload-result-logo">
+                            <input type="button" value="取消" id="crop-cancel-logo" class="crop-cancel-logo">
+                        </div>
+                    </div>
+
+                    <div class="popup-wrap-banner" id="popup-wrap-banner">
+                        <div class="crop-banner" id="crop-banner">
+                            <div id="upload-demo-banner"></div>
+                            <input type="button" value="確定" id="upload-result-banner" class="upload-result-banner">
+                            <input type="button" value="取消" id="crop-cancel-banner" class="crop-cancel-banner">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/memberSetting.js"></script>
+    <script src="js/jquery.twzipcode.js"></script>
+    <script src="js/memberSellerProfile.js"></script>
+    <script>
+        let logoBlob; //商店logo照片
+        let bannerBlob; //商店banner照片
+
+        //取得商店logo照片
+        function AjaxLogo() {
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: "../../member/memImgServlet",
+                    type: "post",
+                    data: {
+                        "action": "logoBlob",
+                    },
+                    xhrFields: {
+                        responseType: "blob"
+                    },
+                    success: function(res) {
+                        if (res.size != 0) {
+                            resolve(res);
+                        }
+                    },
+                    error: function(res) {
+                        reject("error");
+                    }
+                });
+            });
+        }
+        //取得商店banner照片
+        function AjaxBanner() {
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: "../../member/memImgServlet",
+                    type: "post",
+                    data: {
+                        "action": "bannerBlob",
+                    },
+                    xhrFields: {
+                        responseType: "blob"
+                    },
+                    success: function(res) {
+                        if (res.size != 0) {
+                            resolve(res);
+                        }
+                    },
+                    error: function(res) {
+                        reject("error");
+                    }
+                });
+            });
+        }
+
+        //取得商店logo和banner的blob後新增img物件顯示
+        getLogoAndBanner();
+        async function getLogoAndBanner() {
+            logoBlob = await AjaxLogo();
+            bannerBlob = await AjaxBanner();
+            let logoUrl = URL.createObjectURL(logoBlob);
+            let bannerUrl = URL.createObjectURL(bannerBlob);
+            let logoImg = new Image()
+            let bannerImg = new Image()
+            logoImg.src = logoUrl;
+            logoImg.width = 200;
+            bannerImg.src = bannerUrl;
+            bannerImg.width = 500;
+            $('#shop-logo-form').append(logoImg);
+            $('#shop-banner-form').append(bannerImg);
+        };
+
+        //取得商店資料
+        getSellerShop();
+
+        function getSellerShop() {
+            let shopForm = new FormData();
+            shopForm.append("action", "getSellerShop");
+            $.ajax({
+                type: "post",
+                url: "../../member/sellerProfileServlet",
+                data: shopForm,
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function(response) {
+                    $('#shop-name').val(response.mem_shop_name);
+                    $('#shop-content-form').html(response.mem_shop_content);
+                },
+                error: function(response) {
+                    alert("修改失敗,系統發生異常");
+                }
+            });
+        }
+
+        //點擊logo圖示開啟file物件
+        $('#content').on('click', '#edit-logo', function() {
+            $('#file-logo').click();
+        });
+
+        //點擊banner圖示開啟file物件
+        $('#content').on('click', '#edit-banner', function() {
+            $('#file-banner').click();
+        });
+
+        //點擊logo裁切畫面的取消關閉面板
+        $('#content').on('click', '#crop-cancel-logo', function() {
+            $('#popup-wrap-logo').fadeOut();
+            $('#crop-logo').fadeOut();
+        })
+
+        //點擊banner裁切畫面的取消關閉面板
+        $('#content').on('click', '#crop-cancel-banner', function() {
+            $('#popup-wrap-banner').fadeOut();
+            $('#crop-banner').fadeOut();
+        })
+
+
+        //讀取Logo上傳圖片
+        function readFileLogo(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadLogo.croppie('bind', {
+                        url: e.target.result
+                    });
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        //讀取Banner上傳圖片
+        function readFileBanner(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadBanner.croppie('bind', {
+                        url: e.target.result
+                    });
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        //設定Logo-圖片裁切初始值
+        let uploadLogo = $('#upload-demo-logo').croppie({
+            viewport: {
+                width: 200,
+                height: 200,
+            },
+            showZoomer: false,
+            boundary: {
+                width: 300,
+                height: 300
+            }
+        });
+
+        //設定Banner-圖片裁切初始值
+        let uploadBanner = $('#upload-demo-banner').croppie({
+            viewport: {
+                width: 500,
+                height: 300,
+            },
+            showZoomer: false,
+            boundary: {
+                width: 600,
+                height: 400
+            }
+        });
+
+        //點擊logo裁切畫面的確定將圖片append到logo展示div
+        $('#content').on('click', '#upload-result-logo', function() {
+            $('#popup-wrap-logo').fadeOut();
+            $('#crop-logo').fadeOut();
+            uploadLogo.croppie('result', 'blob').then(function(blob) {
+                let url = URL.createObjectURL(blob);
+                let image = new Image();
+                image.src = url;
+                $('#shop-logo-form').html("");
+                $('#shop-logo-form').append(image);
+                // shopForm.append("logoBlob", blob);
+                logoBlob = blob;
+            });
+        });
+
+        //點擊banner裁切畫面的確定將圖片append到banner展示div
+        $('#content').on('click', '#upload-result-banner', function() {
+            $('#popup-wrap-banner').fadeOut();
+            $('#crop-banner').fadeOut();
+            uploadBanner.croppie('result', 'blob').then(function(blob) {
+                let url = URL.createObjectURL(blob);
+                let image = new Image();
+                image.src = url;
+                $('#shop-banner-form').html("");
+                $('#shop-banner-form').append(image);
+                // shopForm.append("bannerBlob", blob);
+                bannerBlob = blob;
+            });
+        });
+
+        //logo選擇圖片後綁定事件，開啟裁切畫面並讀取圖片
+        $('#content').on('change', '#file-logo', function() {
+            $('#popup-wrap-logo').fadeIn();
+            $('#crop-logo').fadeIn();
+            readFileLogo(this);
+        });
+
+        //banner選擇圖片後綁定事件，開啟裁切畫面並讀取圖片
+        $('#content').on('change', '#file-banner', function() {
+            $('#popup-wrap-banner').fadeIn();
+            $('#crop-banner').fadeIn();
+            readFileBanner(this);
+        });
+
+        //限制商店介紹字數
+        $('#content').on('keydown', '#shop-content-form', function(e) {
+            let KeyID = e.keyCode;
+            if (KeyID != 46 && KeyID != 8) {
+                if (this.innerText.length > 240) {
+                    e.preventDefault();
+                }
+            }
+        });
+
+        //送出表單
+        $('#content').on('click', '#shop-edit-submit', function() {
+            if (checkShopName() && checkShopContent()) {
+                let shopForm = new FormData();
+                let shopContentForm = $('#shop-content-form').html();
+                let shopName = $('#shop-name').val();
+                shopForm.append("action", "update");
+                shopForm.append("shopContentForm", shopContentForm);
+                shopForm.append("shopName", shopName);
+                shopForm.append("logoBlob", logoBlob);
+                shopForm.append("bannerBlob", bannerBlob);
+
+                $.ajax({
+                    type: "post",
+                    url: "../../member/sellerProfileServlet",
+                    data: shopForm,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response) {
+                            alert("修改成功");
+                            window.location.reload();
+                        } else {
+                            alert("修改失敗，請重新檢查表單內容");
+                        }
+                    },
+                    error: function(response) {
+                        alert("修改失敗,系統發生異常");
+                    }
+                });
+            } else {
+                alert("內容尚未填寫完整")
+            }
+        });
+
+
+        $('#content').on('input', '#shop-name', checkShopName)
+            //確認商店名稱是否有值
+        function checkShopName() {
+            let shopName = $('#shop-name').val();
+            if (shopName == "") {
+                $('#shop-name-prompt').text("請輸入內容");
+                $('#shop-name-prompt').css('color', 'red');
+                $('#shop-name-prompt').css('font-size', '10px');
+                $('#shop-name').css('border', '2px solid red');
+                $('#shop-name').css('box-shadow', '0 0 0 2px #f1a7c0');
+                return false;
+            } else {
+                $('#shop-name-prompt').text("");
+                $('#shop-name').css('border', '1px solid #27da80')
+                $('#shop-name').css('box-shadow', '');
+                return true;
+            }
+        }
+
+        $('#content').on('input', '#shop-content-form', checkShopContent)
+            //確認商店內容是否有值
+        function checkShopContent() {
+            let shopContent = $('#shop-content-form').html();
+            if (shopContent == "") {
+                $('#shop-content-prompt').text("請輸入內容");
+                $('#shop-content-prompt').css('color', 'red');
+                $('#shop-content-prompt').css('font-size', '10px');
+                $('#shop-content-form').css('border', '2px solid red');
+                $('#shop-content-form').css('box-shadow', '0 0 0 2px #f1a7c0');
+                return false;
+            } else {
+                $('#shop-content-prompt').text("");
+                $('#shop-content-form').css('border', '1px solid #27da80')
+                $('#shop-content-form').css('box-shadow', '');
+                return true;
+            }
+        }
+    </script>
+</body>
+
+</html>

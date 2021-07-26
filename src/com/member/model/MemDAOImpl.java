@@ -26,6 +26,7 @@ public class MemDAOImpl implements MemDAO{
 	private static final String GET_ALL_BUYMEMBER = "SELECT * FROM member WHERE mem_role = 10";
 	private static final String UPDATE_BUYMEMBER = "UPDATE member SET mem_name = ?,mem_phone = ?,mem_status = ? WHERE mem_id = ?";
 	private static final String UPDATE_SELLERMEMBER = "UPDATE member SET mem_name = ?,mem_phone = ?,mem_status = ?,mem_shop_status = ?,mem_role = ? WHERE mem_id = ?";
+	private static final String UPDATE_SELLERSHOP = "UPDATE member SET mem_shop_name = ?,mem_shop_content = ?,mem_shop_logo = ?,mem_shop_banner = ? WHERE mem_id = ?";
 
 	
 	private static DataSource ds = null;
@@ -732,6 +733,43 @@ public class MemDAOImpl implements MemDAO{
 				}
 			}
 		}
+	}
+	
+	
+	//修改商店資料
+	@Override
+	public void updateSellerShop(MemVO memVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_SELLERSHOP);
+			pstmt.setString(1, memVO.getMem_shop_name());
+			pstmt.setString(2, memVO.getMem_shop_content());
+			pstmt.setBytes(3, memVO.getMem_shop_logo());
+			pstmt.setBytes(4, memVO.getMem_shop_banner());
+			pstmt.setInt(5, memVO.getMem_id());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			if(pstmt !=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 }
 

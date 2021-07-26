@@ -108,6 +108,17 @@ public class MemService {
 		memVO.setMem_role(mem_role);
 		dao.updateSellerMember(memVO);
 	}
+	
+	//更新商店資料
+	public void updateSellerShop(String mem_shop_name,String mem_shop_content,byte[] mem_shop_logo,byte[] mem_shop_banner,Integer mem_id) {
+		MemVO memVO = new MemVO();
+		memVO.setMem_shop_name(mem_shop_name);
+		memVO.setMem_shop_content(mem_shop_content);
+		memVO.setMem_shop_logo(mem_shop_logo);
+		memVO.setMem_shop_banner(mem_shop_banner);
+		memVO.setMem_id(mem_id);
+		dao.updateSellerShop(memVO);
+	}
 
 
 }
