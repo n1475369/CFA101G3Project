@@ -21,6 +21,7 @@ public class ProImgOutServlet extends HttpServlet {
 		
 		try {
 			proi_id = Integer.parseInt(request.getParameter("proi_id"));
+//			System.out.println(proi_id);
 			ProImgService service = new ProImgService();
 			ProImgVO imgVO = service.findByPrimaryKey(proi_id);
 			if(imgVO != null) {

@@ -672,20 +672,20 @@
         }
 
         //會員編號找到會員名稱
-         function getMemberName(mem_id) {
+        function getMemberName(mem_id){
             let mem_name = "";
             $.ajax({
                 type: "post",
-                url: "../../member/memServlet",
+                url: "../../member/memberServlet",
                 data: {
-                    "action": "getMemberVO",
-                    "mem_id": mem_id
+                    "action":"buyMemberGetOne",
+                    "mem_id":mem_id
                 },
-                async: false,
+                async:false,
                 dataType: "json",
                 success: function (response) {
+                    console.log(response);
                     mem_name = response.mem_name;
-                    console.log(mem_name);
                 }
             });
             return mem_name;

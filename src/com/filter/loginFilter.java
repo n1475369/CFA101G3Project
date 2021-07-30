@@ -29,7 +29,7 @@ public class loginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
 		String uri = req.getRequestURI();
-		if(uri.contains("memberBuyProfile.html")||uri.contains("buyerShopOrder.html")) {
+		if(uri.contains("memberBuyProfile.html")||uri.contains("memberSellerProfile.html")||uri.contains("buyerShopOrder.html")) {
 			HttpSession session = req.getSession();
 			Object user = session.getAttribute("user");
 			if(user != null) {

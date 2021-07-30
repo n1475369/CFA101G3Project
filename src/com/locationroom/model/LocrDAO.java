@@ -245,69 +245,82 @@ public class LocrDAO implements LocrDAO_interface {
 		}
 		return LocrVO;
 	}
-//	public List<LocrVO> GET_SMEM_LOCR(Integer LOCR_SMEM_ID) {
-//		LocrVO LocrVO = null;
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//
-//		try {
-//
-//			con = ds.getConnection();
-//			pstmt = con.prepareStatement(GET_SMEM_LOCR);
-//			pstmt.setInt(1,LOCR_SMEM_ID);
-//			rs = pstmt.executeQuery();
-//			
-//
-//			while (rs.next()) {
-//				// empVo 也稱為 Domain objects
-//				LocrVO =new LocrVO();
-//				LocrVO.setLOCR_ID(rs.getInt("LOCR_ID"));
-//				LocrVO.setLOCR_SMEM_ID(rs.getInt("LOCR_SMEM_ID"));
-//				LocrVO.setLOCR_NAME(rs.getString("LOCR_NAME"));
-//				LocrVO.setLOCR_MAX_TABLE(rs.getInt("LOCR_MAX_TABLE"));
-//				LocrVO.setLOCR_MIN_TABLE(rs.getInt("LOCR_MIN_TABLE"));
-//				LocrVO.setLOCR_MAIN_TABLE(rs.getInt("LOCR_MAIN_TABLE"));
-//				LocrVO.setLOCR_GUEST_TABLE(rs.getInt("LOCR_GUEST_TABLE"));
-//				LocrVO.setLOCR_FLOOR(rs.getInt("LOCR_FLOOR"));
-//				LocrVO.setLOCR_CONTENT(rs.getString("LOCR_CONTENT"));
-//				LocrVO.setLOCR_STATUS(rs.getInt("LOCR_STATUS"));
-//			
-//				
-//					
-//			}
-//
-//			// Handle any driver errors
-//		} catch (SQLException se) {
-//			se.printStackTrace();
-//			throw new RuntimeException("A database error occured. "
-//					+ se.getMessage());
-//			// Clean up JDBC resources
-//		} finally {
-//			if (rs != null) {
-//				try {
-//					rs.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (Exception e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//		}
-//		return LocrVO;
-//	}
+	//sql搜尋廳房名
+	public List<LocrVO> findbysqlList(String locr_name) {
+		
+		java.lang.String sql = "select * from LOCATION_ROOM where 1=1 ";
+		StringBuilder sb = new StringBuilder();
+		sb.append(sql);
+		if(locr_name != null) {
+			sb.append(" and LOCR_NAME like '%"+locr_name+"%'");
+		}
+//		sb.append(" limit ?,?");
+		sql = sb.toString();
+		
+		
+		
+		List<LocrVO> list = new ArrayList<LocrVO>();
+		LocrVO LocrVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+
+			while (rs.next()) {
+				// empVo 也稱為 Domain objects
+				LocrVO =new LocrVO();
+				LocrVO.setLOCR_ID(rs.getInt("LOCR_ID"));
+				LocrVO.setLOCR_SMEM_ID(rs.getInt("LOCR_SMEM_ID"));
+				LocrVO.setLOCR_NAME(rs.getString("LOCR_NAME"));
+				LocrVO.setLOCR_MAX_TABLE(rs.getInt("LOCR_MAX_TABLE"));
+				LocrVO.setLOCR_MIN_TABLE(rs.getInt("LOCR_MIN_TABLE"));
+				LocrVO.setLOCR_MAIN_TABLE(rs.getInt("LOCR_MAIN_TABLE"));
+				LocrVO.setLOCR_GUEST_TABLE(rs.getInt("LOCR_GUEST_TABLE"));
+				LocrVO.setLOCR_FLOOR(rs.getInt("LOCR_FLOOR"));
+				LocrVO.setLOCR_CONTENT(rs.getString("LOCR_CONTENT"));
+				LocrVO.setLOCR_STATUS(rs.getInt("LOCR_STATUS"));
+			
+				list.add(LocrVO);
+					
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 	@Override
 	public List<LocrVO> getAll() {
 		// TODO Auto-generated method stub
@@ -485,5 +498,11 @@ public class LocrDAO implements LocrDAO_interface {
 			}
 		}
 		return MemVO;
+	}
+
+	@Override
+	public MemVO getBmem(Integer MEM_ID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

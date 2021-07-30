@@ -356,6 +356,7 @@ small {
     left: 0px;
     content: '';
     background: rgba(0, 0, 0, 0.85);
+    z-index: 1;
 }
 
 .edit-password {

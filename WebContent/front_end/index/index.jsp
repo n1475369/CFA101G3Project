@@ -28,11 +28,11 @@ try {
 	e.printStackTrace();
 }
 JdbcTemplate template = new JdbcTemplate(ds);
-String prdSql = "select * from product order by pro_id desc limit 0,6";//獲取最新商品
-String worSql = "select * from work_photo order by wor_id desc limit 0,6";//獲取最新婚紗作品
-String locSql = "select * from location_room order by locr_id desc limit 0,6";//獲取最新婚禮場地
-String postSql = "select * from post order by post_id desc limit 0,6";//獲取最新文章
-String mesSql = "select * from message";//取得所有留言
+String prdSql = "select * from PRODUCT order by pro_id desc limit 0,6";//獲取最新商品
+String worSql = "select * from WORK_PHOTO order by wor_id desc limit 0,6";//獲取最新婚紗作品
+String locSql = "select * from LOCATION_ROOM order by locr_id desc limit 0,6";//獲取最新婚禮場地
+String postSql = "select * from POST order by post_id desc limit 0,6";//獲取最新文章
+String mesSql = "select * from MESSAGE";//取得所有留言
 
 List<ProVO> proList = template.query(prdSql, new BeanPropertyRowMapper(ProVO.class));
 List<WorVO> worList = template.query(worSql, new BeanPropertyRowMapper(WorVO.class));
@@ -50,8 +50,11 @@ pageContext.setAttribute("postList",postList);//將文章list存入scope
 ProImgService proImgSvc = new ProImgService();
 List<ProImgVO> proImgList = new ArrayList<ProImgVO>();
 for (ProVO proVO : proList) {
-	ProImgVO proImgVO = proImgSvc.findByForeignKey(proVO.getPro_id()).get(0);
-	proImgList.add(proImgVO);
+	 List<ProImgVO> proImgListByFk = proImgSvc.findByForeignKey(proVO.getPro_id());
+		if(proImgListByFk.size() != 0){
+			ProImgVO proImgVO = proImgListByFk.get(0);
+			proImgList.add(proImgVO);
+		}
 }
 pageContext.setAttribute("proImgList", proImgList);//將商品照片存入scope
 
@@ -59,8 +62,11 @@ pageContext.setAttribute("proImgList", proImgList);//將商品照片存入scope
 WedService wedSvc = new WedService();
 List<WedVO> wedImgList = new ArrayList<WedVO>();
 for (WorVO worVO : worList) {
-	WedVO wedVO = wedSvc.findByForeignKey(worVO.getWor_id()).get(0);
-	wedImgList.add(wedVO);
+	List<WedVO> wedImgListByFK = wedSvc.findByForeignKey(worVO.getWor_id());
+	if(wedImgListByFK.size() != 0){
+		WedVO wedVO = wedImgListByFK.get(0);
+		wedImgList.add(wedVO);
+	}
 }
 pageContext.setAttribute("wedImgList", wedImgList);//將婚紗照片存入scope
 
@@ -68,8 +74,11 @@ pageContext.setAttribute("wedImgList", wedImgList);//將婚紗照片存入scope
 LociService lociSvc = new LociService();
 List<LociVO> lociImgList = new ArrayList<LociVO>();
 for (LocrVO locrVO : locrList) {
-	LociVO lociVO = lociSvc.findByForeignKey(locrVO.getLOCR_ID()).get(0);
-	lociImgList.add(lociVO);
+	List<LociVO> lociImgListByFK = lociSvc.findByForeignKey(locrVO.getLOCR_ID());
+	if(lociImgListByFK.size() != 0){
+		LociVO lociVO = lociImgListByFK.get(0);
+		lociImgList.add(lociVO);
+	}
 }
 pageContext.setAttribute("lociImgList", lociImgList);//將廳房照片存入scope
 
@@ -111,6 +120,8 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 	crossorigin="anonymous"></script>
 <!-- SWEET -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- 購物車 -->
+<script src="../product/js/newCart.js"></script>
 <!-- SWiper -->
 <link rel="stylesheet"
 	href="https://unpkg.com/swiper/swiper-bundle.min.css">
@@ -118,7 +129,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 <link rel="stylesheet" href="css/all.css">
 <link rel="stylesheet" href="css/cssreset.css">
 <link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/cart.css">
+<link rel="stylesheet" href="../product/css/newCart.css">
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/friendchat.css">
 <title>嫁給幸福｜MarryHappiness</title>
@@ -128,6 +139,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 	width: 100%;
 	height: 100%;
 	padding: 20px;
+	z-index: 0;
 }
 
 .swiper-slide {
@@ -158,13 +170,11 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 			<ul>
 				<!-- 購物車圖片Icon -->
 				<li><a href="#">首頁</a></li>
-				<li><a href="/CFA101G3/front_end/member/login.html"><i
+				<li><a href="../member/login.html"><i
 						class="fas fa-sign-out-alt"></i>登入</a></li>
-				<li><a href="/CFA101G3/front_end/member/memberBuyProfile.html"><i
+				<li><a href="../../member/checkServlet"><i
 						class="fas fa-home"></i> 會員系統</a></li>
-				<li class="headcart"><a href="javascript:void(0)"
-					data-bs-toggle="modal" data-bs-target="#exampleModal"
-					id="cartModal"> <i class="fas fa-shopping-cart" id="cartIcon"></i></a></li>
+				<li class="headcart"><a href="javascript:void(0)" id="cartModal"> <i class="fas fa-shopping-cart" id="cartIcon"></i></a></li>
 			</ul>
 		</div>
 
@@ -173,58 +183,15 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 		<ul class="nav2">
 			<li><a href="#">婚禮攝影<br>Photography
 			</a></li>
-			<li><a href="#">婚禮場地<br>Location
+			<li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
 			</a></li>
 			<li><a href="#" class="logo"><img src="images/MHlogo_01.svg"></a></li>
-			<li><a href="ProductMain.html">婚禮週邊<br>Product
+			<li><a href="../product/ProductMain.html">婚禮週邊<br>Product
 			</a></li>
 			<li><a href="#">專欄討論<br>Post
 			</a></li>
 		</ul>
 	</header>
-
-	<!-- 購物車頁面 -->
-	<div class="modal fade" id="exampleModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">
-						購物車<img src="images/MHlogo_04.svg" alt="">
-					</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">商品資訊</th>
-								<th scope="col">商品名稱</th>
-								<th scope="col">價格</th>
-								<th scope="col">數量</th>
-								<th scope="col">小計</th>
-								<th scope="col">操作</th>
-							</tr>
-						</thead>
-						<tbody id="cart"></tbody>
-					</table>
-					<div id="total-list" class="total-list">
-						<h5 class="site-color">合計金額</h5>
-						<h5 class="site-color">
-							$<span id="total"></span>
-						</h5>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary" id="checkout">結帳</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
 
 	<!-- Swiper -->
 	<div class="swiper-container">
@@ -293,7 +260,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 							<h2>婚禮週邊</h2>
 							<p>新娘最愛的婚禮小物</p>
 						</div>
-						<a href="">
+						<a href="<%=request.getContextPath()%>/front_end/product/ProductMain.html">
 							<div class="product-more">看更多小物</div>
 						</a>
 					</div>
@@ -301,7 +268,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 						<div class="row">
 							<c:forEach var="proVO" items="${proList}" begin="0" end="1">
 								<div class="pro-box col">
-									<a href=""> <c:forEach var="proImgVO" items="${proImgList}">
+									<a href="<%=request.getContextPath()%>/front_end/product/ProductSingle.html?pro_id=${proVO.pro_id}"> <c:forEach var="proImgVO" items="${proImgList}">
 											<c:if test="${proImgVO.proi_pro_id==proVO.pro_id}">
 												<img
 													src="<%=request.getContextPath()%>/product/ProImgOutServlet?proi_id=${proImgVO.proi_id}">
@@ -315,7 +282,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 						<div class="row">
 							<c:forEach var="proVO" items="${proList}" begin="2" end="3">
 								<div class="pro-box col">
-									<a href=""> <c:forEach var="proImgVO" items="${proImgList}">
+									<a href="<%=request.getContextPath()%>/front_end/product/ProductSingle.html?pro_id=${proVO.pro_id}"> <c:forEach var="proImgVO" items="${proImgList}">
 											<c:if test="${proImgVO.proi_pro_id==proVO.pro_id}">
 												<img
 													src="<%=request.getContextPath()%>/product/ProImgOutServlet?proi_id=${proImgVO.proi_id}">
@@ -329,7 +296,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 						<div class="row">
 							<c:forEach var="proVO" items="${proList}" begin="4" end="5">
 								<div class="pro-box col">
-									<a href=""> <c:forEach var="proImgVO" items="${proImgList}">
+									<a href="<%=request.getContextPath()%>/front_end/product/ProductSingle.html?pro_id=${proVO.pro_id}"> <c:forEach var="proImgVO" items="${proImgList}">
 											<c:if test="${proImgVO.proi_pro_id==proVO.pro_id}">
 												<img
 													src="<%=request.getContextPath()%>/product/ProImgOutServlet?proi_id=${proImgVO.proi_id}">
@@ -429,44 +396,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 		</div>
 	</div>
 
-
-	<!-- 聊天室以下開始 -->
-	    <div class="chatWrap" id="chatWrap">
-        <div class="chat-title">聊聊</div>
-        <div class="flexbox">
-            <div class="messages-block">
-                <div id="statusOutput" class="statusOutput" data-mem_id=""></div>
-                <div id="messagesArea" class="panel message-area">
-                    <ul id="area">
-                        <div class="area-msg" id="area-msg">
-                            <h3>歡迎使用聊聊</h3>
-                            <p>趕緊和一位會員聊聊天吧～</p>
-                        </div>
-                    </ul>
-                </div>
-                <div class="panel input-area">
-                    <input id="message" class="text-field" type="text" placeholder="輸入文字" onkeydown="if (event.keyCode == 13) sendMessage();" />
-                    <a href="javascript:void(0)" id="sendMessage"><i class="far fa-paper-plane"></i></a>
-                    <a href="javascript:void(0)" id="sendImg"><i class="far fa-images"></i></a>
-                    <input type="file" name="ChatFile" id="ChatFile">
-                </div>
-            </div>
-            <div id="row">
-
-            </div>
-        </div>
-        <div class="chat-close" id="chat-close">-</div>
-    </div>
-    <div class="chat-components" id="chat-components">
-        <i class="far fa-comments"></i>
-        <span>聊聊</span>
-    </div>
-	<!-- 聊天室到此為止 -->
-
-
-
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-	<script src="js/cart.js"></script>
 	<script src="js/friendchat.js"></script>
 
 	<!-- Initialize Swiper -->

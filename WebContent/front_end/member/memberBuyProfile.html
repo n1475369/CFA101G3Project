@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,54 +8,71 @@
     <link rel="stylesheet" href="css/cssreset.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/memberBuyProfile.css">
+    <link rel="stylesheet" href="css/newCart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/newCart.js"></script>
     <title>會員中心｜MarryHappiness</title>
 </head>
+
 <body>
-    <div class="header">
-        <div class="top-container">
-            <a href="#" class="logo"><img src="images/MHlogo_04.svg" alt=""></a>
-            <div class="user">
-                <div class="headshot">
-                    <img class="imgdata" src="" alt="">
-                </div>
-                <div class="user-name"></div>
-                <ul class="user-menu">
-                    <li><a href="memberBuyProfile.html"><i class="fas fa-home"></i> 會員系統</a></li>
-                    <li><a href="../../member/loginServlet?action=logout"><i class="fas fa-sign-out-alt"></i> 登出</a></li>
-                </ul>
-            </div>
+    <!--大頭-->
+    <header>
+        <div class="top">
+            <ul>
+                <!-- 購物車圖片Icon -->
+
+                <li><a href="../index/index.jsp">首頁</a></li>
+                <li><a href="../member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
+                <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
+                <li class="headcart">
+                    <a href="javascript:void(0)" id="cartModal">
+                        <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
+                </li>
+
+            </ul>
         </div>
-        <ul class="nav">
-            <li><a href="#">拍婚紗</a></li>
-            <li><a href="#">婚禮場地</a></li>
-            <li><a href="#">婚禮週邊</a></li>
-            <li><a href="#">找靈感</a></li>
+
+
+        <!--上面增加的小色塊-->
+        <div class="nav1"></div>
+        <ul class="nav2">
+            <li><a href="#">婚禮攝影<br>Photography
+				</a></li>
+            <li><a href="">婚禮場地<br>Location
+				</a></li>
+            <li>
+                <a href="#" class="logo"><img src="images/MHlogo_01.svg"></a>
+            </li>
+            <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
+				</a></li>
+            <li><a href="#">專欄討論<br>Post
+				</a></li>
         </ul>
-    </div>
+    </header>
     <div class="wrap">
         <div class="side-bar">
-                <img class="imgdata" src="" alt="">
+            <img class="imgdata" src="" alt="">
             <div class="user-name s-user-name"></div>
             <div class="user-hr"><i class="fas fa-heart"></i></div>
             <ul class="menu">
                 <li><a href="memberBuyProfile.html?action=profile" id="profile"><i class="fas fa-user"></i>個人資料</a></li>
                 <li><a href="memberBuyProfile.html?action=setting" id="setting"><i class="fas fa-file-invoice"></i>帳號設定</a></li>
                 <li><a href="buyerShopOrder.html?action=getAll"><i class="fas fa-shopping-cart"></i>商品訂單</a></li>
-                <li><a href="#"><i class="fas fa-church"></i>婚禮場地</a></li>
+                <li><a href="buyerLocationOrder.html"><i class="fas fa-church"></i>婚禮場地</a></li>
                 <li><a href="#"><i class="fas fa-camera-retro"></i>婚紗攝影</a></li>
             </ul>
         </div>
         <div class="content" id="content">
-            
+
         </div>
     </div>
     <script src="js/memberSetting.js"></script>
     <script src="js/jquery.twzipcode.js"></script>
     <script src="js/memberBuyProfile.js"></script>
 </body>
+
 </html>

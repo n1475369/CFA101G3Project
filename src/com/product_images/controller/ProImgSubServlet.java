@@ -29,20 +29,30 @@ public class ProImgSubServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		try {
+		String action = request.getParameter("action");
+		if("getall".equals(action)) {
 			Integer pro_proc_id= Integer.parseInt(request.getParameter("pro_proc_id"));
 			ProImgService imgService = new ProImgService();
 			List<ProImgVO> list = imgService.findByCateList(pro_proc_id);
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(list);
-			System.out.println(list);
 			response.getWriter().print(json);
-			System.out.println(json);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
+		if("cheap".equals(action)) {
+			Integer pro_proc_id= Integer.parseInt(request.getParameter("pro_proc_id"));
+			ProImgService imgService = new ProImgService();
+			List<ProImgVO> list = imgService.findByCateCheap(pro_proc_id);
+			ObjectMapper mapper = new ObjectMapper();
+			String json = mapper.writeValueAsString(list);
+			response.getWriter().print(json);
+		}if("expensive".equals(action)) {
+			Integer pro_proc_id= Integer.parseInt(request.getParameter("pro_proc_id"));
+			ProImgService imgService = new ProImgService();
+			List<ProImgVO> list = imgService.findByCateExp(pro_proc_id);
+			ObjectMapper mapper = new ObjectMapper();
+			String json = mapper.writeValueAsString(list);
+			response.getWriter().print(json);
+		}
 		
 	
 	}

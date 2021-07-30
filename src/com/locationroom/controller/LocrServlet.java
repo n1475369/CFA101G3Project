@@ -40,6 +40,7 @@ public class LocrServlet extends HttpServlet {
 			
 			map.put("Mem_id", memVO.getMem_id());
 			map.put("Mem_name", memVO.getMem_name());
+			map.put("Mem_shop_name", memVO.getMem_shop_name());
 			
 			
 			ObjectMapper mapper = new ObjectMapper(); 

@@ -19,6 +19,7 @@ public class ProReadServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=utf-8"); //回應為UTF-8
 		ProDAO dao = new ProDAOimpl(); //new一個實作介面
 		List<ProVO> list = dao.getAll(); //小吳流調用

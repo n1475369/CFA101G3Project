@@ -29,21 +29,16 @@ public class ProFindBySellerServlet2 extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		request.setCharacterEncoding("UTF-8");
 		//取得參數
-		HttpSession session = request.getSession();
-//		System.out.println(session);
-		MemVO memVo = (MemVO)session.getAttribute("user");
-//		System.out.println(memVo);
-		Integer pro_smem_id = memVo.getMem_id();
-//		System.out.println(pro_smem_id);
+		Integer pro_smem_id = Integer.parseInt(request.getParameter("memid"));
+		System.out.println(pro_smem_id);
 		//從DB找到資料
-//		ProDAO dao = new ProDAOimpl();
-//		List<ProVO> list = dao.findBySeller(pro_smem_id);
-//		System.out.println(list);
+		ProService service = new ProService();
+		List<ProVO> list = service.getOneProBySeller(pro_smem_id);
 		//開始輸出
 		PrintWriter out = response.getWriter(); //servlet輸出
-//		ObjectMapper mapper = new ObjectMapper(); //JSON
-//		String data = mapper.writeValueAsString(list); //JSON
-		out.println(pro_smem_id);//讓我看看!!
+		ObjectMapper mapper = new ObjectMapper(); //JSON
+		String data = mapper.writeValueAsString(list); //JSON
+		out.println(data);//讓我看看!!
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

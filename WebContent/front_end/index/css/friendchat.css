@@ -142,6 +142,10 @@
     z-index: 1000;
 }
 
+.chatWrap a {
+    text-decoration: none;
+}
+
 .chat-components {
     display: none;
     position: fixed;

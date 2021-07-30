@@ -35,6 +35,7 @@ public class BuyProfileServlet extends HttpServlet {
 			String cityarea = member.getMem_cityarea();
 			String street = member.getMem_street();
 			Integer mem_status = member.getMem_status();
+			Integer mem_role = member.getMem_role();
 			Map map = new HashMap();
 			map.put("mem_id", mem_id);
 			map.put("username", username);
@@ -44,6 +45,7 @@ public class BuyProfileServlet extends HttpServlet {
 			map.put("cityarea", cityarea);
 			map.put("street", street);
 			map.put("mem_status", mem_status);
+			map.put("mem_role", mem_role);
 			ObjectMapper mapper = new ObjectMapper();
 	        mapper.writeValue(response.getWriter(), map);
 		}else {

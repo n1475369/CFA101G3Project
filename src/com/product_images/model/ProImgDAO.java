@@ -16,8 +16,10 @@ public interface ProImgDAO {
 	//新增商品圖片
 	void insertProImg(ProImgVO proImgVO);
 	//刪除商品圖片
-//	public void deleteImg();
+	void deleteImg(Integer proi_id);
 	//商品分類找FK
 	public List<ProImgVO> findByCateList(Integer pro_proc_id);
-	
+	//根據價格排序
+	public List<ProImgVO> findByCateCheapList(Integer pro_proc_id);
+	public List<ProImgVO> findByCateExpList(Integer pro_proc_id);
 }

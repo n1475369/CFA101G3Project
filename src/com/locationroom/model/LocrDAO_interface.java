@@ -16,5 +16,7 @@ public interface LocrDAO_interface {
 //	public List<LocrVO> GET_SMEM_LOCR(Integer LOCR_SMEM_ID);
 	public LocrVO getLastID();
 	public MemVO  getSmem(Integer MEM_ID);
+	public MemVO  getBmem(Integer MEM_ID);
+	public List<LocrVO> findbysqlList(String locr_name);
 	
 }

@@ -1,20 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Sarabun:ital,wght@0,100;0,200;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
-
-/* 
-font-family: 'Noto Sans TC', sans-serif  思源黑體 包含中英文;
-font-family: 'Sarabun', sans-serif;   英文正體字  
-font-family: 'Caveat', cursive; 英文藝術字
-*/
-
 #cartIcon {
-    font-size: 25px;
+    font-size: 18px;
 }
 
 .top {
-    /* position: -webkit-sticky; for Safari */
     position: fixed;
     top: 0;
-    z-index: 100;
+    z-index: 1;
     display: flex;
     justify-content: end;
 }
@@ -33,11 +25,9 @@ font-family: 'Caveat', cursive; 英文藝術字
     color: #FFF;
     text-decoration: none;
     border: 1px solid #D5CB8E;
-    display: inline;
 }
 
 .top {
-    /* border:1px solid rgb(12, 39, 126); */
     display: inline-block;
     width: 100%;
     background-color: #D5CB8E;
@@ -46,91 +36,20 @@ font-family: 'Caveat', cursive; 英文藝術字
 .logo {
     display: block;
     width: 500px;
-    /* border:1px solid rgb(92, 27, 65); */
     margin-bottom: 20px;
 }
 
 .logo img {
     border-radius: 10px;
-    /* border:1px solid rgb(38, 49, 146); */
 }
-
-
-/* .top-container{
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    border:1px solid lawngreen;
-} */
-
-
-/* 
-.user{
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    border:5px solid rgb(224, 149, 10);
-} */
-
-
-/* .user-menu{
-    width: 130px;
-    padding-top: 10px;
-    position: absolute;
-    border: 1px solid #6b666621;
-    left: -30px;
-    top: 55px; 
-    background: #fff;
-    font-weight: 400;
-    font-size: 18px;
-    text-align: left;
-    line-height: 30px;
-    height: 500px;
-    border-radius: 5px;
-    display: none;
-    box-shadow: 5px 5px 5px 1px #b6b3b33f;
-    border:1px solid rgb(163, 7, 116);
-} */
-
-
-/* .user-menu i {
-    color: #fc9086ce;
-    text-indent: 10px;
-} */
-
-
-/* .user-menu a{
-    text-decoration: none;
-    color:#000;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.user-menu li:hover{
-    background:#fc90861e;
-    cursor: pointer;
-} */
-
-
-/* .user:hover .user-menu{
-    display: block;
-    animation: backInUp;
-    animation-duration: 0.4s;
-} */
 
 .headshot img {
     max-width: 100%;
     border-radius: 50%;
 }
 
-
-/* .user-name{
-    line-height: 50px;
-    border: 1px solid rgb(8, 117, 112);
-} */
-
 .nav1 {
-    height: 45px;
+    height: 65px;
     background-color: #c5dad1;
 }
 
@@ -155,13 +74,14 @@ font-family: 'Caveat', cursive; 英文藝術字
 }
 
 .nav2 a {
+    letter-spacing: 0.5px;
     padding: 5px 0;
     font-weight: 100;
     line-height: 1;
     cursor: pointer;
     text-decoration: none;
     color: #495057;
-    font-family: 'Caveat', cursive;
+    font-family: "Caveat", "cursive", "Noto Sans TC", "sans-serif";
 }
 
 .nav2 a:hover {
@@ -170,20 +90,6 @@ font-family: 'Caveat', cursive; 英文藝術字
     transition: color 0.09s;
 }
 
-
-/* .header{ */
-
-
-/* border-bottom: 1px solid #d5cb8e; */
-
-
-/* padding-bottom: 30px; */
-
-
-/* background-color: #c5dad1; */
-
-
-/* height: 300px; */
-
-
-/* } */
+#cartModal {
+    display: inline;
+}

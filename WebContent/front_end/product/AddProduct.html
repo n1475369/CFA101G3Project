@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/all.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Document</title>
 </head>
@@ -19,7 +16,7 @@
         float: right;
         margin-right: 20px;
     }
-
+    
     .count {
         position: absolute;
         top: 8px;
@@ -33,59 +30,129 @@
         text-align: center;
         line-height: 18px;
     }
-
+    
     #cartModal {
         text-decoration: none;
         color: #000;
     }
-
+    
     #cart img {
         max-width: 50px;
     }
-
+    
     #cart a {
         color: red;
         font-size: 20px;
         text-align: center;
     }
-
+    
     .site-color {
         color: rgb(247, 66, 47);
+        font-size: 16px;
     }
-
-    #total{
-        margin-right: 40px;
-    }
-
-    .total-list{
-        padding: 0 5px;
+    
+    .total-list {
+        padding: 5px 20px;
         display: flex;
         justify-content: space-between;
     }
-
-    .modal-header{
+    
+    .total-list h5 {
+        margin: 0;
+    }
+    
+    .cartModal-header {
         background: #ff80a2;
         color: #fff;
     }
-
-    .modal-header img{
+    
+    .cartModal-header img {
         display: inline-block;
         height: 50px;
     }
-
-    #checkout{
+    
+    #checkout {
+        color: #fff;
         background-color: rgb(247, 66, 47);
-        border: 1px solid  rgb(247, 66, 47);
+        border: 1px solid rgb(247, 66, 47);
+        display: inline-block;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        border-radius: .25rem;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     }
-
-    .table,input[type="number"]{
+    
+    #cartModal-cancel {
+        color: #fff;
+        background-color: #6c757d!important;
+        border: 1px solid #6c757d;
+        display: inline-block;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        border-radius: .25rem;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+    
+    .cartModal .table,
+    .cartModal input[type="number"] {
         color: #4d4949!important;
     }
-
-    .hide{
+    
+    .cartModal .hide {
         display: none!important;
     }
-   
+    
+    .cartModal {
+        width: 600px;
+        border: 1px solid #ada6a6;
+        position: fixed;
+        top: 36px;
+        right: 0;
+        background: #fff;
+        display: none;
+    }
+    
+    .cartModal-table th,
+    .cartModal-table td {
+        width: 16%;
+        text-align: center;
+    }
+    
+    .cartModal-title {
+        margin: 0;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+    }
+    
+    .cartModal-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 5px;
+    }
+    
+    .cartModal-footer button {
+        margin-left: 10px;
+    }
 </style>
 
 <body>
@@ -135,28 +202,27 @@
 
 
     <!-- 購物車圖片Icon -->
-    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" id="cartModal">
+    <a href="javascript:void(0)" id="cartModal">
         <i class="fas fa-shopping-cart" id="cartIcon"></i>
     </a>
 
     <!-- 購物車頁面 -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">購物車<img src="images/MHlogo_04.svg" alt=""></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- <div class="cartModal">
+        <div class="cartModal-dialog">
+            <div class="cartModal-content">
+                <div class="cartModal-header">
+                    <h5 class="cartModal-title">購物車<img src="images/MHlogo_04.svg" alt=""></h5>
                 </div>
-                <div class="modal-body">
-                    <table class="table">
+                <div class="cartModal-body">
+                    <table class="cartModal-table">
                         <thead>
                             <tr>
-                                <th scope="col">商品資訊</th>
-                                <th scope="col">商品名稱</th>
-                                <th scope="col">價格</th>
-                                <th scope="col">數量</th>
-                                <th scope="col">小計</th>
-                                <th scope="col">操作</th>
+                                <th>商品資訊</th>
+                                <th>商品名稱</th>
+                                <th>價格</th>
+                                <th>數量</th>
+                                <th>小計</th>
+                                <th>操作</th>
                             </tr>
                         </thead>
                         <tbody id="cart"></tbody>
@@ -166,58 +232,105 @@
                         <h5 class="site-color">$<span id="total"></span></h5>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" id="checkout">結帳</button>
+                <div class="cartModal-footer">
+                    <button type="button" id="cartModal-cancel">取消</button>
+                    <button type="button" id="checkout">結帳</button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
     <script>
-        getCart();//頁面載入時取得購物車資料
+        let cartTmp = `    <div class="cartModal">
+        <div class="cartModal-dialog">
+            <div class="cartModal-content">
+                <div class="cartModal-header">
+                    <h5 class="cartModal-title">購物車<img src="images/MHlogo_04.svg" alt=""></h5>
+                </div>
+                <div class="cartModal-body">
+                    <table class="cartModal-table">
+                        <thead>
+                            <tr>
+                                <th>商品資訊</th>
+                                <th>商品名稱</th>
+                                <th>價格</th>
+                                <th>數量</th>
+                                <th>小計</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart"></tbody>
+                    </table>
+                    <div id="total-list" class="total-list">
+                        <h5 class="site-color">合計金額</h5>
+                        <h5 class="site-color">$<span id="total"></span></h5>
+                    </div>
+                </div>
+                <div class="cartModal-footer">
+                    <button type="button" id="cartModal-cancel">取消</button>
+                    <button type="button" id="checkout">結帳</button>
+                </div>
+            </div>
+        </div>
+    </div>`;
+        //加載到頁面
+        $('body').append(cartTmp);
+
+        getCart(); //頁面載入時取得購物車資料
 
         //點擊Icon圖片購物車時取得購物車資料
-        $('#cartModal').on('click', function () {
+        $('#cartModal').on('click', function() {
             getCart();
         })
 
         //點擊加入購物車時後端同步新增
-        $('#product button').on('click', function (e) {
+        $('#product button').on('click', function(e) {
             let pro_id = e.target.dataset.proid;
             addCart(pro_id);
         });
 
         //更新商品數量時後端同步更新
-        $('#cart').on('change', 'input[type=number]', function (e) {
-            let spoi_quantity = e.target.value;//取得商品數量
+        $('#cart').on('change', 'input[type=number]', function(e) {
+            let spoi_quantity = e.target.value; //取得商品數量
             //判斷商品數量是否在1-20內
             let reg = /^([1-9][0-9]*){1,3}$/;
             if (!reg.test(spoi_quantity) || spoi_quantity > 20) {
                 getCart();
                 return;
             }
-            let pro_id = e.target.dataset.proid;//取得商品ID
-            let pro_price = e.target.dataset.proprice//取得商品單價
-            let spoi_totalprice = spoi_quantity * pro_price;//取得小計金額
+            let pro_id = e.target.dataset.proid; //取得商品ID
+            let pro_price = e.target.dataset.proprice //取得商品單價
+            let spoi_totalprice = spoi_quantity * pro_price; //取得小計金額
             $(e.target).parent().next().html(spoi_totalprice);
             updateCart(pro_id, spoi_quantity);
-            getTotal();//顯示總金額
+            getTotal(); //顯示總金額
         })
 
 
         //監聽點擊刪除鈕後送至後端刪除購物車內商品
-        $('#cart').on('click', 'a', function (e) {
+        $('#cart').on('click', 'a', function(e) {
             let pro_id = e.currentTarget.dataset.proid;
             deleteCartProduct(pro_id);
         })
 
         //點擊結帳進入結帳頁面
-        $('#checkout').on('click',function(){
-            window.location.href="Checkout.html";
+        $('#checkout').on('click', function() {
+            $.ajax({
+                type: "post",
+                url: "../../member/buyProfileServlet",
+                dataType: "json",
+                success: function(response) {
+                    if (response != "0") {
+                        if (response.mem_role == 10) {
+                            window.location.href = "../product/Checkout.html";
+                        } else {
+                            alert("您非買家會員身份");
+                        }
+                    } else {
+                        window.location.href = "../member/login.html";
+                    }
+                }
+            });
         });
 
         //加入購物車
@@ -230,7 +343,7 @@
                     "action": "addCart",
                     "pro_id": pro_id
                 },
-                success: function (data) {
+                success: function(data) {
                     let count = 0;
                     let total = 0;
                     for (const key in data) {
@@ -240,6 +353,7 @@
                     let CountTmp = `<div id="count" class="count">${count}</div>`;
                     $('#cartIcon').html(CountTmp);
                     $('#total').text(total);
+                    getCart(); //新增完後更新資料
                 }
             });
         }
@@ -256,7 +370,7 @@
                     "action": "getCart"
                 },
                 async: false,
-                success: function (data) {
+                success: function(data) {
                     let set = new Set();
                     console.log(data);
                     $('#cart').html("");
@@ -281,29 +395,29 @@
                 }
             });
             if (count == 0) {
-                $('#cart').html("購物車尚未有任何商品");
+                $('#cart').html(`<div style="width:200px;padding:5px">購物車尚未有任何商品</div>`);
                 $('#cartIcon').html("");
                 $('#total-list').addClass("hide");
-                $("#checkout").attr("disabled", "disabled") 
-            }else{
+                $('#checkout').addClass("hide");
+            } else {
                 $('#total-list').removeClass("hide");
-                $("#checkout").removeAttr("disabled") 
+                $('#checkout').removeClass("hide");
             }
         }
-        
+
         //更新購物車
         function updateCart(pro_id, spoi_quantity) {
             $.ajax({
                 type: "post",
                 url: "../../shop_order_item/spoiServlet",
                 dataType: 'json',
-                async:false,
+                async: false,
                 data: {
                     "action": "updateCart",
                     "pro_id": pro_id,
                     "spoi_quantity": spoi_quantity
                 },
-                success: function (data) {
+                success: function(data) {
                     let count = 0;
                     for (const key in data) {
                         count += data[key].spoi_quantity;
@@ -314,7 +428,7 @@
             });
         }
         //顯示總金額
-        function getTotal(){
+        function getTotal() {
             let total = 0;
             $.ajax({
                 type: "get",
@@ -324,7 +438,7 @@
                     "action": "getCart"
                 },
                 async: false,
-                success: function (data) {
+                success: function(data) {
                     for (const key in data) {
                         total += data[key].spoi_totalprice;
                     }
@@ -339,10 +453,12 @@
             $.ajax({
                 type: "post",
                 url: "../../product/ProImgSelServlet",
-                data: { "proi_pro_id": pro_id },
+                data: {
+                    "proi_pro_id": pro_id
+                },
                 dataType: "json",
                 async: false,
-                success: function (data) {
+                success: function(data) {
                     proi_id = data[0].proi_id;
                 }
             });
@@ -359,12 +475,21 @@
                     "action": "delete",
                     "pro_id": pro_id,
                 },
-                success: function (response) {
-                    getCart();//刪除後更新購物車資料
+                success: function(response) {
+                    getCart(); //刪除後更新購物車資料
                 }
             });
         }
 
+        //關閉購物車面板
+        $('#cartModal-cancel').on('click', function(e) {
+            $('.cartModal').slideUp();
+        })
+
+        //開啟購物車面板
+        $('#cartModal').on('click', function(e) {
+            $('.cartModal').slideDown();
+        })
     </script>
 </body>
 

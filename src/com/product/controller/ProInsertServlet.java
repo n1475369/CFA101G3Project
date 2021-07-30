@@ -20,7 +20,6 @@ import com.product.model.ProDAOimpl;
 import com.product.model.ProService;
 import com.product.model.ProVO;
 
-
 @WebServlet("/product/ProInsertServlet")
 public class ProInsertServlet extends HttpServlet {
 

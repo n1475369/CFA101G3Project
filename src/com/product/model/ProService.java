@@ -1,8 +1,5 @@
 package com.product.model;
 import java.util.List;
-
-import com.mysql.cj.x.protobuf.MysqlxCrud.Delete;
-
 public class ProService {
 
 	private ProDAO dao;
@@ -36,7 +33,10 @@ public class ProService {
 	public List<ProVO> getOneProBySeller(Integer pro_smem_id) {
 		return dao.findBySeller(pro_smem_id);
 	}
-	
+	//尋找商品分頁
+	public List<ProVO> findByCateList(Integer pro_proc_id){
+		return dao.findByCateList(pro_proc_id);
+	}
 	
 	//下架商品
 	public void deletePro(Integer pro_id) {
@@ -59,6 +59,33 @@ public class ProService {
 		dao.update(proVO);
 		return proVO;
 	}
+	//查詢商品
+	public List<ProVO> findBySQLList(String pro_name){
+		return dao.findBySQLList(pro_name); 
+	}
 	
+	//價格查詢
+	public List<ProVO> findByCateCheapList(Integer pro_proc_id){
+		return dao.findByCateCheapList(pro_proc_id);
+	}
 	
+	public List<ProVO> findByCateExpList(Integer pro_proc_id){
+		return dao.findByCateExpList(pro_proc_id);
+	}
+	
+	public List<ProVO> findBySQLList2(Integer pro_price,Integer pro_price2 , Integer pro_proc_id,String pro_name){
+		return dao.findBySQLList2(pro_price, pro_price2, pro_proc_id, pro_name);
+	}
+	
+	public List<ProVO> findBySQLList3(Integer pro_price,Integer pro_price2 , Integer pro_proc_id, Integer pro_smem_id , String pro_name ){
+		return dao.findBySQLList3(pro_price, pro_price2, pro_proc_id, pro_smem_id, pro_name);
+	}
+	//隨機主頁秀圖
+	public List<ProVO> ProMain(Integer pro_proc_id){
+		return dao.ProMain(pro_proc_id);
+	}
+	
+	public ProVO findBySmemID(Integer pro_smem_id) {
+		return dao.findBySmemID(pro_smem_id); 
+	}
 }

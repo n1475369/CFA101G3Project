@@ -27,7 +27,7 @@ public class ProFindByPKServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		request.setCharacterEncoding("UTF-8");
 		//取得參數
-		Integer pro_id = Integer.parseInt(request.getParameter("pro_id").trim());
+		Integer pro_id = Integer.parseInt(request.getParameter("pro_id"));
 		System.out.println(pro_id);
 		
 		//從DB找到資料

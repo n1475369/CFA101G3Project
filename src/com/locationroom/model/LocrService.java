@@ -72,8 +72,14 @@ public class LocrService {
 	public List<LocrVO> getAll() {
 		return dao.getAll();
 	}
+	public List<LocrVO> findbysqlList(String locr_name) {
+		return dao.findbysqlList(locr_name);
+	}
 	
 	public MemVO getSmem(Integer MEM_ID) {
 		return dao.getSmem(MEM_ID);
+	}
+	public MemVO getBmem(Integer MEM_ID) {
+		return dao.getBmem(MEM_ID);
 	}
 }

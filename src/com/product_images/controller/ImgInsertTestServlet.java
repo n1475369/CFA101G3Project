@@ -1,5 +1,4 @@
 package com.product_images.controller;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import com.product_images.model.ProImgDAOimpl;
 import com.product_images.model.ProImgVO;
 
 @MultipartConfig
-@WebServlet("/ImgInsertTestServlet")
+@WebServlet("/product/ImgInsertTestServlet")
 public class ImgInsertTestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -40,7 +39,7 @@ public class ImgInsertTestServlet extends HttpServlet {
 				buf =new byte[in.available()];
 				in.read(buf);
 				in.close();
-				ProVO proVO = all.get(i);//需自行設定商品起始ID
+				ProVO proVO = all.get(230+i);//需自行設定商品起始ID
 				System.out.println(i);
 				System.out.println(proVO);
 				proImgVO.setProi_pro_id(proVO.getPro_id());

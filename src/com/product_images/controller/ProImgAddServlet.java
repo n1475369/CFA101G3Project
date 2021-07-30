@@ -2,6 +2,8 @@ package com.product_images.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,9 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.tomcat.util.http.fileupload.ParameterParser;
+
 import com.member.model.MemVO;
 import com.product_images.model.ProImgDAO;
 import com.product_images.model.ProImgDAOimpl;
+import com.product_images.model.ProImgService;
 import com.product_images.model.ProImgVO;
 import com.sun.mail.handlers.text_html;
 
@@ -29,8 +34,20 @@ public class ProImgAddServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		//取值
+		
+		
 		Integer proi_pro_id = Integer.parseInt(request.getParameter("selectID"));
-		System.out.println(proi_pro_id);
+		
+		
+		ProImgService service = new ProImgService();
+		//尋找資料庫裡的圖片總數
+		List<ProImgVO> list = service.findByFKlist(proi_pro_id);
+		System.out.println(list.size());
+		if( list.size() == 8) {
+			System.out.println(list.size());
+			response.getWriter().print("0");
+			return;
+		}
 		
 		byte[] buf = null;
 		Part part = request.getPart("file1");

@@ -6,14 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-
-
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 
 public class ProDAOimpl implements ProDAO {
 
@@ -24,13 +28,9 @@ public class ProDAOimpl implements ProDAO {
 //	private static final java.lang.String GET_ALL = "SELECT * FROM PRODUCT";
 //	private static final String FIND_USERS = "SELECT * FROM USER WHERE NAME = ?";
 //  方便複製用
-//	private Integer pro_id;
-//	private String pro_name;
-//	private Integer pro_price;
-//	private String pro_content;
-//	private Integer pro_smem_id;
-//	private Integer pro_proc_id;
-//	private Integer pro_status;
+//	private Integer proi_id;
+//	private Integer proi_pro_id;
+//	private byte[] proi_images;
 	
 	//獲取DS使用連線池
 	private static DataSource ds = null;
@@ -42,7 +42,7 @@ public class ProDAOimpl implements ProDAO {
 			e.printStackTrace();
 		}
 	}
-//	JdbcTemplate template = new JdbcTemplate(ds); 不能用拉QQ
+
 	
 	//查詢商品
 	@Override
@@ -328,7 +328,261 @@ public class ProDAOimpl implements ProDAO {
 		}
 	}
 	return list;
-};
+}
+
+	@Override
+	public List<ProVO> findByCateList(Integer pro_proc_id){
+		
+		java.lang.String sql = "SELECT MIN(PROI_ID), PROI_PRO_ID, PRO_NAME, PRO_PRICE, PRO_CONTENT FROM PRODUCT_IMAGES join PRODUCT ON PROI_PRO_ID = PRO_ID WHERE PRO_PROC_ID = ? GROUP BY PROI_PRO_ID";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProVO proVO = null;
+		List<ProVO> list = new ArrayList<ProVO>();
+		
+		//開始連線
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pro_proc_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				proVO = new ProVO();
+				proVO.setPro_id(rs.getInt("PROI_PRO_ID"));
+				proVO.setPro_name(rs.getString("PRO_NAME"));
+				proVO.setPro_price(rs.getInt("PRO_PRICE"));
+				proVO.setPro_content(rs.getString("PRO_CONTENT"));
+				list.add(proVO);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
 	
+	@Override
+	public List<ProVO> findByCateCheapList(Integer pro_proc_id){
+		
+		java.lang.String sql = "SELECT MIN(PROI_ID), PROI_PRO_ID, PRO_NAME, PRO_PRICE, PRO_CONTENT FROM PRODUCT_IMAGES join PRODUCT ON PROI_PRO_ID = PRO_ID WHERE PRO_PROC_ID = ? GROUP BY PROI_PRO_ID ORDER BY PRO_PRICE";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProVO proVO = null;
+		List<ProVO> list = new ArrayList<ProVO>();
+		
+		//開始連線
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pro_proc_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				proVO = new ProVO();
+				proVO.setPro_id(rs.getInt("PROI_PRO_ID"));
+				proVO.setPro_name(rs.getString("PRO_NAME"));
+				proVO.setPro_price(rs.getInt("PRO_PRICE"));
+				proVO.setPro_content(rs.getString("PRO_CONTENT"));
+				list.add(proVO);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
 	
+	@Override
+	public List<ProVO> findByCateExpList(Integer pro_proc_id){
+		
+		java.lang.String sql = "SELECT MIN(PROI_ID), PROI_PRO_ID, PRO_NAME, PRO_PRICE, PRO_CONTENT FROM PRODUCT_IMAGES join PRODUCT ON PROI_PRO_ID = PRO_ID WHERE PRO_PROC_ID = ? GROUP BY PROI_PRO_ID ORDER BY PRO_PRICE DESC";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProVO proVO = null;
+		List<ProVO> list = new ArrayList<ProVO>();
+		
+		//開始連線
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pro_proc_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				proVO = new ProVO();
+				proVO.setPro_id(rs.getInt("PROI_PRO_ID"));
+				proVO.setPro_name(rs.getString("PRO_NAME"));
+				proVO.setPro_price(rs.getInt("PRO_PRICE"));
+				proVO.setPro_content(rs.getString("PRO_CONTENT"));
+				list.add(proVO);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<ProVO> findBySQLList(String pro_name){
+		java.lang.String sql = "select * from product where 1=1 ";
+		StringBuilder sb = new StringBuilder();
+		sb.append(sql);
+		//查名字
+		if(pro_name != null) {
+			sb.append(" and pro_name like '%"+pro_name+"%'");
+		}
+		sql = sb.toString();
+		List<ProVO> list = new ArrayList<ProVO>();
+		ProVO proVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+	//開始連線
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+		while(rs.next()) {
+			proVO = new ProVO();
+			proVO.setPro_id(rs.getInt("PRO_ID"));
+			proVO.setPro_name(rs.getString("PRO_NAME"));
+			proVO.setPro_price(rs.getInt("PRO_PRICE"));
+			proVO.setPro_content(rs.getString("PRO_CONTENT"));
+			list.add(proVO);
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		if(rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if(pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if(con != null) {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	return list;
+}
+	
+	JdbcTemplate template = new JdbcTemplate(ds); 
+	
+	@Override
+	public List<ProVO> findBySQLList2(Integer pro_price , Integer pro_price2 , Integer pro_proc_id , String pro_name ){
+		
+	String sb="select * from product where pro_price between ? and ? and pro_proc_id = ? and pro_name like '%"+pro_name+"%'";
+	String sql= sb.toString();
+	List list = template.queryForList(sql , pro_price , pro_price2 , pro_proc_id);
+	return list;
+	}
+	
+	@Override
+	public List<ProVO> findBySQLList3(Integer pro_price , Integer pro_price2 , Integer pro_proc_id , Integer pro_smem_id , String pro_name ){
+		
+	String sb="select * from product where pro_price between ? and ? and pro_proc_id = ? and pro_smem_id = ? and pro_name like '%"+pro_name+"%'";
+	String sql= sb.toString();
+	List list = template.queryForList(sql , pro_price , pro_price2 , pro_proc_id , pro_smem_id);
+	return list;
+	}
+	
+	@Override
+	public List<ProVO> ProMain(Integer pro_proc_id){
+	String sql = "select * from product where pro_proc_id =? ORDER BY RAND() limit 4";
+	List list =  template.queryForList(sql , pro_proc_id);
+	return list;
+	}
+	
+	@Override
+	public ProVO findBySmemID(Integer pro_smem_id) {
+	String sql = "SELECT * FROM PRODUCT WHERE PRO_SMEM_ID = ?";
+	ProVO proVO = template.queryForObject(sql, ProVO.class , pro_smem_id );
+	return proVO;
+		
+	}
 }

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/logo-icon01.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/cssreset.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <!--腳-->
+    <link rel="stylesheet" href="css/memberBuyProfile.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="js/jquery.datetimepicker.full.js"></script>
+    <style>
+        #table tr {
+            border-top-width: 1px;
+            border-top-style: solid;
+            border-top-color: rgb(230, 189, 189);
+        }
+        
+        #table {
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: rgb(230, 189, 189);
+        }
+        
+        table td {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        
+        #table th {
+            padding: 5px 10px;
+            font-size: 12px;
+            font-family: Verdana;
+            color: rgb(177, 106, 104);
+        }
+        
+        #table tr:nth-child(even) {
+            background: rgb(238, 211, 210)
+        }
+        
+        #table tr:nth-child(odd) {
+            background: #FFF
+        }
+        
+        .profile {
+            display: flex;
+        }
+        
+        .reserve-form {
+            background: white;
+            border-radius: 5%;
+            width: 50%;
+            margin: 25px 15px 10px 50px;
+        }
+        
+        .reserve-form div {
+            margin: 20px 20px 10px 20px;
+        }
+        
+        img {
+            max-width: 100%;
+        }
+        
+        .topimages {
+            position: absolute;
+            width: 450px;
+            margin-top: 0px;
+            top: 15;
+            right: 5;
+        }
+        
+        .content div {
+            display: inline-block;
+        }
+        
+        .content {
+            /* border: 10px solid orange; */
+            position: relative;
+        }
+        /* .wrap{ */
+        /* border: 10px solid orange; */
+        /* position: relative; */
+        /* } */
+    </style>
+    <title>場地中心｜MarryHappiness</title>
+</head>
+
+<body>
+    <header>
+        <div class="top">
+            <ul>
+                <!-- 購物車圖片Icon -->
+
+                <li><a href="#">首頁</a></li>
+                <li><a href="../../front_end/member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
+                <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
+                <li class="headcart">
+                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" id="cartModal">
+                        <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
+                </li>
+
+            </ul>
+        </div>
+        <!--上面增加的小色塊-->
+        <div class="nav1"></div>
+        <ul class="nav2">
+            <li><a href="#">婚禮攝影<br>Photography
+            </a></li>
+            <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
+            </a></li>
+            <li>
+                <a href="#" class="logo"><img src="images/MHlogo_01.svg"></a>
+            </li>
+            <li><a href="#">婚禮週邊<br>Product
+            </a></li>
+            <li><a href="#">專欄討論<br>Post
+            </a></li>
+        </ul>
+    </header>
+
+    <div class="wrap">
+
+        <div class="content">
+            <h2>預約廳房</h2>
+
+            <div class="reserve-form" id="reserve-form">
+
+                <form class="table_form" METHOD="post" action="" name="form1" id="table_form">
+
+                    <div class="mb-3">
+                        <label for="Mem_name" class="form-label">買家姓名</label>
+                        <input type="text" class="form-control" id="Mem_name" name="Mem_name" value="" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="LOCO_RESERVE_TIME" class="form-label">婚禮日期</label> <input type="text" class="form-control" id="LOCO_RESERVE_TIME" name="LOCO_RESERVE_TIME" value="">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Mem_shop_name" class="form-label">婚宴店家</label> <input type="text" class="form-control" id="Mem_shop_name" name="Mem_shop_name" value="" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="LOCR_NAME" class="form-label">廳房名稱</label> <input type="text" class="form-control" id="LOCR_NAME" name="LOCR_NAME" value="" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="LOCO_TABLE_NUM" class="form-label">宴客桌數</label> <input type="text" class="form-control" id="LOCO_TABLE_NUM" name="LOCO_TABLE_NUM" value="">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="LOCO_LOCP_ID" class="form-label">選擇方案</label> <br>
+                        <select class="form-control" id="LOCO_LOCP_ID" name="LOCO_LOCP_ID">
+
+						</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="LOCO_TOTALPRICE" class="form-label">總金額</label>
+                        <input type="text" class="form-control" id="LOCO_TOTALPRICE" name="LOCO_TOTALPRICE" value="" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="LOCO_DEPOSIT" class="form-label">訂金</label>
+                        <input type="text" class="form-control" id="LOCO_DEPOSIT" name="LOCO_DEPOSIT" value="" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="LOCO_NOTE" class="form-label">備註</label>
+                        <textarea class="form-control" id="LOCO_NOTE" name="LOCO_NOTE" rows="3">我有話說</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="LOCO_PAYTAPE" class="form-label">付款方式</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="LOCO_PAYTAPE" id="LOCO_PAYTAPE0" value="0" checked> <label class="form-check-label" for="LOCO_PAYTAPE0">信用卡</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="LOCO_PAYTAPE" id="LOCO_PAYTAPE1" value="1"> <label class="form-check-label" for="LOCO_PAYTAPE1">Web ATM</label>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <input type="hidden" name="LOCR_SMEM_ID" value="" id="LOCR_SMEM_ID">
+                    <input type="hidden" name="LOCO_LOCR_ID" value="" id="LOCO_LOCR_ID">
+                    <input type="hidden" name="LOCO_TOTALPRICEshow" value="" id="LOCO_TOTALPRICEshow">
+                    <input type="hidden" name="LOCO_DEPOSITshow" value="" id="LOCO_DEPOSITshow">
+                    <input type="hidden" name="Mem_id" value="" id="Mem_id">
+                    <input type="hidden" name="action" value="insert">
+                    <input type="botton" value="送出預約" class="btn btn-danger" id="summitbtn">
+                </form>
+            </div>
+            <div class="topimages" id="topimages">
+
+
+            </div>
+
+        </div>
+        <!-- 購物車頁面 -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">購物車<img src="images/MHlogo_04.svg" alt=""></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">商品資訊</th>
+                                    <th scope="col">商品名稱</th>
+                                    <th scope="col">價格</th>
+                                    <th scope="col">數量</th>
+                                    <th scope="col">小計</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart"></tbody>
+                        </table>
+                        <div id="total-list" class="total-list">
+                            <h5 class="site-color">合計金額</h5>
+                            <h5 class="site-color">$<span id="total"></span></h5>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="checkout">結帳</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--尾巴-->
+    <div class="footer">
+        <div class="foote-top">
+            <ul class="foote-content">
+                <div>婚攝服務</div>
+                <li><a href="">拍婚紗</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>婚宴服務</div>
+                <li><a href="../locationprogram/LocIndex.html">婚宴場地</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>婚禮週邊</div>
+                <li><a href="">婚禮小物</a></li>
+                <li><a href="">婚鞋</a></li>
+                <li><a href="">婚戒</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>專欄討論</div>
+                <li><a href="">幸福專欄</a></li>
+                <li><a href="">幸福聊聊</a></li>
+            </ul>
+        </div>
+        <div class="foote-between">
+            <img src="images/MHlogo_01.svg" alt="">
+            <p class="f-logo">2021 MarryHappiness 嫁給幸福</p>
+        </div>
+    </div>
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let room = urlParams.get("LOCR_ID");
+        let LOCO_TOTALPRICEshow = null;
+        let LOCO_DEPOSITshow = null;
+        let LOCO_TOTALPRICE = null;
+        let LOCO_DEPOSIT = null;
+        let tablenum = 1;
+        let ORDER_TIME = null;
+        //找場地會員資訊廳房資料
+        $.ajax({
+                url: '../../locationorder/GetorderLocrServletfront',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    "action": "getSmemID",
+                    "LOCR_ID": room
+                },
+
+                success: function(data) {
+                    console.log(data)
+
+                    $("#Mem_shop_name").val(data.Mem_shop_name);
+                    $("#Mem_shop_name").val(data.Mem_shop_name);
+                    $("#LOCR_SMEM_ID").val(data.LOCR_SMEM_ID);
+
+                    $("#LOCR_NAME").val(data.LOCR_NAME);
+                    $("#LOCO_LOCR_ID").val(data.LOCR_ID);
+                    let SMEM_ID = data.LOCR_SMEM_ID;
+                    ORDER_TIME = data.ORDER_TIME;
+                    console.log(ORDER_TIME);
+
+
+                    //尋找方案
+                    $.ajax({
+                        url: '../../locationprogram/getAllBySmemidServlet2',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            "LOCR_SMEM_ID": SMEM_ID
+                        },
+
+                        success: function(data) {
+                            console.log(data)
+                            for (let i = 0; i < data.length; i++) {
+                                let itmp = `<option value="${data[i].locp_id}">${data[i].locp_name}</option>`;
+                                //增加方案選項
+                                $('#LOCO_LOCP_ID').append(itmp);
+                            }
+                            //增加金額資料
+                            let TOTALPRICE = (data[0].locp_price) * tablenum;
+                            let DEPOSIT = (data[0].locp_price) * 0.1 * tablenum;
+                            $("#LOCO_TOTALPRICE").val(TOTALPRICE);
+                            $("#LOCO_DEPOSIT").val(DEPOSIT);
+                            $("#LOCO_TOTALPRICEshow").val(TOTALPRICE);
+                            $("#LOCO_DEPOSITshow").val(DEPOSIT);
+                            LOCO_TOTALPRICE = TOTALPRICE;
+                            LOCO_DEPOSIT = DEPOSIT;
+                            console.log(LOCO_TOTALPRICE);
+                            console.log(LOCO_DEPOSIT);
+                        }
+                    })
+                }
+            })
+            //改變選取金額
+        $("#LOCO_LOCP_ID").on("change", function(e) {
+            let locpid = e.target.value;
+
+            $.ajax({
+                url: "../../locationprogram/getOneLocporderServlet",
+                type: "post",
+                dataType: "json",
+                data: {
+                    "locpid": locpid
+                },
+                async: false,
+                success: function(data) {
+
+                    let TOTALPRICE = (data.locp_price) * tablenum;
+                    let DEPOSIT = (data.locp_price) * 0.1 * tablenum;
+                    $("#LOCO_TOTALPRICEshow").val(TOTALPRICE);
+                    $("#LOCO_DEPOSITshow").val(DEPOSIT);
+                    $("#LOCO_TOTALPRICE").val(TOTALPRICE);
+                    $("#LOCO_DEPOSIT").val(DEPOSIT);
+                    LOCO_TOTALPRICE = TOTALPRICE;
+                    LOCO_DEPOSIT = DEPOSIT;
+
+                }
+            })
+        });
+
+        //改變桌數金額
+        $("#LOCO_TABLE_NUM").on("change", function(e) {
+            tablenum = e.target.value;
+
+            $("#LOCO_TOTALPRICEshow").val(LOCO_TOTALPRICE * tablenum);
+            $("#LOCO_DEPOSITshow").val(LOCO_DEPOSIT * tablenum);
+            $("#LOCO_TOTALPRICE").val(LOCO_TOTALPRICE * tablenum);
+            $("#LOCO_DEPOSIT").val(LOCO_DEPOSIT * tablenum);
+
+
+        });
+
+
+
+        //找場地會員資訊廳房照片資料
+        $.ajax({
+            url: '../../locationimages/getLocImageServlet',
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            data: {
+                "LOCI_LOCR_ID": room,
+                "action": "getImgListByFK"
+            },
+            success: function(data) {
+                console.log(data);
+                loci_id = data[0].loci_ID;
+
+                let tmp = `<img src="../../locationimages/imgLociServlet?LOCI_ID=${data[0].loci_ID}">`;
+
+                $('#topimages').append(tmp);
+
+            }
+        })
+
+
+
+        //找買家會員資訊
+        $.ajax({
+            type: "post",
+            url: "../../locationroom/locrServletxx",
+            dataType: 'json',
+            data: {
+                "action": "getname"
+            },
+
+            success: function(data2) {
+                console.log(data2);
+
+                $("#Mem_id").val(data2.Mem_id);
+                $("#Mem_name").val(data2.Mem_name);
+            }
+
+        })
+
+
+        $(function() { //datetimepicker 時間抓取
+
+            $.ajax({
+                url: '../../locationorder/GetorderLocrServletfront',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    "LOCR_ID": room,
+                    "action": "getTime"
+                },
+                success: function(data) {
+                    console.log(data);
+                    $.datetimepicker.setLocale('zh');
+                    $('#LOCO_RESERVE_TIME').datetimepicker({
+                        format: 'Y-m-d',
+                        timepicker: true,
+                        disabledDates: data, //隔離時間 ['2021/07/16', '2021/06/09','2021/06/10']["2020-06-01", "2020-07-20"]
+                        startDate: 'ORDER_TIME', // 起始日
+                        minDate: 'ORDER_TIME', // 去除今日(不含)之前
+                        onShow: function() {
+                            this.setOptions({
+                                maxDate: $('#end_date').val() ? $('#end_date')
+                                    .val() : false
+                            })
+                        },
+                        timepicker: false
+                    });
+                }
+
+            })
+
+
+        });
+
+        $('#summitbtn').on('click', function(e) {
+            let fromdata = $("#table_form").serialize();
+
+            console.log(fromdata);
+            // let LOCR_SMEM_ID = $("#LOCR_SMEM_ID").val();
+            // let formData = new FormData(this);
+
+
+            $.ajax({
+                url: "../../Locationorder/LocationorderServlet",
+                type: 'POST',
+                data: fromdata,
+                dataType: "json",
+                success: function(data) {
+                    // console.log(data);
+                    // console.log("111");
+                    if (data == "0") {
+                        alert("日期重複");
+                    } else {
+                        alert("上傳成功");
+                    }
+                },
+                error: function(data) {
+                    $("#errorMsg").html("");
+                    // console.log(data.responseText);
+                    let errorMsg = JSON.parse(data.responseText);
+                    for (let i = 0; i < errorMsg.length; i++) {
+                        $("#errorMsg").append(errorMsg[i] + "<br>");
+                    }
+                    alert("上傳失敗");
+                }
+            });
+            //取消form表單的跳轉畫面
+            e.preventDefault();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+
+</html>

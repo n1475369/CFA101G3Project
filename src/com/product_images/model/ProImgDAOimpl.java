@@ -26,8 +26,8 @@ public class ProImgDAOimpl implements ProImgDAO{
 			e.printStackTrace();
 		}
 	}
-	private static final String  FINDBYPK ="select * from product_images where proi_id = ?";
-	private static final String  FINDBYFK ="select * from product_images where proi_pro_id = ?";
+	private static final String  FINDBYPK ="select * from PRODUCT_IMAGES where proi_id = ?";
+	private static final String  FINDBYFK ="select * from PRODUCT_IMAGES where proi_pro_id = ?";
 	
 //	private Integer proi_id;
 //	private Integer proi_pro_id;
@@ -269,6 +269,7 @@ public class ProImgDAOimpl implements ProImgDAO{
 			}
 			return list;
 		}
+	//商品分類找FK
 	@Override
 	public List<ProImgVO> findByCateList(Integer pro_proc_id){
 		String FINDBYCATELIST ="SELECT MIN(PROI_ID),PROI_PRO_ID FROM PRODUCT_IMAGES join PRODUCT ON PROI_PRO_ID = PRO_ID WHERE PRO_PROC_ID = ? GROUP BY PROI_PRO_ID";
@@ -318,7 +319,144 @@ public class ProImgDAOimpl implements ProImgDAO{
 		}
 		return list;
 	}
+
+	//查詢價格
+	@Override
+	public List<ProImgVO> findByCateExpList(Integer pro_proc_id){
+		String FINDBYCATELIST ="SELECT MIN(PROI_ID),PROI_PRO_ID FROM PRODUCT_IMAGES join PRODUCT ON PROI_PRO_ID = PRO_ID WHERE PRO_PROC_ID = ? GROUP BY PROI_PRO_ID ORDER BY PRO_PRICE DESC";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProImgVO proImgVO = null;
+		List<ProImgVO> list = new ArrayList<ProImgVO>();
 		
+		//開始連線
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FINDBYCATELIST);
+			pstmt.setInt(1, pro_proc_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				proImgVO = new ProImgVO();
+				proImgVO.setProi_id(rs.getInt("MIN(PROI_ID)"));
+				proImgVO.setProi_pro_id(rs.getInt("proi_pro_id"));
+				list.add(proImgVO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<ProImgVO> findByCateCheapList(Integer pro_proc_id){
+		String FINDBYCATELIST ="SELECT MIN(PROI_ID),PROI_PRO_ID FROM PRODUCT_IMAGES join PRODUCT ON PROI_PRO_ID = PRO_ID WHERE PRO_PROC_ID = ? GROUP BY PROI_PRO_ID ORDER BY PRO_PRICE";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProImgVO proImgVO = null;
+		List<ProImgVO> list = new ArrayList<ProImgVO>();
+		
+		//開始連線
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FINDBYCATELIST);
+			pstmt.setInt(1, pro_proc_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				proImgVO = new ProImgVO();
+				proImgVO.setProi_id(rs.getInt("MIN(PROI_ID)"));
+				proImgVO.setProi_pro_id(rs.getInt("proi_pro_id"));
+				list.add(proImgVO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	//刪除圖片
+	@Override
+	public void deleteImg(Integer proi_id) {
+		//準備好 SQL con pstmt 1.宣告2.取值3.拿來用
+		java.lang.String DELETE ="DELETE  FROM PRODUCT_IMAGES WHERE PROI_ID = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		//連線開始
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE);
+			pstmt.setInt(1,proi_id);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("資料錯誤"+
+			se.getMessage());
+		}finally {
+			
+		if(pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				}
+			}
+		if(con != null) {
+			try {
+				con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				}
+			}
+		}
+	}
+		
+	
 }
 	
 

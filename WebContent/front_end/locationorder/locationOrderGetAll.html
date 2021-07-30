@@ -1,0 +1,297 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/logo-icon01.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/cssreset.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <!--腳-->
+    <link rel="stylesheet" href="css/memberBuyProfile.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="js/jquery.datetimepicker.full.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>廳房中心｜MarryHappiness</title>
+</head>
+<style>
+    ul {
+        list-style: none;
+        padding-left: 0px;
+    }
+</style>
+
+<body>
+    <header>
+        <div class="top">
+            <ul>
+                <!-- 購物車圖片Icon -->
+
+                <li><a href="#">首頁</a></li>
+                <li><a href="../../front_end/member/login.html"><i
+						class="fas fa-sign-out-alt"></i>登入</a></li>
+                <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
+                <li class="headcart">
+                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" id="cartModal"> <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
+                </li>
+
+            </ul>
+        </div>
+        <!--上面增加的小色塊-->
+        <div class="nav1"></div>
+        <ul class="nav2">
+            <li><a href="#">婚禮攝影<br>Photography
+			</a></li>
+            <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
+			</a></li>
+            <li>
+                <a href="#" class="logo"><img src="images/MHlogo_01.svg"></a>
+            </li>
+            <li><a href="#">婚禮週邊<br>Product
+			</a></li>
+            <li><a href="#">專欄討論<br>Post
+			</a></li>
+        </ul>
+    </header>
+    <div class="wrap">
+        <div class="side-bar">
+            <img src="../../front_end/locationroom/images/shop_tenin_houseki.png" alt="">
+            <div class="user-name s-user-name"></div>
+            <div class="user-hr">
+                <i class="fas fa-heart"></i>
+            </div>
+            <ul class="menu">
+                <li><a href="../../front_end/locationorder/locationOrderGetAll.html"><i class="fas fa-user"></i>訂單資料</a>
+                </li>
+                <li><a href="../../locationroom/locationRoomServlet?action=locationRoomGetAll"><i
+							class="fas fa-file-invoice"></i>查詢廳房</a></li>
+
+                <li><a href="../../front_end/locationroom/locationRoomGetOnee2.jsp"><i
+						class="fas fa-church"></i>新增廳房</a></li>
+                <li><a href="../../locationroom/locationRoomServlet?action=locationRoomDelete"><i
+						class="fas fa-camera-retro"></i>刪除廳房</a></li>
+
+            </ul>
+        </div>
+        <div class="content">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+
+                        <th scope="col">訂單編號</th>
+                        <th scope="col">買家姓名</th>
+                        <th scope="col">廳房編號</th>
+                        <th scope="col">方案編號</th>
+                        <th scope="col">付款方式</th>
+                        <th scope="col">訂單狀況</th>
+                        <th scope="col">付款狀況</th>
+                        <th scope="col">編輯訂單</th>
+
+                    </tr>
+                </thead>
+                <tbody id="orderlist"></tbody>
+
+            </table>
+        </div>
+        <!-- 購物車頁面 -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">購物車<img src="images/MHlogo_04.svg" alt=""></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">商品資訊</th>
+                                    <th scope="col">商品名稱</th>
+                                    <th scope="col">價格</th>
+                                    <th scope="col">數量</th>
+                                    <th scope="col">小計</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart"></tbody>
+                        </table>
+                        <div id="total-list" class="total-list">
+                            <h5 class="site-color">合計金額</h5>
+                            <h5 class="site-color">$<span id="total"></span></h5>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="checkout">結帳</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--尾巴-->
+    <div class="footer">
+        <div class="foote-top">
+            <ul class="foote-content">
+                <div>婚攝服務</div>
+                <li><a href="">拍婚紗</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>婚宴服務</div>
+                <li><a href="../locationprogram/LocIndex.html">婚宴場地</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>婚禮週邊</div>
+                <li><a href="">婚禮小物</a></li>
+                <li><a href="">婚鞋</a></li>
+                <li><a href="">婚戒</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>專欄討論</div>
+                <li><a href="">幸福專欄</a></li>
+                <li><a href="">幸福聊聊</a></li>
+            </ul>
+        </div>
+        <div class="foote-between">
+            <img src="images/MHlogo_01.svg" alt="">
+            <p class="f-logo">2021 MarryHappiness 嫁給幸福</p>
+        </div>
+    </div>
+    <script>
+        $.ajax({
+            url: "../../locationorder/SmemLocationorderList",
+            type: "post",
+            dataType: "json",
+            data: {
+                "action": "getSmemOrderID"
+            },
+            success: function(data) {
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    let tmp = `<tr>
+                        <td>${data[i].loco_ID}</td>
+                        <td>${getmemname(data[i].loco_BMEM_ID)}</td>
+                        <td>${getlocrname(data[i].loco_LOCR_ID)}</td>
+                        <td>${getlocpname(data[i].loco_LOCP_ID)}</td>
+                        <td>${getpaytype(data[i].loco_PAYTYPE)}</td>
+                        <td>${getstatus(data[i].loco_ORDER_STATUS)}</td>
+						<td>${getpaystatus(data[i].loco_PAY_STATUS)}</td>
+                        <td><a href="../../front_end/locationorder/locationOrderGetOne.html?LOCO_ID=${data[i].loco_ID}"><button type="button" class="btn btn-primary" onclick="">詳細資訊</button></a></td>	
+                    	</tr>`
+                    $('#orderlist').append(tmp);
+
+                }
+            }
+        })
+
+        function getmemname(Mem_ID) {
+            let Mem_name = null;
+            $.ajax({
+                type: "post",
+                url: "../../locationorder/SmemLocationorderList",
+                data: {
+                    "Mem_ID": Mem_ID,
+                    "action": "getmemname"
+                },
+                async: false,
+                dataType: "json",
+                success: function(data) {
+                    Mem_name = data.mem_name;
+                }
+            });
+            return Mem_name;
+        }
+
+        function getlocrname(LOCR_ID) {
+            let Locr_name = null;
+            $.ajax({
+                type: "post",
+                url: "../../locationorder/SmemLocationorderList",
+                data: {
+                    "LOCR_ID": LOCR_ID,
+                    "action": "getlocrname"
+                },
+                async: false,
+                dataType: "json",
+                success: function(data) {
+                    Locr_name = data.locr_NAME;
+
+                }
+            });
+            return Locr_name;
+        }
+
+        function getlocpname(LOCP_ID) {
+            let Locp_name = null;
+            $.ajax({
+                type: "post",
+                url: "../../locationorder/SmemLocationorderList",
+                data: {
+                    "LOCP_ID": LOCP_ID,
+                    "action": "getlocpname"
+                },
+                async: false,
+                dataType: "json",
+                success: function(data) {
+
+                    Locp_name = data.locp_name;
+
+                }
+            });
+            return Locp_name;
+        }
+        //getpaytype:0:信用卡付款	1:web ATM
+        function getpaytype(id) {
+
+            if (id == 0) {
+                return "信用卡付款";
+            } else if (id == 1) {
+                return "web ATM";
+            }
+        }
+
+        //status:預約中1:預約成功2:預約失敗3:訂單已完成4:已取消
+        function getstatus(id) {
+
+            if (id == 0) {
+                return "預約中";
+            } else if (id == 1) {
+                return "預約成功";
+            } else if (id == 2) {
+                return "預約失敗";
+            } else if (id == 3) {
+                return "訂單已完成";
+            } else if (id == 4) {
+                return "已取消";
+            }
+        }
+
+        //getpaystatus 0:未付款	1:付款失敗	2:超過付款時間	3:已付訂金	4:已付尾款	5:退款中 6:已退款
+
+        function getpaystatus(id) {
+
+            if (id == 0) {
+                return "未付款";
+            } else if (id == 1) {
+                return "付款失敗";
+            } else if (id == 2) {
+                return "超過付款時間";
+            } else if (id == 3) {
+                return "已付訂金";
+            } else if (id == 4) {
+                return "已付尾款";
+            } else if (id == 5) {
+                return "退款中";
+            } else if (id == 6) {
+                return "已退款";
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

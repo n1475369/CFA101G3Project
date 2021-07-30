@@ -21,9 +21,18 @@ public class CheckServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemVO user = (MemVO)session.getAttribute("user");
 		if(user!= null) {
-			response.getWriter().print(user.getMem_name());
+			Integer mem_role = user.getMem_role();
+			if(mem_role.equals(10)) {
+				response.sendRedirect(request.getContextPath()+"/front_end/member/memberBuyProfile.html?action=profile");
+			}else if(mem_role.equals(20)) {
+				response.sendRedirect(request.getContextPath()+"/front_end/product/ProSellerProfile.html?action=profile");
+			}else if(mem_role.equals(30)) {
+				response.sendRedirect(request.getContextPath()+"/front_end/member/memberSellerProfile.html?action=profile");
+			}else if(mem_role.equals(40)) {
+				response.sendRedirect(request.getContextPath()+"/front_end/member/memberSellerProfile.html?action=profile");
+			}
 		}else {
-			response.getWriter().print("0");
+			response.sendRedirect(request.getContextPath()+"front_end/index/index.jsp");
 		}
 	}
 

@@ -27,11 +27,11 @@ public  class CategoryDAOImpl implements CategoryDAO {
 			e.printStackTrace();
 		}
 	}
-	private static final String INSERT = "INSERT INTO category (cat_name) VALUES (?)";
-	private static final String UPDATE = "UPDATE category set cat_name=? where cat_id = ?";
-	private static final String DELETE = "DELETE FROM category where cat_id = ?";
-	private static final String GET_ONE = "SELECT * FROM category where cat_id = ?";
-	private static final String GET_ALL = "SELECT * FROM category order by cat_id";
+	private static final String INSERT = "INSERT INTO CATEGORY (cat_name) VALUES (?)";
+	private static final String UPDATE = "UPDATE CATEGORY set cat_name=? where cat_id = ?";
+	private static final String DELETE = "DELETE FROM CATEGORY where cat_id = ?";
+	private static final String GET_ONE = "SELECT * FROM CATEGORY where cat_id = ?";
+	private static final String GET_ALL = "SELECT * FROM CATEGORY order by cat_id";
 	private static final String GET_POST_COUNT_BY_CAT_ID ="select count(*) from CATEGORY c join POST p on c.CAT_ID = p.POST_CAT_ID  where CAT_ID =?";
 
 	public void insert(CategoryVO category) {

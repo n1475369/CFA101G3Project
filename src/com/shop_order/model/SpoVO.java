@@ -17,6 +17,37 @@ public class SpoVO implements Serializable{
 	private Integer spo_status;
 	private Integer spo_pay_status;
 	private Integer spo_cargo_status;
+	
+	
+	
+	public SpoVO(Integer spo_id, Timestamp spo_time, Integer spo_payment, Integer spo_postage, Integer spo_bmem_id,
+			Integer spo_smem_id, String spo_receiver_name, String spo_receiver_phone, String spo_receiver_address,
+			Integer spo_paytype, Integer spo_status, Integer spo_pay_status, Integer spo_cargo_status) {
+		super();
+		this.spo_id = spo_id;
+		this.spo_time = spo_time;
+		this.spo_payment = spo_payment;
+		this.spo_postage = spo_postage;
+		this.spo_bmem_id = spo_bmem_id;
+		this.spo_smem_id = spo_smem_id;
+		this.spo_receiver_name = spo_receiver_name;
+		this.spo_receiver_phone = spo_receiver_phone;
+		this.spo_receiver_address = spo_receiver_address;
+		this.spo_paytype = spo_paytype;
+		this.spo_status = spo_status;
+		this.spo_pay_status = spo_pay_status;
+		this.spo_cargo_status = spo_cargo_status;
+	}
+	
+	
+	
+	public SpoVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public Integer getSpo_id() {
 		return spo_id;
 	}
@@ -95,4 +126,14 @@ public class SpoVO implements Serializable{
 	public void setSpo_cargo_status(Integer spo_cargo_status) {
 		this.spo_cargo_status = spo_cargo_status;
 	}
+	@Override
+	public String toString() {
+		return "SpoVO [spo_id=" + spo_id + ", spo_time=" + spo_time + ", spo_payment=" + spo_payment + ", spo_postage="
+				+ spo_postage + ", spo_bmem_id=" + spo_bmem_id + ", spo_smem_id=" + spo_smem_id + ", spo_receiver_name="
+				+ spo_receiver_name + ", spo_receiver_phone=" + spo_receiver_phone + ", spo_receiver_address="
+				+ spo_receiver_address + ", spo_paytype=" + spo_paytype + ", spo_status=" + spo_status
+				+ ", spo_pay_status=" + spo_pay_status + ", spo_cargo_status=" + spo_cargo_status + "]";
+	}
+	
+	
 }

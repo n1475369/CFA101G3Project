@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.product.model.ProVO;
 import com.shop_order_item.model.SpoiDAOImpl;
 import com.shop_order_item.model.SpoiVO;
 
@@ -36,9 +37,7 @@ public class SpoDAOImpl implements SpoDAO{
 	private static final String INSERT = "insert into SHOP_ORDER (spo_time,spo_payment,spo_postage,spo_bmem_id,spo_smem_id,spo_receiver_name,spo_receiver_phone,spo_receiver_address,spo_paytype,spo_status,spo_pay_status,spo_cargo_status) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_SPO_PAY_STATUS = "update shop_order set spo_pay_status = ? where spo_id = ?";
 	private static final String GETALL = "select * from SHOP_ORDER";
-	private static final String GETONE = "select * from SHOP_ORDER where spo_id = ?";
 
-	
 	//新增商品訂單(需藉由別人的連線)(單筆)
 	@Override
 	public Integer insert(SpoVO spoVO, List<SpoiVO> spoiVOList,Connection con) {
@@ -189,6 +188,359 @@ public class SpoDAOImpl implements SpoDAO{
 			}
 		}
 	}
+	
+	//查詢所有訂單
+	@Override
+ 	public List<SpoVO> getOrdall(Integer spo_smem_id){
+		
+		//準備好 SQL list vo con pstmt rs 1.宣告2.取值3.拿來用
+				java.lang.String GETALL = "SELECT * FROM SHOP_ORDER WHERE SPO_SMEM_ID = ?";
+				List<SpoVO> list = new ArrayList<SpoVO>();
+				SpoVO spoVO = null;
+				Connection con = null;
+				PreparedStatement pstmt =null;
+				ResultSet rs = null;
+				//連線開始
+				try {
+					con = ds.getConnection();
+					pstmt = con.prepareStatement(GETALL);
+					pstmt.setInt(1, spo_smem_id);
+					rs = pstmt.executeQuery();
+					//集合集撈出每一筆
+					while(rs.next()) {
+						spoVO = new SpoVO();
+						spoVO.setSpo_id(rs.getInt("spo_id"));
+						//時間地雷
+						spoVO.setSpo_time(rs.getTimestamp("spo_time")); 
+						spoVO.setSpo_payment(rs.getInt("spo_payment"));
+						spoVO.setSpo_postage(rs.getInt("spo_postage"));
+						spoVO.setSpo_bmem_id(rs.getInt("spo_bmem_id"));
+//						spoVO.setSpo_smem_id(rs.getInt("spo_smem_id"));
+						spoVO.setSpo_receiver_name(rs.getString("spo_receiver_name"));
+						spoVO.setSpo_receiver_phone(rs.getString("spo_receiver_phone"));
+						spoVO.setSpo_receiver_address(rs.getString("spo_receiver_address"));
+						spoVO.setSpo_paytype(rs.getInt("spo_paytype"));
+						spoVO.setSpo_status(rs.getInt("spo_status"));
+						spoVO.setSpo_pay_status(rs.getInt("spo_pay_status"));
+						spoVO.setSpo_cargo_status(rs.getInt("spo_cargo_status"));
+
+						list.add(spoVO);
+					}
+					
+				} catch (SQLException se) {
+					throw new RuntimeException("資料錯誤"+
+					se.getMessage());
+				}finally {
+				if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+					}
+				}
+				if(pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+						}
+					}
+				if(con != null) {
+					try {
+						con.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+						}
+					}
+				}
+				return list;
+			}
+	
+	//查詢單一訂單
+	@Override
+	public SpoVO findByPK(Integer spo_id) {
+		//準備好 SQL list VO con pstmt rs 1.宣告2.取值3.拿來用
+				java.lang.String SQL ="SELECT * FROM SHOP_ORDER WHERE SPO_ID = ?";
+				SpoVO spoVO =null;
+				Connection con =null;
+				PreparedStatement pstmt =null;
+				ResultSet rs = null;
+				//連線開始
+				try {
+					con = ds.getConnection();
+					pstmt = con.prepareStatement(SQL);
+					pstmt.setInt(1, spo_id);
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						spoVO = new SpoVO();
+						spoVO.setSpo_id(rs.getInt("spo_id"));
+						spoVO.setSpo_time(rs.getTimestamp("spo_time")); 
+						spoVO.setSpo_payment(rs.getInt("spo_payment"));
+						spoVO.setSpo_postage(rs.getInt("spo_postage"));
+						spoVO.setSpo_bmem_id(rs.getInt("spo_bmem_id"));
+						spoVO.setSpo_smem_id(rs.getInt("spo_smem_id"));
+						spoVO.setSpo_receiver_name(rs.getString("spo_receiver_name"));
+						spoVO.setSpo_receiver_phone(rs.getString("spo_receiver_phone"));
+						spoVO.setSpo_receiver_address(rs.getString("spo_receiver_address"));
+						spoVO.setSpo_paytype(rs.getInt("spo_paytype"));
+						spoVO.setSpo_status(rs.getInt("spo_status"));
+						spoVO.setSpo_pay_status(rs.getInt("spo_pay_status"));
+						spoVO.setSpo_cargo_status(rs.getInt("spo_cargo_status"));
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (con != null) {
+						try {
+							con.close();
+						} catch (Exception e) {
+							e.printStackTrace(System.err);
+						}
+					}
+				};
+				return spoVO;
+			}
+	
+	//查詢貨況訂單
+	@Override
+ 	public List<SpoVO> getOrdReturn(Integer spo_smem_id,Integer spo_cargo_status){
+		
+		//準備好 SQL list vo con pstmt rs 1.宣告2.取值3.拿來用
+				java.lang.String SQL = "SELECT * FROM SHOP_ORDER WHERE SPO_SMEM_ID = ? AND SPO_CARGO_STATUS = ?";
+				List<SpoVO> list = new ArrayList<SpoVO>();
+				SpoVO spoVO = null;
+				Connection con = null;
+				PreparedStatement pstmt =null;
+				ResultSet rs = null;
+				//連線開始
+				try {
+					con = ds.getConnection();
+					pstmt = con.prepareStatement(SQL);
+					pstmt.setInt(1, spo_smem_id);
+					pstmt.setInt(2, spo_cargo_status);
+					rs = pstmt.executeQuery();
+					//集合集撈出每一筆
+					while(rs.next()) {
+						spoVO = new SpoVO();
+						spoVO.setSpo_id(rs.getInt("spo_id"));
+						spoVO.setSpo_time(rs.getTimestamp("spo_time")); 
+						spoVO.setSpo_payment(rs.getInt("spo_payment"));
+						spoVO.setSpo_postage(rs.getInt("spo_postage"));
+						spoVO.setSpo_bmem_id(rs.getInt("spo_bmem_id"));
+//						spoVO.setSpo_smem_id(rs.getInt("spo_smem_id"));
+						spoVO.setSpo_receiver_name(rs.getString("spo_receiver_name"));
+						spoVO.setSpo_receiver_phone(rs.getString("spo_receiver_phone"));
+						spoVO.setSpo_receiver_address(rs.getString("spo_receiver_address"));
+						spoVO.setSpo_paytype(rs.getInt("spo_paytype"));
+						spoVO.setSpo_status(rs.getInt("spo_status"));
+						spoVO.setSpo_pay_status(rs.getInt("spo_pay_status"));
+						spoVO.setSpo_cargo_status(rs.getInt("spo_cargo_status"));
+
+						list.add(spoVO);
+					}
+					
+				} catch (SQLException se) {
+					throw new RuntimeException("資料錯誤"+
+					se.getMessage());
+				}finally {
+				if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+					}
+				}
+				if(pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+						}
+					}
+				if(con != null) {
+					try {
+						con.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+						}
+					}
+				}
+				return list;
+			}
+	
+	//查詢付款訂單
+	public List<SpoVO> getOrdRefund(Integer spo_smem_id,Integer spo_pay_status){
+	
+	//準備好 SQL list vo con pstmt rs 1.宣告2.取值3.拿來用
+	java.lang.String SQL = "SELECT * FROM SHOP_ORDER WHERE SPO_SMEM_ID = ? AND SPO_PAY_STATUS = ?";
+	List<SpoVO> list = new ArrayList<SpoVO>();
+	SpoVO spoVO = null;
+	Connection con = null;
+	PreparedStatement pstmt =null;
+	ResultSet rs = null;
+	//連線開始
+	try {
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(SQL);
+		pstmt.setInt(1, spo_smem_id);
+		pstmt.setInt(2, spo_pay_status);
+		rs = pstmt.executeQuery();
+		//集合集撈出每一筆
+		while(rs.next()) {
+			spoVO = new SpoVO();
+			spoVO.setSpo_id(rs.getInt("spo_id"));
+			spoVO.setSpo_time(rs.getTimestamp("spo_time")); 
+			spoVO.setSpo_payment(rs.getInt("spo_payment"));
+			spoVO.setSpo_postage(rs.getInt("spo_postage"));
+			spoVO.setSpo_bmem_id(rs.getInt("spo_bmem_id"));
+//			spoVO.setSpo_smem_id(rs.getInt("spo_smem_id"));
+			spoVO.setSpo_receiver_name(rs.getString("spo_receiver_name"));
+			spoVO.setSpo_receiver_phone(rs.getString("spo_receiver_phone"));
+			spoVO.setSpo_receiver_address(rs.getString("spo_receiver_address"));
+			spoVO.setSpo_paytype(rs.getInt("spo_paytype"));
+			spoVO.setSpo_status(rs.getInt("spo_status"));
+			spoVO.setSpo_pay_status(rs.getInt("spo_pay_status"));
+			spoVO.setSpo_cargo_status(rs.getInt("spo_cargo_status"));
+
+			list.add(spoVO);
+		}
+		
+	} catch (SQLException se) {
+		throw new RuntimeException("資料錯誤"+
+		se.getMessage());
+	}finally {
+	if(rs != null) {
+	try {
+		rs.close();
+	} catch (SQLException se) {
+		se.printStackTrace();
+		}
+	}
+	if(pstmt != null) {
+		try {
+			pstmt.close();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			}
+		}
+	if(con != null) {
+		try {
+			con.close();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			}
+		}
+	}
+	return list;
+}
+
+	
+	//獲取單筆訂單(捷哥)
+	@Override
+	public SpoVO getOne(Integer spo_id) {
+		String GETONE = "select * from SHOP_ORDER where spo_id = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		SpoVO spoVO = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GETONE);
+			pstmt.setInt(1, spo_id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				spoVO = new SpoVO();
+				spoVO.setSpo_id(rs.getInt("SPO_ID"));
+				spoVO.setSpo_time(rs.getTimestamp("SPO_TIME"));
+				spoVO.setSpo_payment(rs.getInt("SPO_PAYMENT"));
+				spoVO.setSpo_postage(rs.getInt("SPO_POSTAGE"));
+				spoVO.setSpo_bmem_id(rs.getInt("SPO_BMEM_ID"));
+				spoVO.setSpo_smem_id(rs.getInt("SPO_SMEM_ID"));
+				spoVO.setSpo_receiver_name(rs.getString("SPO_RECEIVER_NAME"));
+				spoVO.setSpo_receiver_phone(rs.getString("SPO_RECEIVER_PHONE"));
+				spoVO.setSpo_receiver_address(rs.getString("SPO_RECEIVER_ADDRESS"));
+				spoVO.setSpo_paytype(rs.getInt("SPO_PAYTYPE"));
+				spoVO.setSpo_status(rs.getInt("SPO_STATUS"));
+				spoVO.setSpo_pay_status(rs.getInt("SPO_PAY_STATUS"));
+				spoVO.setSpo_cargo_status(rs.getInt("SPO_CARGO_STATUS"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return spoVO;
+	}
+	
+
+	
+	
+	JdbcTemplate template = new JdbcTemplate(ds);
+	//更新訂單狀態
+	@Override
+	public void update_spo_status(Integer spo_id, Integer spo_status) {
+		String sql = "update shop_order set spo_status = ? where spo_id = ?";
+		template.update(sql,spo_status,spo_id);
+	}
+	
+	//更新付款狀態
+	@Override
+	public void update_spo_pay_status(Integer spo_id, Integer spo_pay_status) {
+		String sql = "update shop_order set spo_pay_status = ? where spo_id = ?";
+		template.update(sql,spo_pay_status,spo_id);
+	}
+	
+	//更新發貨狀態
+	@Override
+	public void update_spo_cargo_status(Integer spo_id, Integer spo_cargo_status) {
+		String sql = "update shop_order set spo_cargo_status = ? where spo_id = ?";
+		template.update(sql,spo_cargo_status,spo_id);
+	}
+	
+	//更新付款方式
+	@Override
+	public void update_spo_paytype(Integer spo_id, Integer spo_paytype) {
+		String sql = "update shop_order set spo_paytype = ? where spo_id = ?";
+		template.update(sql,spo_paytype,spo_id);
+	}
+	
+	//獲取所有訂單
 	@Override
 	public List<SpoVO> getAll() {
 		Connection con = null;
@@ -245,91 +597,4 @@ public class SpoDAOImpl implements SpoDAO{
 		return list;
 	}
 	
-	//獲取單筆訂單
-	@Override
-	public SpoVO getOne(Integer spo_id) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		SpoVO spoVO = null;
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GETONE);
-			pstmt.setInt(1, spo_id);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				spoVO = new SpoVO();
-				spoVO.setSpo_id(rs.getInt("SPO_ID"));
-				spoVO.setSpo_time(rs.getTimestamp("SPO_TIME"));
-				spoVO.setSpo_payment(rs.getInt("SPO_PAYMENT"));
-				spoVO.setSpo_postage(rs.getInt("SPO_POSTAGE"));
-				spoVO.setSpo_bmem_id(rs.getInt("SPO_BMEM_ID"));
-				spoVO.setSpo_smem_id(rs.getInt("SPO_SMEM_ID"));
-				spoVO.setSpo_receiver_name(rs.getString("SPO_RECEIVER_NAME"));
-				spoVO.setSpo_receiver_phone(rs.getString("SPO_RECEIVER_PHONE"));
-				spoVO.setSpo_receiver_address(rs.getString("SPO_RECEIVER_ADDRESS"));
-				spoVO.setSpo_paytype(rs.getInt("SPO_PAYTYPE"));
-				spoVO.setSpo_status(rs.getInt("SPO_STATUS"));
-				spoVO.setSpo_pay_status(rs.getInt("SPO_PAY_STATUS"));
-				spoVO.setSpo_cargo_status(rs.getInt("SPO_CARGO_STATUS"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if(pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if(con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		return spoVO;
-	}
-	
-	
-	JdbcTemplate template = new JdbcTemplate(ds);
-	//更新訂單狀態
-	@Override
-	public void update_spo_status(Integer spo_id, Integer spo_status) {
-		String sql = "update shop_order set spo_status = ? where spo_id = ?";
-		template.update(sql,spo_status,spo_id);
-	}
-	
-	//更新付款狀態
-	@Override
-	public void update_spo_pay_status(Integer spo_id, Integer spo_pay_status) {
-		String sql = "update shop_order set spo_pay_status = ? where spo_id = ?";
-		template.update(sql,spo_pay_status,spo_id);
-	}
-	
-	//更新發貨狀態
-	@Override
-	public void update_spo_cargo_status(Integer spo_id, Integer spo_cargo_status) {
-		String sql = "update shop_order set spo_cargo_status = ? where spo_id = ?";
-		template.update(sql,spo_cargo_status,spo_id);
-	}
-	
-	//更新付款方式
-	@Override
-	public void update_spo_paytype(Integer spo_id, Integer spo_paytype) {
-		String sql = "update shop_order set spo_paytype = ? where spo_id = ?";
-		template.update(sql,spo_paytype,spo_id);
-	}
-
 }

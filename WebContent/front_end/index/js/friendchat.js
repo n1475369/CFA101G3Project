@@ -1,5 +1,36 @@
+let chatTmp = `<div class="chatWrap" id="chatWrap">
+<div class="chat-title">聊聊</div>
+<div class="flexbox">
+    <div class="messages-block">
+        <div id="statusOutput" class="statusOutput" data-mem_id=""></div>
+        <div id="messagesArea" class="panel message-area">
+            <ul id="area">
+                <div class="area-msg" id="area-msg">
+                    <h3>歡迎使用聊聊</h3>
+                    <p>趕緊和一位會員聊聊天吧～</p>
+                </div>
+            </ul>
+        </div>
+        <div class="panel input-area">
+            <input id="message" class="text-field" type="text" placeholder="輸入文字">
+            <a href="javascript:void(0)" id="sendMessage"><i class="far fa-paper-plane"></i></a>
+            <a href="javascript:void(0)" id="sendImg"><i class="far fa-images"></i></a>
+            <input type="file" name="ChatFile" id="ChatFile">
+        </div>
+    </div>
+    <div id="row">
+
+    </div>
+</div>
+<div class="chat-close" id="chat-close">-</div>
+</div>
+<div class="chat-components" id="chat-components">
+<i class="far fa-comments"></i>
+<span>聊聊</span>
+</div>`;
+$('body').append(chatTmp);
+
 var chat_mem_id; //登入會員ID
-console.log(chat_mem_id);
 $.ajax({
     type: "post",
     url: "../../member/buyProfileServlet",
@@ -9,6 +40,8 @@ $.ajax({
         chat_mem_id = result.mem_id;
     }
 });
+console.log(chat_mem_id);
+
 
 //載入頁面時建立WebSocket連線
 window.onload = function() {
@@ -47,7 +80,7 @@ function connect() {
     webSocket.onopen = function(event) {
         console.log("Connect Success!");
         document.getElementById('sendMessage').disabled = false;
-        $('#chat-components').show();
+        // $('#chat-components').show();
     };
 
     webSocket.onmessage = function(event) {
@@ -55,6 +88,7 @@ function connect() {
         console.log(jsonObj);
         if ("open" === jsonObj.type) {
             refreshFriendList(jsonObj);
+            $('#chat-components').show();
         } else if ("history" === jsonObj.type) {
             $('#area').html("");
             // 這行的jsonObj.message是從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
@@ -117,6 +151,12 @@ function connect() {
 //綁定點擊發送訊息事件
 $('#sendMessage').on('click', function() {
     sendMessage()
+});
+//綁定按enter發送訊息事件
+$('#message').on('keydown', function(e) {
+    if (e.keyCode == 13) {
+        sendMessage()
+    }
 });
 
 //綁定點擊圖片觸發圖片選擇
@@ -209,7 +249,7 @@ async function refreshFriendList(jsonObj) {
         }
         let tmp = `<a class="column" id="friend${friends[i]}" data-mem_id="${friends[i]}"><img src="../../member/memImgServlet?action=headShot&mem_id=${friends[i]}">${await getMemberName(friends[i])}</a>`;
         $(row).append(tmp);
-        if (jsonObj.unread[friends[i]] != 0) { //如果未讀訊息不為0則加入通知
+        if (jsonObj.unread != undefined && jsonObj.unread[friends[i]] != 0) { //如果未讀訊息不為0則加入通知
             $(`#friend${friends[i]}`).append(`<span>${jsonObj.unread[friends[i]]}</span>`);
         }
     }
@@ -293,6 +333,7 @@ $('[data-chat="active"]').on('click', async function(e) {
         let friend = await getMemberName(mem_id);
         statusOutput.dataset.mem_id = mem_id;
         updateFriendName(friend);
+        $('#area').html("");
         var jsonObj = {
             "type": "newChat",
             "sender": self,

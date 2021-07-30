@@ -8,38 +8,61 @@
     <link rel="stylesheet" href="css/cssreset.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/buyerShopOrder.css">
+    <link rel="stylesheet" href="css/newCart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/newCart.js"></script>
+
     <title>會員中心｜MarryHappiness</title>
 </head>
 
 <body>
-    <div class="header">
-        <div class="top-container">
-            <a href="#" class="logo"><img src="images/MHlogo_04.svg" alt=""></a>
-            <div class="user">
-                <div class="headshot">
-                    <img class="imgdata" src="" alt="">
-                </div>
-                <div class="user-name"></div>
-                <ul class="user-menu">
-                    <li><a href="memberBuyProfile.html"><i class="fas fa-home"></i> 會員系統</a></li>
-                    <li><a href="../../member/loginServlet?action=logout"><i class="fas fa-sign-out-alt"></i> 登出</a>
-                    </li>
-                </ul>
-            </div>
+    <!-- 載入前動畫 -->
+    <div class="loading-wrap">
+        <div class="loading-img">
+            <img src="images/loading.gif" class="loading">
+            <img src="images/loading2.gif" class="loading2">
         </div>
-        <ul class="nav">
-            <li><a href="#">拍婚紗</a></li>
-            <li><a href="#">婚禮場地</a></li>
-            <li><a href="#">婚禮週邊</a></li>
-            <li><a href="#">找靈感</a></li>
-        </ul>
     </div>
+
+    <!--大頭-->
+    <header>
+        <div class="top">
+            <ul>
+                <!-- 購物車圖片Icon -->
+
+                <li><a href="../index/index.jsp">首頁</a></li>
+                <li><a href="../member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
+                <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
+                <li class="headcart">
+                    <a href="javascript:void(0)" id="cartModal">
+                        <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
+                </li>
+
+            </ul>
+        </div>
+
+
+        <!--上面增加的小色塊-->
+        <div class="nav1"></div>
+        <ul class="nav2">
+            <li><a href="#">婚禮攝影<br>Photography
+				</a></li>
+            <li><a href="">婚禮場地<br>Location
+				</a></li>
+            <li>
+                <a href="#" class="logo"><img src="images/MHlogo_01.svg"></a>
+            </li>
+            <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
+				</a></li>
+            <li><a href="#">專欄討論<br>Post
+				</a></li>
+        </ul>
+    </header>
     <div class="wrap">
         <div class="side-bar">
             <img class="imgdata" src="" alt="">
@@ -50,7 +73,7 @@
                 <li><a href="memberBuyProfile.html?action=setting" id="setting"><i
                             class="fas fa-file-invoice"></i>帳號設定</a></li>
                 <li><a href="buyerShopOrder.html?action=getAll"><i class="fas fa-shopping-cart"></i>商品訂單</a></li>
-                <li><a href="#"><i class="fas fa-church"></i>婚禮場地</a></li>
+                <li><a href="buyerLocationOrder.html"><i class="fas fa-church"></i>婚禮場地</a></li>
                 <li><a href="#"><i class="fas fa-camera-retro"></i>婚紗攝影</a></li>
             </ul>
         </div>
@@ -87,7 +110,8 @@
     <form action="../../shop_order/buyerSpoServlet?action=checkout" method="post" id="submit-form">
         <input type="hidden" name="paytype" value="" id="paytype">
         <input type="hidden" name="spo_id" value="" id="spo_id">
-    </form>`
+    </form>
+
     <script>
         //跟資料庫請求個人頭像
         Ajaxheadshot();
@@ -153,6 +177,9 @@
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=getAll",
                 dataType: "json",
+                beforeSend: function() {
+                    $('.loading-wrap').show();
+                },
                 success: function(data) {
                     for (const key in data) {
                         let orderTmp =
@@ -189,6 +216,7 @@
                             $(`#order-block-wrap${key}`).append(spoiTmp);
                         }
                     }
+                    $('.loading-wrap').hide();
                 }
             });
         }
@@ -201,6 +229,9 @@
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=outstanding",
                 dataType: "json",
+                beforeSend: function() {
+                    $('.loading-wrap').show();
+                },
                 success: function(data) {
                     for (const key in data) {
                         let orderTmp =
@@ -237,6 +268,7 @@
                             $(`#order-block-wrap${key}`).append(spoiTmp);
                         }
                     }
+                    $('.loading-wrap').hide();
                 }
             });
         }
@@ -249,6 +281,9 @@
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=unshipped",
                 dataType: "json",
+                beforeSend: function() {
+                    $('.loading-wrap').show();
+                },
                 success: function(data) {
                     for (const key in data) {
                         let orderTmp =
@@ -285,6 +320,7 @@
                             $(`#order-block-wrap${key}`).append(spoiTmp);
                         }
                     }
+                    $('.loading-wrap').hide();
                 }
             });
         }
@@ -297,6 +333,9 @@
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=shipped",
                 dataType: "json",
+                beforeSend: function() {
+                    $('.loading-wrap').show();
+                },
                 success: function(data) {
                     for (const key in data) {
                         let orderTmp =
@@ -333,6 +372,7 @@
                             $(`#order-block-wrap${key}`).append(spoiTmp);
                         }
                     }
+                    $('.loading-wrap').hide();
                 }
             });
         }
@@ -345,6 +385,9 @@
                 type: "post",
                 url: "../../shop_order/buyerSpoServlet?action=finish",
                 dataType: "json",
+                beforeSend: function() {
+                    $('.loading-wrap').show();
+                },
                 success: function(data) {
                     for (const key in data) {
                         let orderTmp =
@@ -381,6 +424,7 @@
                             $(`#order-block-wrap${key}`).append(spoiTmp);
                         }
                     }
+                    $('.loading-wrap').hide();
                 }
             });
         }
