@@ -438,7 +438,7 @@ public class LocrDAO implements LocrDAO_interface {
 	
 	public MemVO getSmem(Integer MEM_ID) {
 		
-		String sql = "SELECT * FROM MEMBER  where MEM_ID=? ORDER BY MEM_ID";
+		String sql = "SELECT * FROM `MEMBER`  where MEM_ID=? ORDER BY MEM_ID";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

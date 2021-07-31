@@ -25,9 +25,12 @@
 	href="<%=request.getContextPath()%>/front_end/locationroom/css/header.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/front_end/locationroom/css/footer.css">
-	
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front_end/locationroom/css/memberBuyProfile.css">
+	href="<%=request.getContextPath()%>/front_end/locationroom/css/LocSellerProfile.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/locationroom/css/newCart.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front_end/locationroom/css/friendchat.css">
 <link rel="stylesheet"
 	type="<%=request.getContextPath()%>/front_end/locationroom/text/css"
 	href="<%=request.getContextPath()%>/front_end/locationroom/css/jquery.datetimepicker.css" />
@@ -40,7 +43,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
-
+<script
+	src="<%=request.getContextPath()%>/front_end/locationroom/js/newCartJSP.js"></script>
 <style>
 #table thead, #table tr {
 	border-top-width: 1px;
@@ -91,63 +95,71 @@ th, td {
 <title>廳房中心｜MarryHappiness</title>
 </head>
 <body>
-<header>
-		<div class="top">
-			<ul>
-				<!-- 購物車圖片Icon -->
+    <!--大頭-->
+    <header>
+        <div class="top">
+            <ul>
+                <!-- 購物車圖片Icon -->
+                <li><a href="../front_end/index/index.jsp">首頁</a></li>
+                <li><a href="../front_end/member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
+                <li><a href="../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
+                <li class="headcart">
+                    <a href="javascript:void(0)" id="cartModal">
+                        <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
+                </li>
 
-				<li><a href="#">首頁</a></li>
-				<li><a
-					href="<%=request.getContextPath()%>/front_end/member/login.html"><i
-						class="fas fa-sign-out-alt"></i>登入</a></li>
-				<li><a
-					href="<%=request.getContextPath()%>/src/com/member/controller/CheckServlet.java"><i
-						class="fas fa-home"></i> 會員系統</a></li>
-				<li class="headcart"><a href="javascript:void(0)"
-					data-bs-toggle="modal" data-bs-target="#exampleModal"
-					id="cartModal"> <i class="fas fa-shopping-cart" id="cartIcon"></i></a></li>
+            </ul>
+        </div>
 
-			</ul>
-		</div>
-		<!--上面增加的小色塊-->
-		<div class="nav1"></div>
-		<ul class="nav2">
-			<li><a href="#">婚禮攝影<br>Photography
-			</a></li>
-			<li><a
-				href="<%=request.getContextPath()%>/front_end/locationprogram/LocIndex.html">婚禮場地<br>Location
-			</a></li>
-			<li><a href="#" class="logo"><img src="<%=request.getContextPath()%>/front_end/locationroom/images/MHlogo_01.svg"></a></li>
-			<li><a href="#">婚禮週邊<br>Product
-			</a></li>
-			<li><a href="#">專欄討論<br>Post
-			</a></li>
-		</ul>
-	</header>
+
+        <!--上面增加的小色塊-->
+        <div class="nav1"></div>
+        <ul class="nav2">
+            <li><a href="#">婚禮攝影<br>Photography
+				</a></li>
+            <li><a href="../front_end/locationprogram/LocIndex.html">婚禮場地<br>Location
+				</a></li>
+            <li>
+                <a href="#" class="logo"><img src="../front_end/locationprogram/images/MHlogo_01.svg"></a>
+            </li>
+            <li><a href="../front_end/product/ProductMain.html">婚禮週邊<br>Product
+				</a></li>
+            <li><a href="#">專欄討論<br>Post
+				</a></li>
+        </ul>
+    </header>
 	<div class="wrap">
-		<div class="side-bar">
-			<img
-				src="<%=request.getContextPath()%>/front_end/locationroom/images/shop_tenin_houseki.png"
-				alt="">
-			<div class="user-name s-user-name"></div>
-			<div class="user-hr">
-				<i class="fas fa-heart"></i>
-			</div>
-			<ul class="menu">
-				<li><a href="<%=request.getContextPath()%>/front_end/locationorder/locationOrderGetAll.html"><i class="fas fa-user"></i>訂單資料</a>
-				</li>
-				<li><a href="<%=request.getContextPath()%>/locationroom/locationRoomServlet?action=locationRoomGetAll"><i
-							class="fas fa-file-invoice"></i>查詢廳房</a></li>
-				
-				<li><a
-					href="<%=request.getContextPath()%>/front_end/locationroom/locationRoomGetOnee2.jsp"><i
-						class="fas fa-church"></i>新增廳房</a></li>
-				<li><a
-					href="<%=request.getContextPath()%>/locationroom/locationRoomServlet?action=locationRoomDelete"><i
-						class="fas fa-camera-retro"></i>刪除廳房</a></li>
+        <div class="side-bar">
+            <img class="imgdata" src="" alt="">
+            <div class="user-name s-user-name"></div>
+            <div class="user-hr"><i class="fas fa-heart"></i></div>
+            <ul class="menu">
+                <li><a href="../front_end/member/LocSellerProfile.html?action=profile" id="profile"><i class="fas fa-user"></i>個人資料</a></li>
+                <li><a href="../front_end/member/LocSellerProfile.html?action=setting" id="setting"><i class="fas fa-file-invoice"></i>帳號設定</a></li>
+                <li><a href="../front_end/member/LocSellerProfile.html?action=sellerProfile"><i class="fas fa-shopping-cart"></i>店家資料</a></li>
+                <li><a href="../front_end/locationprogram/Locmanagement.html"><i class="fas fa-church"></i>場地管理</a></li>
+                <li><a href="javascript:void(0)" id="locRManage"><i class="fas fa-home"></i>廳房管理</a></li>
+                <ul class="menu-locR">
+                    <li><a href="../front_end/locationorder/locationOrderGetAll.html"><i class="fas fa-user"></i>訂單資料</a>
+                    </li>
+                    <li><a href="../locationroom/locationRoomServlet?action=locationRoomGetAll"><i
+                                class="fas fa-file-invoice"></i>查詢廳房</a></li>
 
-			</ul>
-		</div>
+                    <li><a href="../front_end/locationroom/locationRoomGetOnee2.jsp"><i
+                            class="fas fa-church"></i>新增廳房</a></li>
+                    <li><a href="../locationroom/locationRoomServlet?action=locationRoomDelete"><i
+                            class="fas fa-camera-retro"></i>刪除廳房</a></li>
+                </ul>
+                <li><a href="javascript:void(0)" id="locPManage"><i class="fas fa-indent"></i>方案管理</a></li>
+                <ul class="menu-locP">
+                    <li><a href="../front_end/locationprogram/listLocpBySmemId.html"><i class="fas fa-tasks"></i>查詢方案</a></li>
+                    <li><a href="../front_end/locationprogram/addLocpimage.html"><i class="fas fa-folder-plus"></i></i>新增方案</a></li>
+                    <li><a href="../front_end/locationprogram/updateLocpimage.html"><i class="fas fa-pencil-alt"></i>修改方案</a></li>
+                    <li><a href="../front_end/locationprogram/delLocp.html"><i class="fas fa-trash-alt"></i>刪除方案</a></li>
+                </ul>
+                <li><a href="../front_end/locationprogram/loccalendar.html"><i class="far fa-calendar-alt"></i>行程管理</a></li>
+            </ul>
+        </div>
 		<div class="content">
 			<c:if test="${not empty errorMsgs}">
 				<font style="color: red">請修正以下錯誤:</font>
@@ -159,42 +171,20 @@ th, td {
 			</c:if>
 			<table>
 				<tr>
-<!-- 					<th>刪除</th>   刪除廳房不含照片 -->
-					<th>刪除</th><!-- 刪除廳房與照片 -->
+					<th>刪除</th>
 					<th>廳房編號</th>
 					<th>店家編號</th>
 					<th>廳房名稱</th>
-
-
-					<th>廳房最大<br>總桌數
-					</th>
-					<th>廳房最小<br>總桌數
-					</th>
+					<th>廳房最大<br>總桌數</th>
+					<th>廳房最小<br>總桌數</th>
 					<th>主桌人數</th>
 					<th>客桌人數</th>
 					<th>廳房樓層</th>
-					<!-- 					<th>簡介</th> -->
 					<th>廳房狀態</th>
-
-
-
 				</tr>
-				<%-- 				<%@ include file="page1.file"%> --%>
 				<c:forEach var="LocrVO" items="${list}">
-
 					<tr>
-
-<!-- 						<td> -->
-<!-- 							<FORM METHOD="post" -->
-<%-- 								ACTION="<%=request.getContextPath()%>/locationroom/locrServletxx" --%>
-<!-- 								style="margin-bottom: 0px;"> -->
-<!-- 								<input type="submit" value="刪除"> <input type="hidden" -->
-<%-- 									name="LOCR_ID" value="${LocrVO.LOCR_ID}"> <input --%>
-<!-- 									type="hidden" name="action" value="delete"> -->
-<!-- 							</FORM> -->
-<!-- 						</td> -->
-						<td><button type="button" class="btn btn-primary"
-								onclick="editRoom(${LocrVO.LOCR_ID})">刪除</button></td>
+						<td><button type="button" class="btn btn-primary" onclick="editRoom(${LocrVO.LOCR_ID})">刪除</button></td>
 						<td>${LocrVO.LOCR_ID}</td>
 						<td>${LocrVO.LOCR_SMEM_ID}</td>
 						<td>${LocrVO.LOCR_NAME}</td>
@@ -203,56 +193,11 @@ th, td {
 						<td>${LocrVO.LOCR_MAIN_TABLE}</td>
 						<td>${LocrVO.LOCR_GUEST_TABLE}</td>
 						<td>${LocrVO.LOCR_FLOOR}F</td>
-						<%-- 						<td>${LocrVO.LOCR_CONTENT}</td> --%>
 						<td>${LocrVO.LOCR_STATUS}</td>
-
 					</tr>
 				</c:forEach>
 			</table>
-			<%-- 			<%@ include file="page2.file" %> --%>
 		</div>
-		<!-- 購物車頁面 -->
-		<div class="modal fade" id="exampleModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">
-							購物車<img src="images/MHlogo_04.svg" alt="">
-						</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">商品資訊</th>
-									<th scope="col">商品名稱</th>
-									<th scope="col">價格</th>
-									<th scope="col">數量</th>
-									<th scope="col">小計</th>
-									<th scope="col">操作</th>
-								</tr>
-							</thead>
-							<tbody id="cart"></tbody>
-						</table>
-						<div id="total-list" class="total-list">
-							<h5 class="site-color">合計金額</h5>
-							<h5 class="site-color">
-								$<span id="total"></span>
-							</h5>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-primary" id="checkout">結帳</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
 	</div>
 	</div>
 	    <!--尾巴-->
@@ -288,12 +233,70 @@ th, td {
 			console.log(id)
 			window.location.href="<%=request.getContextPath()%>/locationroom/locrServletxx?action=delete2&LOCR_ID="+id;
 		}
+
+		//profile跟資料庫請求個人資料
+        Ajaxprofile();
+        //跟資料庫請求個人頭像
+        Ajaxheadshot();
+
+        function Ajaxprofile() {
+            $.ajax({
+                type: "get",
+                url: "../member/buyProfileServlet",
+                dataType: 'json',
+                success: function(result) {
+                    if (result == "0") {
+                        window.location.href = "../front_end/index/index.jsp";
+                    } else {
+                        resultData = result;
+                        $('.user-name').html(result.name != null ? result.name : "尚未填寫");
+                        $('#phone').html(result.phone != null ? result.phone : "尚未填寫");
+                        $('#city').html(result.city != null ? result.city : "尚未填寫");
+                        $('#cityarea').html(result.cityarea != null ? result.cityarea : "尚未填寫");
+                        $('#street').html(result.street != null ? result.street : "尚未填寫");
+                    }
+                }
+            });
+        };
+
+        function Ajaxheadshot() {
+            $.ajax({
+                type: "post",
+                url: "../member/headshotBuyServlet",
+                data: {
+                    "headshot": "headshot"
+                },
+                xhrFields: {
+                    // 將回傳結果以Blob保持原本二進位的格式回傳
+                    //jquery的dataType無法設定返回格式為blob需要手動修改
+                    responseType: "blob"
+                },
+                success: function(result) {
+                    let img = document.getElementsByClassName('imgdata');
+                    if (result.size != "0") {
+                        let url = URL.createObjectURL(result);
+                        for (let i = 0; i < img.length; i++) {
+                            img[i].src = url;
+                        }
+                    } else {
+                        for (let i = 0; i < img.length; i++) {
+                            img[i].src = "../front_end/locationroom/images/music_castanet_girl.png";
+                        }
+                    }
+                }
+            });
+        }
+
+        $('#locRManage').on('click', function() {
+            $('.menu-locR').slideToggle();
+        });
+        $('#locPManage').on('click', function() {
+            $('.menu-locP').slideToggle();
+        });
 	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
-
-
+	<script src="<%=request.getContextPath()%>/front_end/locationroom/js/friendchat.js"></script>
 </body>
 </html>

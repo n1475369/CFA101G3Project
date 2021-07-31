@@ -80,4 +80,9 @@ public class SpoService {
 	public void update_spo_paytype(Integer spo_id, Integer spo_paytype) {
 		dao.update_spo_paytype(spo_id, spo_paytype);
 	}
+	
+	//獲取訂單藉由買家會員ID
+	public List<SpoVO> findByForeignKey(Integer spo_bmem_id){
+		return dao.findByForeignKey(spo_bmem_id);
+	}
 }

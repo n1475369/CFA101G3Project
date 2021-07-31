@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/cssreset.css">
     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/memberSellerProfile.css">
+    <link rel="stylesheet" href="css/LocSellerProfile.css">
     <link rel="stylesheet" href="css/newCart.css">
     <link rel="stylesheet" href="css/friendchat.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css">
@@ -60,14 +60,43 @@
             <div class="user-name s-user-name"></div>
             <div class="user-hr"><i class="fas fa-heart"></i></div>
             <ul class="menu">
-                <li><a href="memberSellerProfile.html?action=profile" id="profile"><i class="fas fa-user"></i>個人資料</a></li>
-                <li><a href="memberSellerProfile.html?action=setting" id="setting"><i class="fas fa-file-invoice"></i>帳號設定</a></li>
-                <li><a href="memberSellerProfile.html?action=sellerProfile"><i class="fas fa-shopping-cart"></i>店家資料</a></li>
+                <li><a href="../member/LocSellerProfile.html?action=profile" id="profile"><i class="fas fa-user"></i>個人資料</a></li>
+                <li><a href="../member/LocSellerProfile.html?action=setting" id="setting"><i class="fas fa-file-invoice"></i>帳號設定</a></li>
+                <li><a href="../member/LocSellerProfile.html?action=sellerProfile"><i class="fas fa-shopping-cart"></i>店家資料</a></li>
+                <li><a href="../locationprogram/Locmanagement.html"><i class="fas fa-church"></i>場地管理</a></li>
+                <li><a href="javascript:void(0)" id="locRManage"><i class="fas fa-home"></i>廳房管理</a></li>
+                <ul class="menu-locR">
+                    <li><a href="../locationorder/locationOrderGetAll.html"><i class="fas fa-user"></i>訂單資料</a>
+                    </li>
+                    <li><a href="../../locationroom/locationRoomServlet?action=locationRoomGetAll"><i
+                                class="fas fa-file-invoice"></i>查詢廳房</a></li>
+
+                    <li><a href="../locationroom/locationRoomGetOnee2.jsp"><i
+                            class="fas fa-church"></i>新增廳房</a></li>
+                    <li><a href="../../locationroom/locationRoomServlet?action=locationRoomDelete"><i
+                            class="fas fa-camera-retro"></i>刪除廳房</a></li>
+                </ul>
+                <li><a href="javascript:void(0)" id="locPManage"><i class="fas fa-indent"></i>方案管理</a></li>
+                <ul class="menu-locP">
+                    <li><a href="../locationprogram/listLocpBySmemId.html"><i class="fas fa-tasks"></i>查詢方案</a></li>
+                    <li><a href="../locationprogram/addLocpimage.html"><i class="fas fa-folder-plus"></i></i>新增方案</a></li>
+                    <li><a href="../locationprogram/updateLocpimage.html"><i class="fas fa-pencil-alt"></i>修改方案</a></li>
+                    <li><a href="../locationprogram/delLocp.html"><i class="fas fa-trash-alt"></i>刪除方案</a></li>
+                </ul>
+                <li><a href="../locationprogram/loccalendar.html"><i class="far fa-calendar-alt"></i>行程管理</a></li>
             </ul>
         </div>
         <div class="content" id="content">
         </div>
     </div>
+    <script>
+        $('#locRManage').on('click', function() {
+            $('.menu-locR').slideToggle();
+        });
+        $('#locPManage').on('click', function() {
+            $('.menu-locP').slideToggle();
+        });
+    </script>
     <script src="js/memberSetting.js"></script>
     <script src="js/jquery.twzipcode.js"></script>
     <script src="js/memberSellerProfile.js"></script>

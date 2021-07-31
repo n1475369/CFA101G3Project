@@ -34,4 +34,6 @@ public interface SpoDAO {
 	public void update_spo_cargo_status(Integer spo_id,Integer spo_cargo_status);
 	//更新付款方式
 	public void update_spo_paytype(Integer spo_id,Integer spo_paytype);
+	//獲取訂單藉由買家會員ID
+	public List<SpoVO> findByForeignKey(Integer spo_bmem_id);
 }

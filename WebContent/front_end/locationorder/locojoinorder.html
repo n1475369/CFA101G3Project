@@ -190,8 +190,10 @@
                     <input type="hidden" name="LOCO_TOTALPRICEshow" value="" id="LOCO_TOTALPRICEshow">
                     <input type="hidden" name="LOCO_DEPOSITshow" value="" id="LOCO_DEPOSITshow">
                     <input type="hidden" name="Mem_id" value="" id="Mem_id">
+                    <input type="hidden" name="Mem_role" value="" id="Mem_role">
+
                     <input type="hidden" name="action" value="insert">
-                    <input type="botton" value="送出預約" class="btn btn-danger" id="summitbtn">
+                    <input type="button" value="送出預約" class="btn btn-danger" id="summitbtn">
                 </form>
             </div>
             <div class="topimages" id="topimages">
@@ -406,6 +408,7 @@
 
                 $("#Mem_id").val(data2.Mem_id);
                 $("#Mem_name").val(data2.Mem_name);
+                $('#Mem_role').val(data2.Mem_role);
             }
 
         })
@@ -451,7 +454,11 @@
             console.log(fromdata);
             // let LOCR_SMEM_ID = $("#LOCR_SMEM_ID").val();
             // let formData = new FormData(this);
-
+            let Mem_role = $('#Mem_role').val();
+            if (Mem_role != "10") {
+                alert("你不是買家會員");
+                return;
+            }
 
             $.ajax({
                 url: "../../Locationorder/LocationorderServlet",

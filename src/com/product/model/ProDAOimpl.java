@@ -494,7 +494,7 @@ public class ProDAOimpl implements ProDAO {
 	
 	@Override
 	public List<ProVO> findBySQLList(String pro_name){
-		java.lang.String sql = "select * from product where 1=1 ";
+		java.lang.String sql = "select * from PRODUCT where 1=1 ";
 		StringBuilder sb = new StringBuilder();
 		sb.append(sql);
 		//查名字
@@ -556,7 +556,7 @@ public class ProDAOimpl implements ProDAO {
 	@Override
 	public List<ProVO> findBySQLList2(Integer pro_price , Integer pro_price2 , Integer pro_proc_id , String pro_name ){
 		
-	String sb="select * from product where pro_price between ? and ? and pro_proc_id = ? and pro_name like '%"+pro_name+"%'";
+	String sb="select * from PRODUCT where pro_price between ? and ? and pro_proc_id = ? and pro_name like '%"+pro_name+"%'";
 	String sql= sb.toString();
 	List list = template.queryForList(sql , pro_price , pro_price2 , pro_proc_id);
 	return list;
@@ -565,7 +565,7 @@ public class ProDAOimpl implements ProDAO {
 	@Override
 	public List<ProVO> findBySQLList3(Integer pro_price , Integer pro_price2 , Integer pro_proc_id , Integer pro_smem_id , String pro_name ){
 		
-	String sb="select * from product where pro_price between ? and ? and pro_proc_id = ? and pro_smem_id = ? and pro_name like '%"+pro_name+"%'";
+	String sb="select * from PRODUCT where pro_price between ? and ? and pro_proc_id = ? and pro_smem_id = ? and pro_name like '%"+pro_name+"%'";
 	String sql= sb.toString();
 	List list = template.queryForList(sql , pro_price , pro_price2 , pro_proc_id , pro_smem_id);
 	return list;
@@ -573,7 +573,7 @@ public class ProDAOimpl implements ProDAO {
 	
 	@Override
 	public List<ProVO> ProMain(Integer pro_proc_id){
-	String sql = "select * from product where pro_proc_id =? ORDER BY RAND() limit 4";
+	String sql = "select * from PRODUCT where pro_proc_id =? ORDER BY RAND() limit 4";
 	List list =  template.queryForList(sql , pro_proc_id);
 	return list;
 	}

@@ -77,7 +77,7 @@ $(function() {
     $('#checkout').on('click', function() {
         $.ajax({
             type: "post",
-            url: "../../member/buyProfileServlet",
+            url: "../member/buyProfileServlet",
             dataType: "json",
             success: function(response) {
                 if (response != "0") {
@@ -97,7 +97,7 @@ $(function() {
     function addCart(pro_id) {
         $.ajax({
             type: "post",
-            url: "../../shop_order_item/spoiServlet",
+            url: "../shop_order_item/spoiServlet",
             dataType: 'json',
             data: {
                 "action": "addCart",
@@ -124,7 +124,7 @@ $(function() {
         let total = 0;
         $.ajax({
             type: "get",
-            url: "../../shop_order_item/spoiServlet",
+            url: "../shop_order_item/spoiServlet",
             dataType: 'json',
             data: {
                 "action": "getCart"
@@ -169,7 +169,7 @@ $(function() {
     function updateCart(pro_id, spoi_quantity) {
         $.ajax({
             type: "post",
-            url: "../../shop_order_item/spoiServlet",
+            url: "../shop_order_item/spoiServlet",
             dataType: 'json',
             async: false,
             data: {
@@ -192,7 +192,7 @@ $(function() {
         let total = 0;
         $.ajax({
             type: "get",
-            url: "../../shop_order_item/spoiServlet",
+            url: "../shop_order_item/spoiServlet",
             dataType: 'json',
             data: {
                 "action": "getCart"
@@ -212,7 +212,7 @@ $(function() {
         let proi_id = 0;
         $.ajax({
             type: "post",
-            url: "../../product/ProImgSelServlet",
+            url: "../product/ProImgSelServlet",
             data: {
                 "proi_pro_id": pro_id
             },
@@ -229,7 +229,7 @@ $(function() {
     function deleteCartProduct(pro_id) {
         $.ajax({
             type: "post",
-            url: "../../shop_order_item/spoiServlet",
+            url: "../shop_order_item/spoiServlet",
             dataType: 'json',
             data: {
                 "action": "delete",
@@ -255,7 +255,7 @@ $(function() {
     $('#tobuy').on('click', function(e) {
         $.ajax({
             type: "post",
-            url: "../../member/buyProfileServlet",
+            url: "../member/buyProfileServlet",
             dataType: "json",
             success: function(response) {
                 if (response != "0") {

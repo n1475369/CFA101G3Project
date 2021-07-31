@@ -17,7 +17,7 @@
 <%@ page import="com.post.model.*"%>
 <%@ page import="com.category.model.*"%>
 <%@ page import="com.message.model.*"%>
-
+<%@ page import="com.member.model.*"%>
 
 <%
 DataSource ds = null;
@@ -31,18 +31,21 @@ JdbcTemplate template = new JdbcTemplate(ds);
 String prdSql = "select * from PRODUCT order by pro_id desc limit 0,6";//獲取最新商品
 String worSql = "select * from WORK_PHOTO order by wor_id desc limit 0,6";//獲取最新婚紗作品
 String locSql = "select * from LOCATION_ROOM order by locr_id desc limit 0,6";//獲取最新婚禮場地
+String locMemSql = "select * from `MEMBER` where mem_role = 30 order by mem_id desc limit 0,6";//獲取場地賣家
 String postSql = "select * from POST order by post_id desc limit 0,6";//獲取最新文章
 String mesSql = "select * from MESSAGE";//取得所有留言
 
 List<ProVO> proList = template.query(prdSql, new BeanPropertyRowMapper(ProVO.class));
 List<WorVO> worList = template.query(worSql, new BeanPropertyRowMapper(WorVO.class));
 List<LocrVO> locrList = template.query(locSql, new BeanPropertyRowMapper(LocrVO.class));
+List<MemVO> locMemList = template.query(locMemSql, new BeanPropertyRowMapper(MemVO.class));
 List<PostVO> postList = template.query(postSql, new BeanPropertyRowMapper(PostVO.class));
 
 
 pageContext.setAttribute("proList", proList);//將商品list存入scope
 pageContext.setAttribute("worList", worList);//將婚紗作品list存入scope
 pageContext.setAttribute("locrList", locrList);//將場地廳房list存入scope
+pageContext.setAttribute("locMemList", locMemList);//將場地賣家list存入scope
 pageContext.setAttribute("postList",postList);//將文章list存入scope
 
 
@@ -359,35 +362,27 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 					<h2>婚禮場地</h2>
 					<p>新娘最想在這辦婚禮</p>
 				</div>
-				<a href="">
+				<a href="../locationprogram/LocIndex.html">
 					<div class="location-more">看更多場地</div>
 				</a>
 			</div>
 			<div class="location-content">
 				<div class="row">
-					<c:forEach var="locrVO" items="${locrList}" begin="0" end="2">
+					<c:forEach var="memVO" items="${locMemList}" begin="0" end="2">
 						<div class="loc-box col">
-							<a href="">
-								<c:forEach var="lociVO" items="${lociImgList}">
-									<c:if test="${lociVO.LOCI_LOCR_ID==locrVO.LOCR_ID}">
-										<img src="<%=request.getContextPath()%>/locationimages/imgLociServlet?LOCI_ID=${lociVO.LOCI_ID}">
-									</c:if>
-								</c:forEach>
-								<h3>${locrVO.LOCR_NAME }</h3>
+							<a href="<%=request.getContextPath()%>/front_end/locationprogram/LocSingle.html?memid=${memVO.mem_id}">
+								<img src="<%=request.getContextPath()%>/member/memImgServlet?action=getBanner&mem_id=${memVO.mem_id}">
+								<h3>${memVO.mem_shop_name}</h3>
 							</a>
 						</div>
 					</c:forEach>
 				</div>
 				<div class="row">
-					<c:forEach var="locrVO" items="${locrList}" begin="3" end="5">
+					<c:forEach var="memVO" items="${locMemList}" begin="3" end="5">
 						<div class="loc-box col">
-							<a href=""> 
-								<c:forEach var="lociVO" items="${lociImgList}">
-									<c:if test="${lociVO.LOCI_LOCR_ID==locrVO.LOCR_ID}">
-										<img src="<%=request.getContextPath()%>/locationimages/imgLociServlet?LOCI_ID=${lociVO.LOCI_ID}">
-									</c:if>
-								</c:forEach>
-								<h3>${locrVO.LOCR_NAME}</h3>
+							<a href="<%=request.getContextPath()%>/front_end/locationprogram/LocSingle.html?memid=${memVO.mem_id}">
+								<img src="<%=request.getContextPath()%>/member/memImgServlet?action=getBanner&mem_id=${memVO.mem_id}">
+								<h3>${memVO.mem_shop_name}</h3>
 							</a>
 						</div>
 					</c:forEach>

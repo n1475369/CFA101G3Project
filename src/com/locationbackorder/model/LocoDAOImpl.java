@@ -252,7 +252,7 @@ public class LocoDAOImpl implements LocoDAO {
 	@Override
 	public MemVO getMemVOByPrimaryKey(Integer mem_id) {
 		
-		String sql = "SELECT * FROM MEMBER WHERE MEM_ID = ?";
+		String sql = "SELECT * FROM `MEMBER` WHERE MEM_ID = ?";
 		MemVO memVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;

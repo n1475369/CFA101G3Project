@@ -35,8 +35,10 @@ public class SpoDAOImpl implements SpoDAO{
 	}
 	
 	private static final String INSERT = "insert into SHOP_ORDER (spo_time,spo_payment,spo_postage,spo_bmem_id,spo_smem_id,spo_receiver_name,spo_receiver_phone,spo_receiver_address,spo_paytype,spo_status,spo_pay_status,spo_cargo_status) values(?,?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String UPDATE_SPO_PAY_STATUS = "update shop_order set spo_pay_status = ? where spo_id = ?";
+	private static final String UPDATE_SPO_PAY_STATUS = "update SHOP_ORDER set spo_pay_status = ? where spo_id = ?";
 	private static final String GETALL = "select * from SHOP_ORDER";
+	private static final String GETALL_BY_BMEM = "select * from SHOP_ORDER where SPO_BMEM_ID = ?";
+
 
 	//新增商品訂單(需藉由別人的連線)(單筆)
 	@Override
@@ -515,28 +517,28 @@ public class SpoDAOImpl implements SpoDAO{
 	//更新訂單狀態
 	@Override
 	public void update_spo_status(Integer spo_id, Integer spo_status) {
-		String sql = "update shop_order set spo_status = ? where spo_id = ?";
+		String sql = "update SHOP_ORDER set spo_status = ? where spo_id = ?";
 		template.update(sql,spo_status,spo_id);
 	}
 	
 	//更新付款狀態
 	@Override
 	public void update_spo_pay_status(Integer spo_id, Integer spo_pay_status) {
-		String sql = "update shop_order set spo_pay_status = ? where spo_id = ?";
+		String sql = "update SHOP_ORDER set spo_pay_status = ? where spo_id = ?";
 		template.update(sql,spo_pay_status,spo_id);
 	}
 	
 	//更新發貨狀態
 	@Override
 	public void update_spo_cargo_status(Integer spo_id, Integer spo_cargo_status) {
-		String sql = "update shop_order set spo_cargo_status = ? where spo_id = ?";
+		String sql = "update SHOP_ORDER set spo_cargo_status = ? where spo_id = ?";
 		template.update(sql,spo_cargo_status,spo_id);
 	}
 	
 	//更新付款方式
 	@Override
 	public void update_spo_paytype(Integer spo_id, Integer spo_paytype) {
-		String sql = "update shop_order set spo_paytype = ? where spo_id = ?";
+		String sql = "update SHOP_ORDER set spo_paytype = ? where spo_id = ?";
 		template.update(sql,spo_paytype,spo_id);
 	}
 	
@@ -551,6 +553,62 @@ public class SpoDAOImpl implements SpoDAO{
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GETALL);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				spoVO = new SpoVO();
+				spoVO.setSpo_id(rs.getInt("SPO_ID"));
+				spoVO.setSpo_time(rs.getTimestamp("SPO_TIME"));
+				spoVO.setSpo_payment(rs.getInt("SPO_PAYMENT"));
+				spoVO.setSpo_postage(rs.getInt("SPO_POSTAGE"));
+				spoVO.setSpo_bmem_id(rs.getInt("SPO_BMEM_ID"));
+				spoVO.setSpo_smem_id(rs.getInt("SPO_SMEM_ID"));
+				spoVO.setSpo_receiver_name(rs.getString("SPO_RECEIVER_NAME"));
+				spoVO.setSpo_receiver_phone(rs.getString("SPO_RECEIVER_PHONE"));
+				spoVO.setSpo_receiver_address(rs.getString("SPO_RECEIVER_ADDRESS"));
+				spoVO.setSpo_paytype(rs.getInt("SPO_PAYTYPE"));
+				spoVO.setSpo_status(rs.getInt("SPO_STATUS"));
+				spoVO.setSpo_pay_status(rs.getInt("SPO_PAY_STATUS"));
+				spoVO.setSpo_cargo_status(rs.getInt("SPO_CARGO_STATUS"));
+				list.add(spoVO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	@Override
+	public List<SpoVO> findByForeignKey(Integer spo_bmem_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		SpoVO spoVO = null;
+		List<SpoVO> list = new ArrayList<SpoVO>();
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GETALL_BY_BMEM);
+			pstmt.setInt(1, spo_bmem_id);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				spoVO = new SpoVO();

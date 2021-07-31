@@ -1,14 +1,20 @@
-a{
+a {
     text-decoration: none;
     display: block;
 }
 
-.wedding-heading p,.location-heading p,.post-heading p,.product-heading{
+.wedding-heading p,
+.location-heading p,
+.post-heading p,
+.product-heading {
     color: #868e96;
     letter-spacing: 2px;
 }
 
-.wedding-heading h2,.location-heading h2,.post-heading h2,.product-heading h2{
+.wedding-heading h2,
+.location-heading h2,
+.post-heading h2,
+.product-heading h2 {
     color: #343a40;
     letter-spacing: .25rem;
     font-weight: 500;
@@ -16,7 +22,10 @@ a{
     line-height: 1.3;
 }
 
-.wedding-heading,.location-heading,.post-heading,.product-heading{
+.wedding-heading,
+.location-heading,
+.post-heading,
+.product-heading {
     display: flex;
     justify-content: space-between;
     text-align: center;
@@ -24,13 +33,19 @@ a{
     margin-top: 30px;
 }
 
-.wedding-heading div,.location-heading div,.post-heading div,.product-heading div{
+.wedding-heading div,
+.location-heading div,
+.post-heading div,
+.product-heading div {
     display: flex;
     text-align: center;
     align-items: center;
 }
 
-.wedding-heading a,.location-heading a,.post-heading a,.product-heading a{
+.wedding-heading a,
+.location-heading a,
+.post-heading a,
+.product-heading a {
     background-color: #fc9086;
     border-color: #fc9086;
     text-decoration: none;
@@ -39,62 +54,70 @@ a{
     border-radius: 15px;
 }
 
-.wedding-heading a:hover,.location-heading a:hover,.post-heading a:hover,.product-heading a:hover{
+.wedding-heading a:hover,
+.location-heading a:hover,
+.post-heading a:hover,
+.product-heading a:hover {
     background-color: #fb6b5e;
 }
 
-.wedding-content,.location-content,.post-content{
+.wedding-content,
+.location-content,
+.post-content {
     margin-top: 20px;
 }
 
-.product-content{
+.product-content {
     margin-top: 10px;
 }
 
-.wed-box,.loc-box{
+.wed-box,
+.loc-box {
     overflow: hidden;
     height: 214px;
     border-radius: 5px;
     position: relative;
 }
 
-.pro-box{
+.pro-box {
     overflow: hidden;
     height: 204px;
     border-radius: 5px;
     position: relative;
 }
 
-.pro-box img{
-    max-width: 100%;
+.pro-box img {
+    width: 100%;
+    height: 204px;
     position: absolute;
-    top:50%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin-right: -0.75rem;
     border-radius: 5px;
 }
 
-
-.wed-box img{
+.wed-box img {
     border-radius: 5px;
     max-width: 100%;
     position: absolute;
-    top:50%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.loc-box img{
+.loc-box img {
     height: 214px;
     border-radius: 5px;
     position: absolute;
-    top:50%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.wed-box h3,.loc-box h3,.pro-box h3{
+.wed-box h3,
+.loc-box h3,
+.pro-box h3 {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -109,21 +132,21 @@ a{
     background: rgba(0, 0, 0, 0.37);
 }
 
-.row{
+.row {
     margin-bottom: 10px;
 }
 
-.col{
+.col {
     margin-right: 0.75rem;
 }
 
-.post img{
+.post img {
     width: 70px;
     height: 70px;
     border-radius: 50%;
 }
 
-.post-content{
+.post-content {
     margin-top: 10px;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -134,10 +157,7 @@ a{
     width: 100%;
 }
 
-
-
-
-.post-article{
+.post-article {
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: .5rem;
@@ -150,7 +170,7 @@ a{
     position: relative;
 }
 
-.post-article::before{
+.post-article::before {
     content: '';
     display: inline-block;
     width: 0;
@@ -161,8 +181,7 @@ a{
     left: -20px;
 }
 
-
-.post-article p{
+.post-article p {
     height: 16px;
     margin-bottom: 10px;
     white-space: nowrap;
@@ -171,54 +190,60 @@ a{
     max-width: 250px;
 }
 
-.post-tag{
+.post-tag {
     margin-right: 10px;
     border: 1px solid #3bc9d5;
     color: #3bc9d5;
-    flex-shrink:0;
+    flex-shrink: 0;
     padding: 5px;
     border-radius: 5px;
     margin-left: 10px;
     display: inline-block;
 }
 
-.post-box{
+.post-box {
     margin-bottom: 20px;
 }
 
-.post-box a{
+.post-box a {
     width: 80%;
 }
 
-.post-tag-box{
+.post-tag-box {
     width: 100px;
 }
 
-.c1{
+.c1 {
     color: #df3e3e;
     border: 1px solid #df3e3e;
 }
-.c2{
+
+.c2 {
     color: #c3e252;
     border: 1px solid #c3e252;
 }
-.c3{
+
+.c3 {
     color: #3bc9d5;
     border: 1px solid #3bc9d5;
 }
-.c4{
+
+.c4 {
     color: #fc9086;
     border: 1px solid #fc9086;
 }
-.c5{
+
+.c5 {
     color: #e4824a;
     border: 1px solid #e4824a;
 }
-.c6{
+
+.c6 {
     color: #59ac5d;
     border: 1px solid #59ac5d;
 }
-.c7{
+
+.c7 {
     color: #52a8ee;
     border: 1px solid #52a8ee;
 }

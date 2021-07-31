@@ -74,19 +74,20 @@ public class LociServlet extends HttpServlet {
 
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
 				String url = "/locationroom/locationRoomServlet?action=locationRoomUpdate&locr_id=" + LOCI_LOCR_ID;
-				RequestDispatcher successView = request.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-				successView.forward(request, response);
-
+				// 刪除成功後,轉交回送出刪除的來源網頁
+				response.sendRedirect(request.getContextPath()+url);
+				
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				Integer LOCI_ID = new Integer(request.getParameter("LOCI_ID"));
-				LociService LociSvc = new LociService();
-				LociVO lociVO = LociSvc.findByPrimaryKey(LOCI_ID);
-				Integer LOCI_LOCR_ID = lociVO.getLOCI_LOCR_ID();
-				errorMsgs.add("刪除資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = request.getRequestDispatcher(
-						"/locationroom/locationRoomServlet?action=locationRoomUpdate&locr_id=" + LOCI_LOCR_ID);
-				failureView.forward(request, response);
+//				Integer LOCI_ID = new Integer(request.getParameter("LOCI_ID"));
+//				LociService LociSvc = new LociService();
+//				LociVO lociVO = LociSvc.findByPrimaryKey(LOCI_ID);
+//				Integer LOCI_LOCR_ID = lociVO.getLOCI_LOCR_ID();
+//				errorMsgs.add("刪除資料失敗:" + e.getMessage());
+//				RequestDispatcher failureView = request.getRequestDispatcher(
+//						"/locationroom/locationRoomServlet?action=locationRoomUpdate&locr_id=" + LOCI_LOCR_ID);
+//				failureView.forward(request, response);
+				e.printStackTrace();
 			}
 
 		}

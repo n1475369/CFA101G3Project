@@ -37,15 +37,9 @@ public class BuyerSpoServlet extends HttpServlet {
 			MemVO memVO = (MemVO)session.getAttribute("user");
 			Integer bmem_id = memVO.getMem_id();
 			SpoService spoService = new SpoService();
-			List<SpoVO> list = spoService.getAll();
-			List<SpoVO> buyerSpoList = new ArrayList<SpoVO>();
-			for (SpoVO spoVO : list) {
-				if(spoVO.getSpo_bmem_id().equals(bmem_id)) {
-					buyerSpoList.add(spoVO);
-				}
-			}
+			List<SpoVO> list = spoService.findByForeignKey(bmem_id);
 			ObjectMapper mapper = new ObjectMapper();
-			mapper.writeValue(response.getWriter(), buyerSpoList);
+			mapper.writeValue(response.getWriter(), list);
 		}
 		
 		//獲取單筆訂單
@@ -66,10 +60,10 @@ public class BuyerSpoServlet extends HttpServlet {
 			MemVO memVO = (MemVO)session.getAttribute("user");
 			Integer bmem_id = memVO.getMem_id();
 			SpoService spoService = new SpoService();
-			List<SpoVO> list = spoService.getAll();
+			List<SpoVO> list = spoService.findByForeignKey(bmem_id);
 			List<SpoVO> buyerSpoList = new ArrayList<SpoVO>();
 			for (SpoVO spoVO : list) {
-				if(spoVO.getSpo_bmem_id().equals(bmem_id) && (spoVO.getSpo_pay_status().equals(0)||spoVO.getSpo_pay_status().equals(1))) {
+				if(spoVO.getSpo_pay_status().equals(0)||spoVO.getSpo_pay_status().equals(1)) {
 					buyerSpoList.add(spoVO);
 				}
 			}
@@ -83,10 +77,10 @@ public class BuyerSpoServlet extends HttpServlet {
 			MemVO memVO = (MemVO)session.getAttribute("user");
 			Integer bmem_id = memVO.getMem_id();
 			SpoService spoService = new SpoService();
-			List<SpoVO> list = spoService.getAll();
+			List<SpoVO> list = spoService.findByForeignKey(bmem_id);
 			List<SpoVO> buyerSpoList = new ArrayList<SpoVO>();
 			for (SpoVO spoVO : list) {
-				if(spoVO.getSpo_bmem_id().equals(bmem_id) && spoVO.getSpo_cargo_status().equals(0)) {
+				if(spoVO.getSpo_cargo_status().equals(0)) {
 					buyerSpoList.add(spoVO);
 				}
 			}
@@ -100,10 +94,10 @@ public class BuyerSpoServlet extends HttpServlet {
 			MemVO memVO = (MemVO)session.getAttribute("user");
 			Integer bmem_id = memVO.getMem_id();
 			SpoService spoService = new SpoService();
-			List<SpoVO> list = spoService.getAll();
+			List<SpoVO> list = spoService.findByForeignKey(bmem_id);
 			List<SpoVO> buyerSpoList = new ArrayList<SpoVO>();
 			for (SpoVO spoVO : list) {
-				if(spoVO.getSpo_bmem_id().equals(bmem_id) && spoVO.getSpo_cargo_status().equals(1)) {
+				if(spoVO.getSpo_cargo_status().equals(1)) {
 					buyerSpoList.add(spoVO);
 				}
 			}
@@ -117,10 +111,10 @@ public class BuyerSpoServlet extends HttpServlet {
 			MemVO memVO = (MemVO)session.getAttribute("user");
 			Integer bmem_id = memVO.getMem_id();
 			SpoService spoService = new SpoService();
-			List<SpoVO> list = spoService.getAll();
+			List<SpoVO> list = spoService.findByForeignKey(bmem_id);
 			List<SpoVO> buyerSpoList = new ArrayList<SpoVO>();
 			for (SpoVO spoVO : list) {
-				if(spoVO.getSpo_bmem_id().equals(bmem_id) && spoVO.getSpo_status().equals(2)) {
+				if(spoVO.getSpo_status().equals(2)) {
 					buyerSpoList.add(spoVO);
 				}
 			}

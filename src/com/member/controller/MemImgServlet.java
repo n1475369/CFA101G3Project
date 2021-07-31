@@ -97,7 +97,34 @@ public class MemImgServlet extends HttpServlet {
 				}
 			}
 		}
-
+		
+		//讀取賣家banner
+		if("getBanner".equals(action)) {
+			String mem_idStr = request.getParameter("mem_id");
+			if(mem_idStr != null) {
+				Integer mem_id = Integer.parseInt(mem_idStr);
+				MemService memService = new MemService();
+				MemVO memVO = memService.getOne(mem_id);
+				if(memVO != null) {
+					byte[] shop_banner = memVO.getMem_shop_banner();
+					if(shop_banner == null) {
+						String filePath = getServletContext().getRealPath("/front_end/member/images/banner.jpg");
+						File file = new File(filePath);
+						InputStream in = new FileInputStream(file);
+						byte[] buf = new byte[in.available()];
+						in.read(buf);
+						in.close();
+						ServletOutputStream out = response.getOutputStream();
+						out.write(buf);
+						out.close();
+					}else {
+						ServletOutputStream out = response.getOutputStream();
+						out.write(shop_banner);
+						out.close();
+					}
+				}
+			}
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

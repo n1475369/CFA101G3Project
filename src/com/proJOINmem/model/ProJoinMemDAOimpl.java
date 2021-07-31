@@ -24,7 +24,7 @@ public class ProJoinMemDAOimpl {
 	
 	public ProJoinMemVO findByPid(Integer pro_id) {
 		//準備好 SQL list vo con pstmt rs 1.宣告2.取值3.拿來用
-		java.lang.String SQL ="SELECT MEM_ID , MEM_PHONE , MEM_SHOP_NAME ,  MEM_SHOP_CONTENT , MEM_SHOP_LOGO ,MEM_SHOP_BANNER ,MEM_REVIEW_COUNT , MEM_REVIEW_SCORE FROM MEMBER join PRODUCT ON MEM_ID = PRO_SMEM_ID WHERE PRO_ID =? ;";
+		java.lang.String SQL ="SELECT MEM_ID , MEM_PHONE , MEM_SHOP_NAME ,  MEM_SHOP_CONTENT , MEM_SHOP_LOGO ,MEM_SHOP_BANNER ,MEM_REVIEW_COUNT , MEM_REVIEW_SCORE FROM `MEMBER` join PRODUCT ON MEM_ID = PRO_SMEM_ID WHERE PRO_ID =? ;";
 		ProJoinMemVO pjmVO =null;
 		Connection con =null;
 		PreparedStatement pstmt =null;

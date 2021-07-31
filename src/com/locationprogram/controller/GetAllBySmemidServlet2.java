@@ -2,6 +2,8 @@ package com.locationprogram.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -38,13 +40,19 @@ public class GetAllBySmemidServlet2 extends HttpServlet {
 		Integer LOCP_SMEM_ID = new Integer(request.getParameter("LOCR_SMEM_ID"));
 		
 	
-	/****************************測試寫死****************************************/
+
 		LocpService locpsvc = new LocpService();
 		List<LocpVO> list = locpsvc.getOneLocpBySmemid(LOCP_SMEM_ID);
-	/****************************測試寫死****************************************/		
+		ArrayList<LocpVO> LocpList = new ArrayList<LocpVO>();
+		for(LocpVO locpVO:list) {
+			long endTime = locpVO.getLocp_end_time().getTime();
+			if(endTime > new Date().getTime()) {
+				LocpList.add(locpVO);
+			}
+		}
 		
 		ObjectMapper mapper = new ObjectMapper(); 
-		String data = mapper.writeValueAsString(list);
+		String data = mapper.writeValueAsString(LocpList);
 		
 		out.println(data);
 		

@@ -26,9 +26,9 @@ import com.member.model.MemVO;
 public class LocpDAOImpl implements LocpDAO{
 	
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/CFA101G3?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "jackkcaj";
+	String url = "jdbc:mysql://35.221.190.216:3306/CFA101G3?serverTimezone=Asia/Taipei";
+	String userid = "David";
+	String passwd = "123456";
 
 	@Override
 	public void insert(LocpVO locpVO) {
@@ -349,7 +349,7 @@ public class LocpDAOImpl implements LocpDAO{
 	@Override
 	public List<LocpVO> getAll() {
 		
-		String sql = "SELECT p.LOCP_ID as LOCP_ID, p.LOCP_NAME as LOCP_NAME, p.LOCP_PRICE as LOCP_PRICE, p.LOCP_START_TIME as LOCP_START_TIME, p.LOCP_END_TIME as LOCP_END_TIME, p.LOCP_CONTENT as LOCP_CONTENT, p.LOCP_SMEM_ID as LOCP_SMEM_ID, p.LOCP_STATUS as LOCP_STATUS, m.MEM_SHOP_NAME as MEM_SHOP_NAME, m.MEM_SHOP_LOGO as MEM_SHOP_LOGO FROM LOCATION_PROGRAM p JOIN MEMBER m on p.LOCP_SMEM_ID = m.MEM_ID";
+		String sql = "SELECT p.LOCP_ID as LOCP_ID, p.LOCP_NAME as LOCP_NAME, p.LOCP_PRICE as LOCP_PRICE, p.LOCP_START_TIME as LOCP_START_TIME, p.LOCP_END_TIME as LOCP_END_TIME, p.LOCP_CONTENT as LOCP_CONTENT, p.LOCP_SMEM_ID as LOCP_SMEM_ID, p.LOCP_STATUS as LOCP_STATUS, m.MEM_SHOP_NAME as MEM_SHOP_NAME, m.MEM_SHOP_LOGO as MEM_SHOP_LOGO FROM LOCATION_PROGRAM p JOIN `MEMBER` m on p.LOCP_SMEM_ID = m.MEM_ID";
 		List<LocpVO> list = new ArrayList<LocpVO>();
 		LocpVO locpVO = null;
 		
@@ -470,7 +470,7 @@ public class LocpDAOImpl implements LocpDAO{
 	@Override
 	public List<MemVO> getAllLoc() {
 		
-		String sql = "SELECT * FROM MEMBER WHERE MEM_ROLE = 30";
+		String sql = "SELECT * FROM `MEMBER` WHERE MEM_ROLE = 30";
 		List<MemVO> list = new ArrayList<MemVO>();
 		MemVO memVO = null;
 		
