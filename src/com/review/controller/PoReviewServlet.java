@@ -37,19 +37,23 @@ public class PoReviewServlet extends HttpServlet {
 		String rev_content = request.getParameter("rev_content").trim();//取得評價內容
 		Timestamp rev_time = new Timestamp(new java.util.Date().getTime());//取得評價時間
 
-		// 取得買方會員身份
-		HttpSession session = request.getSession();
-		MemVO user = (MemVO) session.getAttribute("user");
-        Integer bmem_id = user.getMem_id();
+
 		
-		// *******測試 暫時固定買方會員*******//
-//        Integer bmem_id = 4;
-		// *******測試 暫時固定買方會員*******//
         
         
 		List<String> errorMsgs = new LinkedList<>();
 		ObjectMapper mapper = new ObjectMapper(); 	
 		request.setAttribute("errorMsgs",errorMsgs);
+		
+		// 取得買方會員身份
+		HttpSession session = request.getSession();
+		MemVO user = (MemVO) session.getAttribute("user");
+        Integer bmem_id = null;
+		try {
+			bmem_id = user.getMem_id();
+		} catch (Exception e1) {
+			errorMsgs.add("*請先登入會員");
+		}
 		
 		if(rev_score == null || rev_score == 0) {
 			errorMsgs.add("*請給星數");

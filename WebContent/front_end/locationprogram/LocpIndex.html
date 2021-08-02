@@ -5,12 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.min.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/all.css">
@@ -18,23 +12,26 @@
     <link rel="stylesheet" href="css/locpIndex.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/newCart.css">
+    <link rel="stylesheet" href="css/friendchat.css">
     <link rel="icon" href="images/logo-icon01.ico" type="image/x-icon" />
+    <script src="js/newCart.js"></script>
+
     <title>方案主頁</title>
 </head>
 
 <body>
-    <!-- header -->
+    <!--大頭-->
     <header>
         <div class="top">
             <ul>
                 <!-- 購物車圖片Icon -->
 
-                <li><a href="#">首頁</a></li>
+                <li><a href="../index/index.jsp">首頁</a></li>
                 <li><a href="../member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
                 <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
                 <li class="headcart">
-                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" id="cartModal">
+                    <a href="javascript:void(0)" id="cartModal">
                         <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
                 </li>
 
@@ -46,16 +43,16 @@
         <div class="nav1"></div>
         <ul class="nav2">
             <li><a href="#">婚禮攝影<br>Photography
-                    </a></li>
-            <li><a href="LocIndex.html">婚禮場地<br>Location
-                    </a></li>
+				</a></li>
+            <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
+				</a></li>
             <li>
                 <a href="#" class="logo"><img src="images/MHlogo_01.svg"></a>
             </li>
-            <li><a href="#">婚禮週邊<br>Product
-                    </a></li>
+            <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
+				</a></li>
             <li><a href="#">專欄討論<br>Post
-                    </a></li>
+				</a></li>
         </ul>
     </header>
 
@@ -112,136 +109,11 @@
             <option selected>依價格排列</option>
             <option value="hightolow">由高到低</option>
             <option value="lowtohigh">由低到高</option>
-          </select>
+        </select>
     </div>
     <!-- 商品 -->
     <div class="titlename">精選方案</div>
-    <div class="list">
-        <div class="box1">
-            <input type="hidden" name="locp_id0" value="" id="locp_id0">
-            <div class="loc">
-                <div class="locrimg"><img id="loc_logo0" class="" src="images/Loclogo1.jpg" alt=""></div>
-                <div id="loc_name0" class="locname">場地名字</div>
-            </div>
-            <div class="images">
-                <a href="" id="locpa_id0"><img id="locp_image0" src="images/Column01.jpg" alt=""></a>
-            </div>
-            <div class="name" id="locp_name0">方案名稱</div>
-            <div class="content" id="locp_content0">商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容</div>
-            <div class="price" id="locp_price0"><i class="fas fa-comment-dollar"></i></div>
-        </div>
-        <div class="box1">
-            <input type="hidden" name="locp_id1" value="" id="locp_id1">
-            <div class="loc">
-                <div class="locrimg"><img id="loc_logo1" class="" src="images/Loclogo2.jpg" alt=""></div>
-                <div id="loc_name1" class="locname">場地名字</div>
-            </div>
-            <div class="images">
-                <a href="" id="locpa_id1"><img id="locp_image1" src="images/Column01.jpg" alt=""></a>
-            </div>
-            <div class="name" id="locp_name1">方案名稱</div>
-            <div class="content" id="locp_content1">商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容</div>
-            <div class="price" id="locp_price1"><i class="fas fa-comment-dollar"></i></div>
-        </div>
-        <div class="box1">
-            <input type="hidden" name="locp_id2" value="" id="locp_id2">
-            <div class="loc">
-                <div class="locrimg"><img id="loc_logo2" class="" src="images/Loclogo3.jpg" alt=""></div>
-                <div id="loc_name2" class="locname">場地名字</div>
-            </div>
-            <div class="images">
-                <a href="" id="locpa_id2"><img id="locp_image2" src="images/Column01.jpg" alt=""></a>
-            </div>
-            <div class="name" id="locp_name2">方案名稱</div>
-            <div class="content" id="locp_content2">商品內容</div>
-            <div class="price" id="locp_price2"><i class="fas fa-comment-dollar"></i></div>
-        </div>
-    </div>
-    </div>
-
-    <div class="list">
-        <div class="box1">
-            <input type="hidden" name="locp_id3" value="" id="locp_id3">
-            <div class="loc">
-                <div class="locrimg"><img id="loc_logo3" class="" src="images/Loclogo4.jpg" alt=""></div>
-                <div id="loc_name3" class="locname">場地名字</div>
-            </div>
-            <div class="images">
-                <a href="" id="locpa_id3"><img id="locp_image3" src="images/Column01.jpg" alt=""></a>
-            </div>
-            <div class="name" id="locp_name3">方案名稱</div>
-            <div class="content" id="locp_content3">商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容</div>
-            <div class="price" id="locp_price3"><i class="fas fa-comment-dollar"></i></div>
-        </div>
-        <div class="box1">
-            <input type="hidden" name="locp_id4" value="" id="locp_id4">
-            <div class="loc">
-                <div class="locrimg"><img id="loc_logo4" class="" src="images/Loclogo5.jpg" alt=""></div>
-                <div id="loc_name4" class="locname">場地名字</div>
-            </div>
-            <div class="images">
-                <a href="" id="locpa_id4"><img id="locp_image4" src="images/Column01.jpg" alt=""></a>
-            </div>
-            <div class="name" id="locp_name4">方案名稱</div>
-            <div class="content" id="locp_content4">商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容</div>
-            <div class="price" id="locp_price4"><i class="fas fa-comment-dollar"></i></div>
-        </div>
-        <div class="box1">
-            <input type="hidden" name="locp_id5" value="" id="locp_id5">
-            <div class="loc">
-                <div class="locrimg"><img id="loc_logo5" class="" src="images/Loclogo6.jpg" alt=""></div>
-                <div id="loc_name5" class="locname">場地名字</div>
-            </div>
-            <div class="images">
-                <a href="" id="locpa_id5"><img id="locp_image5" src="images/Column01.jpg" alt=""></a>
-            </div>
-            <div class="name" id="locp_name5">方案名稱</div>
-            <div class="content" id="locp_content5">商品內容</div>
-            <div class="price" id="locp_price5"><i class="fas fa-comment-dollar"></i></div>
-        </div>
-    </div>
-
-
-    <div class="list">
-        <div class="box1">
-            <input type="hidden" name="locp_id6" value="" id="locp_id6">
-            <div class="loc">
-                <div class="locrimg"><img id="loc_logo6" class="" src="images/Loclogo7.jpg" alt=""></div>
-                <div id="loc_name6" class="locname">場地名字</div>
-            </div>
-            <div class="images">
-                <a href="" id="locpa_id6"><img id="locp_image6" src="images/Column01.jpg" alt=""></a>
-            </div>
-            <div class="name" id="locp_name6">方案名稱</div>
-            <div class="content" id="locp_content6">商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容</div>
-            <div class="price" id="locp_price6"><i class="fas fa-comment-dollar"></i></div>
-        </div>
-        <div class="box1">
-            <input type="hidden" name="locp_id7" value="" id="locp_id7">
-            <div class="loc">
-                <div class="locrimg"><img id="loc_logo7" class="" src="images/Loclogo8.jpg" alt=""></div>
-                <div id="loc_name7" class="locname">場地名字</div>
-            </div>
-            <div class="images">
-                <a href="" id="locpa_id7"><img id="locp_image7" src="images/Column01.jpg" alt=""></a>
-            </div>
-            <div class="name" id="locp_name7">方案名稱</div>
-            <div class="content" id="locp_content7">商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容商品內容</div>
-            <div class="price" id="locp_price7"><i class="fas fa-comment-dollar"></i></div>
-        </div>
-        <div class="box1">
-            <input type="hidden" name="locp_id8" value="" id="locp_id8">
-            <div class="loc">
-                <div class="locrimg"><img id="loc_logo8" class="" src="images/Loclogo9.jpg" alt=""></div>
-                <div id="loc_name8" class="locname">場地名字</div>
-            </div>
-            <div class="images">
-                <a href="" id="locpa_id8"><img id="locp_image8" src="images/Column01.jpg" alt=""></a>
-            </div>
-            <div class="name" id="locp_name8">方案名稱</div>
-            <div class="content" id="locp_content8">商品內容</div>
-            <div class="price" id="locp_price8"><i class="fas fa-comment-dollar"></i></div>
-        </div>
+    <div class="list" id="list">
     </div>
 
     <div class="footer">
@@ -273,35 +145,29 @@
     </div>
 
     <script>
-        //從資料庫撈出方案的資訊
+        let pathName = window.location.pathname;
+        let contextPath = pathName.substring(0, pathName.indexOf('/', 1));
+        let dataSet; //全局變數 排序可用
         $.ajax({
-            url: '../../locationprogram/getAllLocpServlet',
-            type: 'post',
-            dataType: 'json',
-            async: false,
-            success: function(data) {
-                for (let i = 0; i < data.length; i++) {
-                    $(`#loc_name${i}`).text(data[i].loc_name);
-                    $(`#loc_logo${i}`).prop('src', `data:image/*;base64,${data[i].loc_logo}`);
-                    $(`#locp_id${i}`).prop('value', data[i].locp_id);
-                    $(`#locp_name${i}`).text(data[i].locp_name);
-                    $(`#locp_price${i}`).append(data[i].locp_price);
-                    $(`#locp_content${i}`).text(data[i].locp_content);
-                    $(`#locpa_id${i}`).prop('href', `Locpsingle.html?locp_id=${data[i].locp_id}`);
-                }
-            }
-        })
-
-        //從資料庫撈出圖片的資訊
-        $.ajax({
-            url: '../../locationprogramimages/getImageServlet',
+            url: contextPath + '/locationprogram/locpServlet?action=getAll_by_status_endtime',
             type: 'post',
             dataType: 'json',
             success: function(data) {
+                dataSet = data;
                 for (let i = 0; i < data.length; i++) {
-                    if ($(`#locp_id${i}`).val() == data[i].locpi_locp_id) {
-                        $(`#locp_image${i}`).prop('src', `data:image/*;base64,${data[i].locpi_images}`);
-                    }
+                    let tmp = `<div class="box1">
+                        <div class="loc">
+                            <div class="locrimg"><img src="data:image/*;base64,${data[i].loc_logo}"></div>
+                            <div class="locname">${data[i].loc_name}</div>
+                        </div>
+                        <div class="images">
+                            <a href="Locpsingle.html?locp_id=${data[i].locp_id}"><img src="${contextPath}/locationprogram/locpServlet?action=getLocpImg&locp_id=${data[i].locp_id}"></a>
+                        </div>
+                        <div class="name">${data[i].locp_name}</div>
+                        <div class="content">${data[i].locp_content}</div>
+                        <div class="price"><i class="fas fa-comment-dollar"></i>${data[i].locp_price}</div>
+                    </div>`;
+                    $('#list').append(tmp);
                 }
             }
         })
@@ -309,43 +175,39 @@
         //選取價格排列時,請求方案資訊
         $('#selectprice').on('change', function(e) {
             let condition = $(e.target).val();
-            $.ajax({
-                url: '../../locationprogram/getAllByPriceServlet',
-                type: 'post',
-                data: {
-                    'action': condition
-                },
-                dataType: 'json',
-                success: function(data) {
-                    for (let i = 0; i < data.length; i++) {
-                        $(`#locp_id${i}`).prop('value', data[i].locp_id);
-                        $(`#locp_name${i}`).text(data[i].locp_name);
-                        $(`#locp_price${i}`).text(data[i].locp_price);
-                        $(`#locp_content${i}`).text(data[i].locp_content);
-                        $(`#locpa_id${i}`).prop('href', `Locpsingle.html?locp_id=${data[i].locp_id}`);
-                        $(`#locp_image${i}`).prop('src', `data:image/*;base64,${data[i].locp_images}`);
-                    }
+            let data;
+            if (condition == "hightolow") {
+                //價格高到低
+                data = dataSet.sort(function(a, b) {
+                    return b.locp_price - a.locp_price
+                });
+            } else if (condition == "lowtohigh") {
+                //價格低到高
+                data = dataSet.sort(function(a, b) {
+                    return a.locp_price - b.locp_price
+                });
+            }
+            if (data != undefined) {
+                $('#list').html("");
+                for (let i = 0; i < data.length; i++) {
+                    let tmp = `<div class="box1">
+                        <div class="loc">
+                            <div class="locrimg"><img src="data:image/*;base64,${data[i].loc_logo}"></div>
+                            <div class="locname">${data[i].loc_name}</div>
+                        </div>
+                        <div class="images">
+                            <a href="Locpsingle.html?locp_id=${data[i].locp_id}"><img src="${contextPath}/locationprogram/locpServlet?action=getLocpImg&locp_id=${data[i].locp_id}"></a>
+                        </div>
+                        <div class="name">${data[i].locp_name}</div>
+                        <div class="content">${data[i].locp_content}</div>
+                        <div class="price"><i class="fas fa-comment-dollar"></i>${data[i].locp_price}</div>
+                    </div>`;
+                    $('#list').append(tmp);
                 }
-            })
-
-            //選取價格排列時,請求Logo資訊
-            $.ajax({
-                url: '../../locationprogram/getAllLogoByPriceServlet',
-                type: 'post',
-                data: {
-                    'action': condition
-                },
-                dataType: 'json',
-                success: function(data) {
-                    for (let i = 0; i < data.length; i++) {
-                        $(`#loc_name${i}`).text(data[i].loc_name);
-                        $(`#loc_logo${i}`).prop('src', `data:image/*;base64,${data[i].loc_logo}`);
-                    }
-                }
-            })
-        })
+            }
+        });
     </script>
-    <script src="js/cart.js"></script>
+    <script src="js/friendchat.js"></script>
 </body>
 
 </html>

@@ -103,7 +103,7 @@ $(function() {
             },
             success: function(result) {
                 if (result == "1") {
-                    window.location.href = "../../front_end/index/index.jsp";
+                    window.location.href = "../../member/checkServlet";
                 } else {
                     $('#u-prompt').text("註冊失敗");
                     $('#u-prompt').css('color', 'red');

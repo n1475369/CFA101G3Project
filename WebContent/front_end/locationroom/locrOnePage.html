@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/cssreset.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/newCart.css">
+    <link rel="stylesheet" href="css/friendchat.css">
     <!--腳-->
     <link rel="stylesheet" href="css/memberBuyProfile.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css" />
@@ -16,6 +18,7 @@
     <script src="js/jquery.datetimepicker.full.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/newCart.js"></script>
 
     <title>廳房中心｜MarryHappiness</title>
 </head>
@@ -279,11 +282,11 @@
             <ul>
                 <!-- 購物車圖片Icon -->
 
-                <li><a href="#">首頁</a></li>
-                <li><a href="../../front_end/member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
+                <li><a href="../index/index.jsp">首頁</a></li>
+                <li><a href="../member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
                 <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
                 <li class="headcart">
-                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" id="cartModal">
+                    <a href="javascript:void(0)" id="cartModal">
                         <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
                 </li>
 
@@ -301,7 +304,7 @@
             <li>
                 <a href="#" class="logo"><img src="images/MHlogo_01.svg"></a>
             </li>
-            <li><a href="ProductMain.html">婚禮週邊<br>Product
+            <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
 				</a></li>
             <li><a href="#">專欄討論<br>Post
 				</a></li>
@@ -318,41 +321,7 @@
     <div class="onepageroom" id="onepageroom"></div>
 
     <div class="imageslist" id="imageslist"></div>
-    <!-- 購物車頁面 -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">購物車<img src="images/MHlogo_04.svg" alt=""></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">商品資訊</th>
-                                <th scope="col">商品名稱</th>
-                                <th scope="col">價格</th>
-                                <th scope="col">數量</th>
-                                <th scope="col">小計</th>
-                                <th scope="col">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cart"></tbody>
-                    </table>
-                    <div id="total-list" class="total-list">
-                        <h5 class="site-color">合計金額</h5>
-                        <h5 class="site-color">$<span id="total"></span></h5>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" id="checkout">結帳</button>
-                </div>
-            </div>
-        </div>
 
-    </div>
     <!--尾巴-->
     <div class="footer">
         <div class="foote-top">
@@ -462,15 +431,8 @@
             return loci_id;
         }
     </script>
-
-
-
-
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+    <script src="js/friendchat.js"></script>
 </body>
 
 </html>

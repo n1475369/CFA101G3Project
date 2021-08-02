@@ -170,7 +170,7 @@ public class CalendarDAOImpl implements CalendarDAO {
 				
 				calVO = new CalendarVO();
 				calVO.setPhoo_id(rs.getInt("PHOO_ID"));
-				calVO.setPhoo_reserve_time(rs.getTimestamp("PHOO_RESERVE_TIME"));
+				calVO.setPhoo_reserve_time(rs.getDate("PHOO_RESERVE_TIME"));
 				
 				map = new HashMap();
 				map.put("title", "編號:" + calVO.getPhoo_id());
@@ -212,7 +212,7 @@ public class CalendarDAOImpl implements CalendarDAO {
 	@Override
 	public List<CalendarVO> getPhomemStroke(Integer mem_id) {
 		
-		String sql = "SELECT * FROM PHOTO_ORDER PO JOIN PHOTOGRAPHER P ON PO.PHOO_PHOG_ID = P.PHOG_ID WHERE PO.PHOO_SMEM_ID = ?;";
+		String sql = "SELECT * FROM PHOTO_ORDER PO JOIN PHOTOGRAPHER P ON PO.PHOO_PHOG_ID = P.PHOG_ID JOIN MEMBER ON MEM_ID = PHOO_BMEM_ID WHERE PO.PHOO_SMEM_ID = ?";
 		List list = new ArrayList();
 		HashMap map = null;
 		CalendarVO calVO = null;
@@ -232,10 +232,11 @@ public class CalendarDAOImpl implements CalendarDAO {
 				calVO = new CalendarVO();
 				calVO.setPhoo_id(rs.getInt("PHOO_ID"));
 				calVO.setPhog_name(rs.getString("PHOG_NAME"));
-				calVO.setPhoo_reserve_time(rs.getTimestamp("PHOO_RESERVE_TIME"));
+				calVO.setPhoo_reserve_time(rs.getDate("PHOO_RESERVE_TIME"));
+				calVO.setMem_name(rs.getString("MEM_NAME"));
 				
 				map = new HashMap();
-				map.put("title", "訂單編號:" + calVO.getPhoo_id() + " , 預約攝影師:" + calVO.getPhog_name());
+				map.put("title", "攝影師：" + calVO.getPhog_name() + "｜拍攝對象："+ calVO.getMem_name());
 				map.put("start", calVO.getPhoo_reserve_time());
 				list.add(map);
 			}

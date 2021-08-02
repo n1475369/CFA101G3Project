@@ -28,7 +28,7 @@ public class WorServlet extends HttpServlet {
 		
 		WorService worSvc = new WorService();
 		List<WorVO> list = worSvc.getAll();//調用方法
-		//System.out.println(list);
+//		System.out.println(list);
 		
 		ObjectMapper mapper = new ObjectMapper();//創建
 		String json = mapper.writeValueAsString(list);//轉換方法：Object轉成JSNO字串格式

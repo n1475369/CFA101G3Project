@@ -25,13 +25,13 @@ public class WorDAOImpl implements WorDAO {
 	//修改作品集封面
 	private static final String UPDATA_LOGO = "update WORK_PHOTO set WOR_LOGO = ? where WOR_ID = ?";
 	//查詢全部作品集資訊
-	private static final String GET_ALL = "select w.WOR_ID,w.WOR_NAME,w.WOR_PHOG_ID, p.PHOG_NAME,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join MEMBER m on PHOG_SMEM_ID = m.MEM_ID";
+	private static final String GET_ALL = "select w.WOR_ID,w.WOR_NAME,w.WOR_PHOG_ID, p.PHOG_NAME,p.PHOG_STATUS,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join `MEMBER` m on PHOG_SMEM_ID = m.MEM_ID";
 	//查詢一個作品集資訊
-	private static final String GET_ONE = "select w.WOR_ID,w.WOR_NAME, w.WOR_PHOG_ID, p.PHOG_NAME,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join MEMBER m on PHOG_SMEM_ID = m.MEM_ID where WOR_ID = ?";
+	private static final String GET_ONE = "select w.WOR_ID,w.WOR_NAME, w.WOR_PHOG_ID, p.PHOG_NAME,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join `MEMBER` m on PHOG_SMEM_ID = m.MEM_ID where WOR_ID = ?";
 	//查詢此作品集的攝影師
-	private static final String GET_FK = "select w.WOR_ID,w.WOR_NAME, w.WOR_PHOG_ID, p.PHOG_NAME,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_ID = p.PHOG_ID join MEMBER m on PHOG_SMEM_ID = m.MEM_ID where WOR_PHOG_ID = ?";
+	private static final String GET_FK = "select w.WOR_ID,w.WOR_NAME, w.WOR_PHOG_ID, p.PHOG_NAME,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join `MEMBER` m on PHOG_SMEM_ID = m.MEM_ID where WOR_PHOG_ID = ?";
 	//查詢作品集店家LOGO & CITY
-	private static final String FIND_SMEM_INFO = "select w.WOR_ID,m.MEM_SHOP_NAME,m.MEM_CITY,m.MEM_SHOP_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join MEMBER m on PHOG_SMEM_ID = m.MEM_ID where WOR_ID = ?";
+	private static final String FIND_SMEM_INFO = "select w.WOR_ID,m.MEM_ID,m.MEM_SHOP_NAME,m.MEM_CITY,m.MEM_SHOP_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join `MEMBER` m on PHOG_SMEM_ID = m.MEM_ID where WOR_ID = ?";
 	//連線池
 		private static DataSource ds = null;
 		
@@ -166,18 +166,14 @@ public class WorDAOImpl implements WorDAO {
 	//瀏覽婚攝作品
 	@Override
 	public List<WorVO> getAll() {
-		
 		List<WorVO> list = new ArrayList<WorVO>();
-		
 		WorVO worVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
 		try {
-			
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL);//select w.WOR_ID,w.WOR_NAME,w.WOR_PHOG_ID, p.PHOG_NAME,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join MEMBER m on PHOG_SMEM_ID = m.MEM_ID
+			pstmt = con.prepareStatement(GET_ALL);//select w.WOR_ID,w.WOR_NAME,w.WOR_PHOG_ID, p.PHOG_NAME,p.PHOG_STATUS,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join MEMBER m on PHOG_SMEM_ID = m.MEM_ID
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -186,6 +182,7 @@ public class WorDAOImpl implements WorDAO {
 				worVO.setWor_name(rs.getString("wor_name"));//作品名
 				worVO.setWor_phog_id(rs.getInt("wor_phog_id"));//攝影師ID
 				worVO.setPhog_name(rs.getString("phog_name"));//攝影師名
+				worVO.setPhog_status(rs.getInt("phog_status"));//攝影師狀態
 				worVO.setMem_shop_name(rs.getString("mem_shop_name"));//店家名
 				worVO.setWor_logo(rs.getBytes("wor_logo"));//頁面banner
 				list.add(worVO);
@@ -229,7 +226,7 @@ public class WorDAOImpl implements WorDAO {
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_FK);//select w.WOR_ID,w.WOR_NAME, w.WOR_PHOG_ID, p.PHOG_NAME,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_ID = p.PHOG_ID join MEMBER m on PHOG_SMEM_ID = m.MEM_ID where WOR_PHOG_ID = ?
+			pstmt = con.prepareStatement(GET_FK);//select w.WOR_ID,w.WOR_NAME, w.WOR_PHOG_ID, p.PHOG_NAME,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID  = p.PHOG_ID join MEMBER m on PHOG_SMEM_ID = m.MEM_ID where WOR_PHOG_ID = ?
 			pstmt.setInt(1, wor_phog_id);
 			rs = pstmt.executeQuery();
 			
@@ -347,13 +344,14 @@ public class WorDAOImpl implements WorDAO {
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(FIND_SMEM_INFO);//select w.WOR_ID,m.MEM_SHOP_NAME,m.MEM_CITY,m.MEM_SHOP_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join MEMBER m on PHOG_SMEM_ID = m.MEM_ID where WOR_ID = ?
+			pstmt = con.prepareStatement(FIND_SMEM_INFO);//select w.WOR_ID,m.MEM_ID,m.MEM_SHOP_NAME,m.MEM_CITY,m.MEM_SHOP_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join MEMBER m on PHOG_SMEM_ID = m.MEM_ID where WOR_ID = ?
 			pstmt.setInt(1, wor_id);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				map = new HashMap();
 				map.put("WOR_ID", rs.getInt("wor_id"));//作品集ID
+				map.put("MEM_ID", rs.getInt("mem_id"));//店家ID
 				map.put("MEM_SHOP_NAME", rs.getString("mem_shop_name"));//店家名
 				map.put("MEM_CITY",rs.getString("mem_city"));//店家地區
 				map.put("MEM_SHOP_LOGO", rs.getBytes("mem_shop_logo"));//店家LOGO
@@ -384,5 +382,65 @@ public class WorDAOImpl implements WorDAO {
 			}
 		}
 		return map;
+	}
+	//搜尋作品店家
+	@Override
+	public List<WorVO> findByWork(String mem_shop_name) {
+		
+		String SEARCH = "select w.WOR_ID, w.WOR_NAME, w.WOR_PHOG_ID, p.PHOG_NAME,p.PHOG_STATUS,m.MEM_SHOP_NAME,w.WOR_LOGO from WORK_PHOTO w join PHOTOGRAPHER p on w.WOR_PHOG_ID = p.PHOG_ID join `MEMBER` m on p.PHOG_SMEM_ID = m.MEM_ID where 1=1 ";
+		StringBuilder sb = new StringBuilder();//拼接
+		sb.append(SEARCH);
+		if(mem_shop_name!=null) {
+			sb.append(" and m.MEM_SHOP_NAME like '%"+mem_shop_name+"%'");
+		}
+		SEARCH = sb.toString();
+		
+		List<WorVO> list = new ArrayList<WorVO>();
+		WorVO worVO = new WorVO();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SEARCH);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				worVO = new WorVO();
+				worVO.setWor_id(rs.getInt("wor_id"));//ID
+				worVO.setWor_name(rs.getString("wor_name"));//作品名
+				worVO.setWor_phog_id(rs.getInt("wor_phog_id"));//攝影師ID
+				worVO.setPhog_name(rs.getString("phog_name"));//攝影師名
+				worVO.setPhog_status(rs.getInt("phog_status"));//攝影師狀態
+				worVO.setMem_shop_name(rs.getString("mem_shop_name"));//店家名
+				worVO.setWor_logo(rs.getBytes("wor_logo"));//頁面banner
+				list.add(worVO);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured." + e.getMessage());//SQL語法錯誤
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 }

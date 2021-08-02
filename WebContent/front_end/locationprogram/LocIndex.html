@@ -8,26 +8,28 @@
     <link rel="stylesheet" href="css/locstyle.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/newCart.css">
+    <link rel="stylesheet" href="css/friendchat.css">
     <link rel="icon" href="images/logo-icon01.ico" type="image/x-icon" />
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="js/newCart.js"></script>
     <title>場地主頁</title>
 </head>
 
 <body>
-    <div class="wrapper"></div>
+    <!--大頭-->
     <header>
         <div class="top">
             <ul>
                 <!-- 購物車圖片Icon -->
 
-                <li><a href="#">首頁</a></li>
+                <li><a href="../index/index.jsp">首頁</a></li>
                 <li><a href="../member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
                 <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
                 <li class="headcart">
-                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" id="cartModal">
+                    <a href="javascript:void(0)" id="cartModal">
                         <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
                 </li>
 
@@ -39,16 +41,16 @@
         <div class="nav1"></div>
         <ul class="nav2">
             <li><a href="#">婚禮攝影<br>Photography
-          </a></li>
-            <li><a href="LocIndex.html">婚禮場地<br>Location
-          </a></li>
+				</a></li>
+            <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
+				</a></li>
             <li>
                 <a href="#" class="logo"><img src="images/MHlogo_01.svg"></a>
             </li>
-            <li><a href="#">婚禮週邊<br>Product
-          </a></li>
+            <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
+				</a></li>
             <li><a href="#">專欄討論<br>Post
-          </a></li>
+				</a></li>
         </ul>
     </header>
     <div class="content">
@@ -92,168 +94,7 @@
             <i class="fas fa-indent"></i>
             <h3>婚禮方案</h3>
         </a>
-        <ul class="place-photo">
-            <li>
-                <img id="loc0" src="images/Location1.jpg" alt="">
-                <div class="place-photo-img">
-                    <div class="tagImg"><img id="loclogo0" src="images/Loclogo1.jpg" alt=""></div>
-                </div>
-                <a href="#" id="locseller0">新莊典華</a>
-                <div class="place-title">
-                    <a href="#"><i class="fas fa-star"></i>4.9 <span>(1,219)</span></a>
-                </div>
-                <div class="tag-wrap">
-                    <span class="tag-wrap-1">#獨家優惠</span>
-                    <span class="tag-wrap-2">#小桌數</span>
-                </div>
-                <div class="tag-map">
-                    <i class="fas fa-map-marker-alt"></i> 新北市 新莊區
-                </div>
-                <div class="tag">
-                    <i class="fas fa-gift"></i> 歡迎預約
-                </div>
-
-            </li>
-            <li>
-                <img id="loc1" src="images/Location2.jpg" alt="">
-                <div class="place-photo-img">
-                    <div class="tagImg"><img id="loclogo1" src="images/Loclogo2.jpg" alt=""></div>
-                </div>
-                <a href="#" id="locseller1">大直典華</a>
-                <div class="place-title">
-                    <a href="#"><i class="fas fa-star"></i>4.9 <span>(1,219)</span></a>
-                </div>
-                <div class="tag-wrap">
-                    <span class="tag-wrap-1">#獨家優惠</span>
-                    <span class="tag-wrap-2">#小桌數</span>
-                </div>
-                <div class="tag-map">
-                    <i class="fas fa-map-marker-alt"></i> 台北市 中山區
-                </div>
-                <div class="tag">
-                    <i class="fas fa-gift"></i> 歡迎預約
-                </div>
-            </li>
-            <li>
-                <img id="loc2" src="images/Location3.jpg" alt="">
-                <div class="place-photo-img">
-                    <div class="tagImg"><img id="loclogo2" src="images/Loclogo3.jpg" alt=""></div>
-                </div>
-                <a href="#" id="locseller2">88號樂章婚宴會館</a>
-                <div class="place-title">
-                    <a href="#"><i class="fas fa-star"></i>4.9 <span>(1,219)</span></a>
-                </div>
-                <div class="tag-wrap">
-                    <span class="tag-wrap-1">#獨家優惠</span>
-                    <span class="tag-wrap-2">#小桌數</span>
-                </div>
-                <div class="tag-map">
-                    <i class="fas fa-map-marker-alt"></i> 台北市 內湖區
-                </div>
-                <div class="tag">
-                    <i class="fas fa-gift"></i> 歡迎預約
-                </div>
-            </li>
-            <li>
-                <img id="loc3" src="images/Location4.jpg" alt="">
-                <div class="place-photo-img">
-                    <div class="tagImg"><img id="loclogo3" src="images/Loclogo4.jpg" alt=""></div>
-                </div>
-                <a href="#" id="locseller3">青青時尚花園會館</a>
-                <div class="place-title">
-                    <a href="#"><i class="fas fa-star"></i>4.9 <span>(1,219)</span></a>
-                </div>
-                <div class="tag-wrap">
-                    <span class="tag-wrap-1">#獨家優惠</span>
-                    <span class="tag-wrap-2">#小桌數</span>
-                </div>
-                <div class="tag-map">
-                    <i class="fas fa-map-marker-alt"></i> 台北市 士林區
-                </div>
-                <div class="tag">
-                    <i class="fas fa-gift"></i> 歡迎預約
-                </div>
-            </li>
-            <li>
-                <img id="loc4" src="images/Location5.jpg" alt="">
-                <div class="place-photo-img">
-                    <div class="tagImg"><img id="loclogo4" src="images/Loclogo5.jpg" alt=""></div>
-                </div>
-                <a href="#" id="locseller4">大直典華</a>
-                <div class="place-title">
-                    <a href="#"><i class="fas fa-star"></i>4.9 <span>(1,219)</span></a>
-                </div>
-                <div class="tag-wrap">
-                    <span class="tag-wrap-1">#獨家優惠</span>
-                    <span class="tag-wrap-2">#小桌數</span>
-                </div>
-                <div class="tag-map">
-                    <i class="fas fa-map-marker-alt"></i> 台北市 南港區
-                </div>
-                <div class="tag">
-                    <i class="fas fa-gift"></i> 歡迎預約
-                </div>
-            </li>
-            <li>
-                <img id="loc5" src="images/Location6.jpg" alt="">
-                <div class="place-photo-img">
-                    <div class="tagImg"><img id="loclogo5" src="images/Loclogo6.jpg" alt=""></div>
-                </div>
-                <a href="#" id="locseller5">晶麒莊園</a>
-                <div class="place-title">
-                    <a href="#"><i class="fas fa-star"></i>4.9 <span>(1,219)</span></a>
-                </div>
-                <div class="tag-wrap">
-                    <span class="tag-wrap-1">#獨家優惠</span>
-                    <span class="tag-wrap-2">#小桌數</span>
-                </div>
-                <div class="tag-map">
-                    <i class="fas fa-map-marker-alt"></i> 桃園市 桃園區
-                </div>
-                <div class="tag">
-                    <i class="fas fa-gift"></i> 歡迎預約
-                </div>
-            </li>
-            <li>
-                <img id="loc6" src="images/Location7.jpg" alt="">
-                <div class="place-photo-img">
-                    <div class="tagImg"><img id="loclogo6" src="images/Loclogo7.jpg" alt=""></div>
-                </div>
-                <a href="#" id="locseller6">青青格麗絲莊園</a>
-                <div class="place-title">
-                    <a href="#"><i class="fas fa-star"></i>4.9 <span>(1,219)</span></a>
-                </div>
-                <div class="tag-wrap">
-                    <span class="tag-wrap-1">#獨家優惠</span>
-                    <span class="tag-wrap-2">#小桌數</span>
-                </div>
-                <div class="tag-map">
-                    <i class="fas fa-map-marker-alt"></i> 桃園市 蘆竹區
-                </div>
-                <div class="tag">
-                    <i class="fas fa-gift"></i> 歡迎預約
-                </div>
-            </li>
-            <li>
-                <img id="loc7" src="images/Location8.jpg" alt="">
-                <div class="place-photo-img">
-                    <div class="tagImg"><img id="loclogo7" src="images/Loclogo8.jpg" alt=""></div>
-                </div>
-                <a href="#" id="locseller7">貝斯薇榳</a>
-                <div class="place-title">
-                    <a href="#"><i class="fas fa-star"></i>4.9 <span>(1,219)</span></a>
-                </div>
-                <div class="tag-wrap">
-                    <span class="tag-wrap-1">#獨家優惠</span>
-                    <span class="tag-wrap-2">#小桌數</span>
-                </div>
-                <div class="tag-map">
-                    <i class="fas fa-map-marker-alt"></i> 新北市 三重區
-                </div>
-                <div class="tag">
-                    <i class="fas fa-gift"></i> 歡迎預約
-                </div>
-            </li>
+        <ul class="place-photo" id="place-block">
         </ul>
     </div>
     <div class="footer">
@@ -291,10 +132,31 @@
             dataType: 'json',
             success: function(data) {
                 for (let i = 0; i < data.length; i++) {
-                    $(`#locseller${i}`).prop('href', `LocSingle.html?memid=${data[i].mem_id}`);
-                    $(`#locseller${i}`).text(`${data[i].mem_shop_name}`);
-                    $(`#loclogo${i}`).prop('src', `data:image/*;base64,${data[i].mem_shop_logo}`);
-                    $(`#loc${i}`).prop('src', `data:image/*;base64,${data[i].mem_shop_banner}`)
+                    let tmp = `<li>
+                        <a class="place-href" href="LocSingle.html?memid=${data[i].mem_id}">
+                            <div class="place-banner">
+                                <img src="data:image/*;base64,${data[i].mem_shop_banner}">
+                            </div>
+                        </a>
+                        <div class="place-photo-img">
+                            <div class="tagImg"><img src="data:image/*;base64,${data[i].mem_shop_logo}" alt=""></div>
+                        </div>
+                        <a href="LocSingle.html?memid=${data[i].mem_id}">${data[i].mem_shop_name}</a>
+                        <div class="place-title">
+                            <a href="LocSingle.html?memid=${data[i].mem_id}"><i class="fas fa-star"></i>${data[i].mem_review_count != 0 ? (data[i].mem_review_score / data[i].mem_review_count).toFixed(1) : 0} <span>(${data[i].mem_review_count})</span></a>
+                        </div>
+                        <div class="tag-wrap">
+                            <span class="tag-wrap-1">#獨家優惠</span>
+                            <span class="tag-wrap-2">#小桌數</span>
+                        </div>
+                        <div class="tag-map">
+                            <i class="fas fa-map-marker-alt"></i> ${data[i].mem_city} ${data[i].mem_cityarea}
+                        </div>
+                        <div class="tag">
+                            <i class="fas fa-gift"></i> 歡迎預約
+                        </div>
+                    </li>`;
+                    $('#place-block').append(tmp);
                 }
             }
         })
@@ -302,7 +164,7 @@
 
 
     <script src="js/all.js"></script>
-    <script src="js/cart.js"></script>
+    <script src="js/friendchat.js"></script>
 </body>
 
 </html>

@@ -480,7 +480,7 @@
     <div class="loader3" id="loader">Loading...</div>
     <div class="payment-title">
         <h3>信用卡付款資訊</h3>
-        <h4>付款金額:$${payment}</h4>
+        <h4>付款金額:$${loco_DEPOSIT}</h4>
     </div>
     <div class="container preload">
         <div class="creditcard">

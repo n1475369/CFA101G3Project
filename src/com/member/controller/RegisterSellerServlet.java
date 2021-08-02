@@ -1,6 +1,9 @@
 package com.member.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,6 +55,24 @@ public class RegisterSellerServlet extends HttpServlet {
 		member.setMem_city(city);
 		member.setMem_cityarea(cityarea);
 		member.setMem_street(street);
+		
+		String logoPath = getServletContext().getRealPath("/front_end/member/images/logo.jpg");
+		File logofile = new File(logoPath);
+		InputStream logoIn = new FileInputStream(logofile);
+		byte[] logo = new byte[logoIn.available()];
+		logoIn.read(logo);
+		logoIn.close();
+		
+		String bannerPath = getServletContext().getRealPath("/front_end/member/images/banner.jpg");
+		File bannerfile = new File(bannerPath);
+		InputStream bannerfileIn = new FileInputStream(bannerfile);
+		byte[] banner = new byte[bannerfileIn.available()];
+		bannerfileIn.read(banner);
+		bannerfileIn.close();
+
+		member.setMem_shop_logo(logo);//新增預設logo圖片
+		member.setMem_shop_banner(banner);//新增預設banner圖片
+		
 		int count = service.register(member);
 		if(count == 1) {
 			SendEmail se = new SendEmail(username);

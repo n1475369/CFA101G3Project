@@ -10,6 +10,7 @@ public class WorVO  implements Serializable{
 	private String wor_name;//作品名稱
 	private Integer wor_phog_id;
 	private String phog_name;//攝影師
+	private Integer phog_status;//攝影師狀態
 	private String mem_shop_name;//婚攝店家名稱
 	private byte[] wor_logo;//封面圖片
 	public Integer getWor_id() {
@@ -36,6 +37,12 @@ public class WorVO  implements Serializable{
 	public void setPhog_name(String phog_name) {
 		this.phog_name = phog_name;
 	}
+	public Integer getPhog_status() {
+		return phog_status;
+	}
+	public void setPhog_status(Integer phog_status) {
+		this.phog_status = phog_status;
+	}
 	public String getMem_shop_name() {
 		return mem_shop_name;
 	}
@@ -51,6 +58,8 @@ public class WorVO  implements Serializable{
 	@Override
 	public String toString() {
 		return "WorVO [wor_id=" + wor_id + ", wor_name=" + wor_name + ", wor_phog_id=" + wor_phog_id + ", phog_name="
-				+ phog_name + ", mem_shop_name=" + mem_shop_name + ", wor_logo=" + Arrays.toString(wor_logo) + "]";
+				+ phog_name + ", phog_status=" + phog_status + ", mem_shop_name=" + mem_shop_name + ", wor_logo="
+				+ Arrays.toString(wor_logo) + "]";
 	}
+	
 }

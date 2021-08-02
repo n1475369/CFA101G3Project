@@ -17,7 +17,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MemDAOImpl implements MemDAO{
-	private static final String INSERT = "INSERT INTO `MEMBER` (mem_username, mem_password, mem_name, mem_role, mem_phone, mem_city, mem_cityarea, mem_street, mem_shop_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT = "INSERT INTO `MEMBER` (mem_username, mem_password, mem_name, mem_role, mem_phone, mem_city, mem_cityarea, mem_street, mem_shop_name, mem_shop_logo, mem_shop_banner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ONE = "SELECT * FROM `MEMBER` WHERE mem_id = ?";
 	private static final String GET_ONE_USERNAME_PASSWORD = "SELECT * FROM `MEMBER` WHERE mem_username = ? AND mem_password = ?";
 	private static final String GET_ONE_USERNAME = "SELECT * FROM `MEMBER` WHERE mem_username = ?";
@@ -180,6 +180,8 @@ public class MemDAOImpl implements MemDAO{
 			pstmt.setString(7, member.getMem_cityarea());
 			pstmt.setString(8, member.getMem_street());
 			pstmt.setString(9, member.getMem_shop_name());
+			pstmt.setBytes(10, member.getMem_shop_logo());
+			pstmt.setBytes(11, member.getMem_shop_banner());
 			int executeUpdate = pstmt.executeUpdate();
 			return executeUpdate;
 		} catch (SQLException e) {

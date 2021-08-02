@@ -103,7 +103,14 @@ public class LocationorderServlet extends HttpServlet {
 			Integer LOCO_TABLE_NUM = null;
 			try {
 				LOCO_TABLE_NUM = new Integer(request.getParameter("LOCO_TABLE_NUM").trim());
-
+			    LocrService locrService = new LocrService();
+			    LocrVO oneLocr = locrService.getOneLocr(LOCO_LOCR_ID);
+			    Integer locr_MAX_TABLE = oneLocr.getLOCR_MAX_TABLE();
+			    Integer locr_MIN_TABLE = oneLocr.getLOCR_MIN_TABLE(); 
+			    
+			    if(LOCO_TABLE_NUM >locr_MAX_TABLE || LOCO_TABLE_NUM <locr_MIN_TABLE) {
+			     errorMsgs.add("桌數請在範圍內");
+			    }
 			} catch (NumberFormatException e) {
 				LOCO_TABLE_NUM = 0;
 				errorMsgs.add("桌數請填數字.");

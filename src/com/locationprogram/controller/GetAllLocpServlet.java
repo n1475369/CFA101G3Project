@@ -36,9 +36,7 @@ public class GetAllLocpServlet extends HttpServlet {
 		
 		ObjectMapper mapper = new ObjectMapper(); 
 		String data = mapper.writeValueAsString(list);
-		
-		out.println(data);
-		
+		out.print(data);
 	}
 
 }

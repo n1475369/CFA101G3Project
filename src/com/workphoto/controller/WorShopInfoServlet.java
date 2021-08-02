@@ -35,6 +35,9 @@ public class WorShopInfoServlet extends HttpServlet {
 		String json = mapper.writeValueAsString(shopInfo);//轉成JSON格式
 		PrintWriter out = response.getWriter();
 		out.print(json);
+		
+		
+		
 	}
 
 }

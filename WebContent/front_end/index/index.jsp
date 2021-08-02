@@ -168,33 +168,40 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 </style>
 
 <body>
-	<header>
-		<div class="top">
-			<ul>
-				<!-- 購物車圖片Icon -->
-				<li><a href="#">首頁</a></li>
-				<li><a href="../member/login.html"><i
-						class="fas fa-sign-out-alt"></i>登入</a></li>
-				<li><a href="../../member/checkServlet"><i
-						class="fas fa-home"></i> 會員系統</a></li>
-				<li class="headcart"><a href="javascript:void(0)" id="cartModal"> <i class="fas fa-shopping-cart" id="cartIcon"></i></a></li>
-			</ul>
-		</div>
+    <!--大頭-->
+    <header>
+        <div class="top">
+            <ul>
+                <!-- 購物車圖片Icon -->
 
-		<!--上面增加的小色塊-->
-		<div class="nav1"></div>
-		<ul class="nav2">
-			<li><a href="#">婚禮攝影<br>Photography
-			</a></li>
-			<li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
-			</a></li>
-			<li><a href="#" class="logo"><img src="images/MHlogo_01.svg"></a></li>
-			<li><a href="../product/ProductMain.html">婚禮週邊<br>Product
-			</a></li>
-			<li><a href="#">專欄討論<br>Post
-			</a></li>
-		</ul>
-	</header>
+                <li><a href="../index/index.jsp">首頁</a></li>
+                <li><a href="../member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
+                <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
+                <li class="headcart">
+                    <a href="javascript:void(0)" id="cartModal">
+                        <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
+                </li>
+
+            </ul>
+        </div>
+
+
+        <!--上面增加的小色塊-->
+        <div class="nav1"></div>
+        <ul class="nav2">
+            <li><a href="#">婚禮攝影<br>Photography
+				</a></li>
+            <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
+				</a></li>
+            <li>
+                <a href="../workphoto/browseHome.html" class="logo"><img src="images/MHlogo_01.svg"></a>
+            </li>
+            <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
+				</a></li>
+            <li><a href="../post/forumindex.html">專欄討論<br>Post
+				</a></li>
+        </ul>
+    </header>
 
 	<!-- Swiper -->
 	<div class="swiper-container">
@@ -226,7 +233,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 							<h2>專欄討論區</h2>
 							<p>新娘聊心事的好地方</p>
 						</div>
-						<a href="">
+						<a href="<%=request.getContextPath()%>/front_end/post/forumindex.html">
 							<div class="post-more">看更多討論</div>
 						</a>
 					</div>
@@ -234,7 +241,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 						<c:forEach var="postVO" items="${postList}">
 							<div class="post-box d-flex">
 								<img src="<%=request.getContextPath()%>/member/memImgServlet?action=headShot&mem_id=${postVO.post_mem_id}" alt=""> 
-								<a href="">
+								<a href="<%=request.getContextPath()%>/front_end/post/show-article-message.html?post_id=${postVO.post_id}">
 									<div class="post-article">
 										<div class="post-tag-box">
 											<div class="post-tag c${postVO.post_cat_id}">

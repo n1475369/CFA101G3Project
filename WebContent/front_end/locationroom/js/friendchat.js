@@ -129,9 +129,8 @@ function connect() {
             }
 
         } else if ("newChat" === jsonObj.type) {
-            refreshFriendList(jsonObj).then(function() { //更新完列表後觸發抓取好友名字以取得歷史訊息事件
-                $(`#friend${jsonObj.receiver}`).click();
-            });
+            refreshFriendList(jsonObj) //更新完列表後觸發抓取好友名字以取得歷史訊息事件
+            $(`#friend${jsonObj.receiver}`).click();
         } else if ("newMsg" === jsonObj.type) {
             refreshFriendListByNewMsg(jsonObj);
             $('#chat-components').fadeOut();
@@ -233,26 +232,39 @@ function sendMessage() {
 }
 
 // 更新好友列表
-async function refreshFriendList(jsonObj) {
+function refreshFriendList(jsonObj) {
     console.log(jsonObj);
+    let friends;
     if (jsonObj.type == "newChat") {
-        var friends = JSON.parse(jsonObj.message);
+        friends = JSON.parse(jsonObj.message);
         console.log(friends);
     } else {
-        var friends = jsonObj.users;
+        friends = jsonObj.users;
     }
-    var row = document.getElementById("row");
-    row.innerHTML = '';
-    for (var i = 0; i < friends.length; i++) {
-        if (friends[i] == self) {
-            continue;
+    let row = document.getElementById("row");
+    $.ajax({
+        url: webCtx + "/member/memServlet",
+        type: "post",
+        data: {
+            "action": "getMemberMap",
+            "users": JSON.stringify(friends)
+        },
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            row.innerHTML = '';
+            for (let i = 0; i < friends.length; i++) {
+                if (friends[i] == self) {
+                    continue;
+                }
+                let tmp = `<a class="column" id="friend${friends[i]}" data-mem_id="${friends[i]}"><img src="${webCtx}/member/memImgServlet?action=headShot&mem_id=${friends[i]}">${data[friends[i]]}</a>`;
+                $(row).append(tmp);
+                if (jsonObj.unread != undefined && jsonObj.unread[friends[i]] != 0) { //如果未讀訊息不為0則加入通知
+                    $(`#friend${friends[i]}`).append(`<span>${jsonObj.unread[friends[i]]}</span>`);
+                }
+            }
         }
-        let tmp = `<a class="column" id="friend${friends[i]}" data-mem_id="${friends[i]}"><img src="${webCtx}/member/memImgServlet?action=headShot&mem_id=${friends[i]}">${await getMemberName(friends[i])}</a>`;
-        $(row).append(tmp);
-        if (jsonObj.unread != undefined && jsonObj.unread[friends[i]] != 0) { //如果未讀訊息不為0則加入通知
-            $(`#friend${friends[i]}`).append(`<span>${jsonObj.unread[friends[i]]}</span>`);
-        }
-    }
+    });
 }
 
 //好友列表更新並新增新訊息圖示
@@ -316,13 +328,14 @@ function getMemberName(mem_id) { //做一個 Promise 物件
     });
 }
 
+
 //點擊賣家頁面的我要聊聊要開始聊天
-$('[data-chat="active"]').on('click', async function(e) {
+$('body').on('click', '[data-chat="active"]', async function(e) {
 
     //若為登入狀態在打開聊聊視窗
     if (chat_mem_id != undefined) {
-        $('#chat-components').fadeOut();
-        $('#chatWrap').fadeIn();
+        $('#chat-components').hide();
+        $('#chatWrap').show();
     } else {
         alert("請登入後在進行聊聊");
         return; //若沒登入則下列不執行
@@ -330,17 +343,27 @@ $('[data-chat="active"]').on('click', async function(e) {
 
     let mem_id = e.currentTarget.dataset.mem_id;
     if (mem_id != chat_mem_id) {
-        let friend = await getMemberName(mem_id);
-        statusOutput.dataset.mem_id = mem_id;
-        updateFriendName(friend);
+        // let friend = await getMemberName(mem_id);
+        // statusOutput.dataset.mem_id = mem_id;
+        // updateFriendName(friend);
+        statusOutput.innerHTML = "正在連線中...";
         $('#area').html("");
-        var jsonObj = {
-            "type": "newChat",
-            "sender": self,
-            "receiver": mem_id,
-            "message": ""
-        };
-        webSocket.send(JSON.stringify(jsonObj));
+        let newChat = $(`#friend${mem_id}`).html();
+        console.log(newChat);
+        if (newChat == undefined) {
+            let tmp = `<a class="column" id="friend${mem_id}" data-mem_id="${mem_id}"><img src="${webCtx}/member/memImgServlet?action=headShot&mem_id=${mem_id}">${await getMemberName(mem_id)}</a>`;
+            $(row).append(tmp);
+            $(`#friend${mem_id}`).click();
+        } else {
+            $(`#friend${mem_id}`).click();
+        }
+        // var jsonObj = {
+        //     "type": "newChat",
+        //     "sender": self,
+        //     "receiver": mem_id,
+        //     "message": ""
+        // };
+        // webSocket.send(JSON.stringify(jsonObj));
     } else {
         alert("跟自己聊天太邊緣了吧...");
     }

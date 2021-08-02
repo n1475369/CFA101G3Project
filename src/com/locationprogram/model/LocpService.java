@@ -1,7 +1,10 @@
 package com.locationprogram.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.locationroom.model.LocrVO;
 import com.member.model.MemVO;
@@ -83,5 +86,17 @@ public class LocpService {
 	//搜尋一個場地賣家的所有廳房
 	public List<LocrVO> getAllLocrBySmemid(Integer locr_smem_id){
 		return dao.getAllLocrBySmemid(locr_smem_id);
+	}
+	
+	//取得所有方案狀態為上架，方案時間在期限內
+	public Set<LocpVO> getAll_by_status_endtime(){
+		List<LocpVO> all = dao.getAll();
+		Set<LocpVO> set = new HashSet<LocpVO>();
+		for(LocpVO locpVO:all) {
+			if(locpVO.getLocp_end_time().getTime() > new java.util.Date().getTime() && locpVO.getLocp_status().equals(1)) {
+				set.add(locpVO);
+			}
+		}
+		return set;
 	}
 }

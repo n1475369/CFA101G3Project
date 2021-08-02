@@ -21,4 +21,6 @@ public interface WorDAO {
 	void insertList(WorVO worVO ,List<WedVO> list);
 	//取得此作品集的店家LOGO及CITY
 	Map getShopInfo (Integer wor_id);
+	//搜尋作品
+	List<WorVO> findByWork(String mem_shop_name);
 }

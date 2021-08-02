@@ -1,111 +1,121 @@
-
-body{
-    background-color:aliceblue;
+body {
+    background-color: aliceblue;
 }
-img{
-    max-width:100%;
-  }
 
-.logo{
+img {
+    max-width: 100%;
+}
+
+.logo {
     display: block;
     width: 400px;
     left: 100px;
     /* padding: 10px; */
 }
 
-.logo img{    
+.logo img {
     border-radius: 10px;
 }
-.top-container{
+
+.top-container {
     padding: 10px;
     display: flex;
     justify-content: space-between;
 }
 
-.user{
+.user {
     display: flex;
     justify-content: space-between;
 }
 
-.headshot{
+.headshot {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     margin-right: 10px;
 }
-.headshot img{
+
+.headshot img {
     max-width: 100%;
     border-radius: 50%;
 }
-.user-name{
+
+.user-name {
     line-height: 50px;
 }
-.nav{
+
+.nav {
     display: flex;
     width: auto;
-    justify-content:flex-end;
-    list-style:none   
+    justify-content: flex-end;
+    list-style: none
 }
-.header{
+
+.header {
     border-bottom: 1px solid #d5cb8e;
     padding-bottom: 5px;
     background-color: #c5d4d1;
 }
-.navli{
-   float: left;
-   width: 120px; 
-   display: block;
-   padding: 7px 7px;
-   background:#eeb8b8;
-   text-align: center;
-   text-decoration: none;
-   border: 1px solid pink;
-   border-radius:  20px;
-   margin-right: 15px;
+
+.navli {
+    float: left;
+    width: 120px;
+    display: block;
+    padding: 7px 7px;
+    background: #eeb8b8;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid pink;
+    border-radius: 20px;
+    margin-right: 15px;
 }
-.navli a{
-    color : #FFF;
+
+.navli a {
+    color: #FFF;
     text-decoration: none;
     font-size: 18px;
- }
-.navli a:hover{
-    color: red;
- }
-.navli.active a{
-    color:red;
- }
+}
 
+.navli a:hover {
+    color: red;
+}
+
+.navli.active a {
+    color: red;
+}
 
 .carousel .carousel-item {
     height: 500px;
-  }
+}
+
 .carousel .carousel-item img {
     min-height: 300px;
     max-height: 500px;
     object-fit: cover;
-  }
+}
 
-.titlename{
+.titlename {
     height: 70px;
     /* border: 1px solid black; */
-    display: block; 
+    display: block;
     /* background-color: #FFF; */
     padding-left: 50px;
     padding-top: 20px;
     font-size: 22px;
 }
-.list{
-    padding-left: 50px;
+
+.list {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
 }
-.box1{
-    /* width: 40%; */
+
+.box1 {
+    margin: 10px auto;
+    width: 360px;
     display: block;
-    margin-right: 30px;
-    
 }
-.images{
+
+.images {
     height: 250px;
     width: 360px;
     border-radius: 20px;
@@ -114,42 +124,44 @@ img{
     overflow: hidden;
     cursor: pointer;
 }
-.images img{
+
+.images img {
     height: 100%;
     width: 100%;
     object-fit: cover;
     transition: all 0.5s;
 }
-.images:hover img{
-    transform: scale(1.2,1.2);
+
+.images:hover img {
+    transform: scale(1.2, 1.2);
 }
 
-.name{
+.name {
     height: 30px;
     width: 230px;
     /* border: 1px solid black; */
     font-size: 20px;
     font-weight: bolder;
     padding-top: 2px;
-    
 }
-.content{
+
+.content {
     height: 50px;
     width: 230px;
     /* border: 1px solid black; */
     overflow: hidden;
     padding-top: 2px;
-    
 }
-.price{
+
+.price {
     height: 40px;
     width: 230px;
     /* border: 1px solid black; */
     padding-top: 5px;
     color: darkred;
     font-size: 20px;
-   
 }
+
 
 /* .footer{
     height: 100px;
@@ -160,14 +172,17 @@ img{
     margin-top: 20px;
     
 } */
-div.loc{
+
+div.loc {
     display: flex;
     align-items: center;
 }
-div.locname{
+
+div.locname {
     font-size: 20px;
 }
-div.locrimg{
+
+div.locrimg {
     width: 60px;
     height: 60px;
     border-radius: 100%;
@@ -175,41 +190,72 @@ div.locrimg{
     overflow: hidden;
     margin-right: 10px;
 }
-div.locr a{
+
+div.locr a {
     text-decoration: none;
 }
-div.locr a:hover{
+
+div.locr a:hover {
     text-decoration: none;
 }
-div textarea{
+
+div textarea {
     background: aliceblue;
     border: 0px;
     width: 300px;
     height: 80px;
 }
-div textarea:focus{
+
+div textarea:focus {
     border: 0px;
     outline: none;
 }
-div .content{
-    word-wrap: break-word;
-    word-break: normal;
-}
-.ablock{
-    display: flex;
 
+div .content {
+    width: 100%;
+    word-break: keep-all;
+    text-overflow: ellipsis;
 }
-.ablock a{
+
+.ablock {
+    display: flex;
+}
+
+.ablock a {
     margin: 15px 10px 10px 50px;
 }
-.ablock h3{
+
+.ablock h3 {
     font-size: 20px;
     font-weight: bold;
-    font-family: 微軟正黑體,"Microsoft JhengHei";
+    font-family: 微軟正黑體, "Microsoft JhengHei";
     display: inline-block;
 }
-.form-select{
+
+.form-select {
     margin-left: 10px;
     background-color: aliceblue;
     border: 0px;
+    cursor: pointer;
+}
+
+.place,
+.place:hover {
+    display: inline-block;
+    margin: 15px 30px!important;
+    color: #000;
+    text-decoration: none;
+}
+
+.place i {
+    color: #587ef1;
+    font-size: 25px;
+}
+
+.carousel-inner {
+    position: relative;
+    width: 900px;
+    overflow: hidden;
+    margin: 30px auto;
+    border-radius: 10px;
 }

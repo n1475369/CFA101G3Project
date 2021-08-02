@@ -40,4 +40,8 @@ public class WorService {
 	public Map getShopInfo(Integer wor_id) {
 		return dao.getShopInfo(wor_id);
 	}
+	//查詢作品名
+	public List<WorVO> findByWork(String mem_shop_name){
+		return dao.findByWork(mem_shop_name);
+	}
 }

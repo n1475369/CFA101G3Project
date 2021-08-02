@@ -1,5 +1,6 @@
 package com.calendar.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class CalendarVO {
@@ -8,9 +9,16 @@ public class CalendarVO {
 	private Timestamp loco_reserve_time;
 	private String locr_name;
 	private Integer phoo_id;
-	private Timestamp phoo_reserve_time;
+	private Date phoo_reserve_time;
 	private String phog_name;
+	private String mem_name;
 	
+	public String getMem_name() {
+		return mem_name;
+	}
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
 	public Integer getLoco_id() {
 		return loco_id;
 	}
@@ -35,10 +43,10 @@ public class CalendarVO {
 	public void setPhoo_id(Integer phoo_id) {
 		this.phoo_id = phoo_id;
 	}
-	public Timestamp getPhoo_reserve_time() {
+	public Date getPhoo_reserve_time() {
 		return phoo_reserve_time;
 	}
-	public void setPhoo_reserve_time(Timestamp phoo_reserve_time) {
+	public void setPhoo_reserve_time(Date phoo_reserve_time) {
 		this.phoo_reserve_time = phoo_reserve_time;
 	}
 	public String getPhog_name() {

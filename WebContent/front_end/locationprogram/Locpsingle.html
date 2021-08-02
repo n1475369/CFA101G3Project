@@ -10,7 +10,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/newCart.css">
+    <link rel="stylesheet" href="css/friendchat.css">
     <title>方案資訊</title>
 
     <!-- Bootstrap core CSS -->
@@ -26,16 +27,12 @@
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/locpsingle.css">
     <link rel="icon" href="images/logo-icon01.ico" type="image/x-icon" />
-    <!--
-Tooplate 2114 Pixie
-https://www.tooplate.com/view/2114-pixie
--->
-    <style>
-        .top {
-            height: 40px;
-        }
-    </style>
 </head>
+<style>
+    .top {
+        height: 40px;
+    }
+</style>
 
 <body>
     <!--大頭-->
@@ -44,11 +41,11 @@ https://www.tooplate.com/view/2114-pixie
             <ul>
                 <!-- 購物車圖片Icon -->
 
-                <li><a href="#">首頁</a></li>
+                <li><a href="../index/index.jsp">首頁</a></li>
                 <li><a href="../member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
                 <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
                 <li class="headcart">
-                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" id="cartModal">
+                    <a href="javascript:void(0)" id="cartModal">
                         <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
                 </li>
 
@@ -60,16 +57,16 @@ https://www.tooplate.com/view/2114-pixie
         <div class="nav1"></div>
         <ul class="nav2">
             <li><a href="#">婚禮攝影<br>Photography
-          </a></li>
-            <li><a href="LocIndex.html">婚禮場地<br>Location
-          </a></li>
+				</a></li>
+            <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
+				</a></li>
             <li>
                 <a href="#" class="logo"><img src="images/MHlogo_01.svg"></a>
             </li>
-            <li><a href="#">婚禮週邊<br>Product
-          </a></li>
+            <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
+				</a></li>
             <li><a href="#">專欄討論<br>Post
-          </a></li>
+				</a></li>
         </ul>
     </header>
 
@@ -187,7 +184,8 @@ https://www.tooplate.com/view/2114-pixie
             })
         }
     </script>
-    <script src="js/cart.js"></script>
+    <script src="js/newCart.js"></script>
+    <script src="js/friendchat.js"></script>
 </body>
 
 </html>
