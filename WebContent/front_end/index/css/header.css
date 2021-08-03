@@ -13,7 +13,7 @@
 
 .top ul {
     display: inline-block;
-    padding-left: 75%;
+    float: right;
 }
 
 .top ul li {

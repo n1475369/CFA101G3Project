@@ -60,5 +60,32 @@ div img {
 				alt="">
 		</c:forEach>
 	</div>
+	    <!--尾巴-->
+    <div class="footer">
+        <div class="foote-top">
+            <ul class="foote-content">
+                <div>婚攝服務</div>
+                <li><a href="../workphoto/browseHome.html">拍婚紗</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>婚宴服務</div>
+                <li><a href="../locationprogram/LocIndex.html">婚宴場地</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>婚禮週邊</div>
+                <li><a href="../product/ProductSubGoods.html">婚禮小物</a></li>
+                <li><a href="../product/ProductSubShoes.html">婚鞋</a></li>
+                <li><a href="../product/ProductSubRing.html">婚戒</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>專欄討論</div>
+                <li><a href="../post/forumindex.html">幸福專欄</a></li>
+            </ul>
+        </div>
+        <div class="foote-between">
+            <img src="images/MHlogo_01.svg" alt="">
+            <p class="f-logo">2021 MarryHappiness 嫁給幸福</p>
+        </div>
+    </div>
 </body>
 </html>

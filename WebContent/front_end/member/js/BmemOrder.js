@@ -1,13 +1,13 @@
 $.ajax({
-    url: "../../photoorder/phooByBmemServlet",
-    type: "post",
-    dataType: "json",
-    data: { "action": "getBmemId" },
-    success: function (data) {
-        console.log(data);
-        for (let i = 0; i < data.length; i++) {
-            let tmp =
-                `<tr>
+        url: "../../photoorder/phooByBmemServlet",
+        type: "post",
+        dataType: "json",
+        data: { "action": "getBmemId" },
+        success: function(data) {
+            console.log(data);
+            for (let i = 0; i < data.length; i++) {
+                let tmp =
+                    `<tr>
                 <td>${data[i].MEM_SHOP_NAME}</td>
                 <td>${data[i].PHOO_RESERVE_TIME}</td>
                 <td>${data[i].PHOO_DEPOSIT}</td>
@@ -16,11 +16,11 @@ $.ajax({
                 <td>${getpaystatus(data[i].PHOO_PAY_STATUS)}</td>
                 <td><a href="BuyerReserveOne.html?phoo_id=${data[i].PHOO_ID}"><button type="button" class="btn btn-primary" onclick="">詳細資訊</button></a></td>	
             </tr>`
-            $('#orderlist').append(tmp);
+                $('#orderlist').append(tmp);
+            }
         }
-    }
-})
-//getpaytype:0:信用卡付款	1:web ATM
+    })
+    //getpaytype:0:信用卡付款	1:web ATM
 function getpaytype(id) {
     if (id == 0) {
         return "信用卡付款";
@@ -62,17 +62,20 @@ function getpaystatus(id) {
 }
 //跟資料庫請求個人頭像
 Ajaxheadshot();
+
 function Ajaxheadshot() {
     $.ajax({
         type: "post",
         url: "../../member/headshotBuyServlet",
-        data: { "headshot": "headshot" },
+        data: {
+            "headshot": "headshot"
+        },
         xhrFields: {
             // 將回傳結果以Blob保持原本二進位的格式回傳
             //jquery的dataType無法設定返回格式為blob需要手動修改
             responseType: "blob"
         },
-        success: function (result) {
+        success: function(result) {
             let img = document.getElementsByClassName('imgdata');
             if (result.size != "0") {
                 let url = URL.createObjectURL(result);
@@ -88,3 +91,26 @@ function Ajaxheadshot() {
         }
     });
 }
+
+//請求個人資料
+Ajaxprofile();
+
+function Ajaxprofile() {
+    $.ajax({
+        type: "get",
+        url: "../../member/buyProfileServlet",
+        dataType: 'json',
+        success: function(result) {
+            if (result == "0") {
+                window.location.href = "../../front_end/index/index.jsp";
+            } else {
+                resultData = result;
+                $('.user-name').html(result.name != null ? result.name : "尚未填寫");
+                $('#phone').html(result.phone != null ? result.phone : "尚未填寫");
+                $('#city').html(result.city != null ? result.city : "尚未填寫");
+                $('#cityarea').html(result.cityarea != null ? result.cityarea : "尚未填寫");
+                $('#street').html(result.street != null ? result.street : "尚未填寫");
+            }
+        }
+    });
+};

@@ -88,13 +88,16 @@ ul {
         <div class="top">
             <ul>
                 <!-- 購物車圖片Icon -->
-                <li><a href="../index/index.jsp">首頁</a></li>
-                <li><a href="../member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
-                <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
+
+                <li><a href="<%=request.getContextPath()%>/front_end/index/index.jsp">首頁</a></li>
+                <li><a href="<%=request.getContextPath()%>/front_end/member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
+				<li><a href="<%=request.getContextPath()%>/member/loginServlet?action=logout"><i class="fas fa-sign-out-alt"></i>登出</a></li>
+                <li><a href="<%=request.getContextPath()%>/member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
                 <li class="headcart">
                     <a href="javascript:void(0)" id="cartModal">
                         <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
                 </li>
+
             </ul>
         </div>
 
@@ -102,16 +105,16 @@ ul {
         <!--上面增加的小色塊-->
         <div class="nav1"></div>
         <ul class="nav2">
-            <li><a href="#">婚禮攝影<br>Photography
+            <li><a href="<%=request.getContextPath()%>/front_end/workphoto/browseHome.html">婚禮攝影<br>Photography
 				</a></li>
-            <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
+            <li><a href="<%=request.getContextPath()%>/front_end/locationprogram/LocIndex.html">婚禮場地<br>Location
 				</a></li>
             <li>
-                <a href="#" class="logo"><img src="images/MHlogo_01.svg"></a>
+                <a href="<%=request.getContextPath()%>/front_end/workphoto/browseHome.html" class="logo"><img src="images/MHlogo_01.svg"></a>
             </li>
-            <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
+            <li><a href="<%=request.getContextPath()%>/front_end/product/ProductMain.html">婚禮週邊<br>Product
 				</a></li>
-            <li><a href="#">專欄討論<br>Post
+            <li><a href="<%=request.getContextPath()%>/front_end/post/forumindex.html">專欄討論<br>Post
 				</a></li>
         </ul>
     </header>
@@ -226,12 +229,12 @@ ul {
 			<div id="errorMsg"></div>
 		</div>
 	</div>
-	   <!--尾巴-->
+    <!--尾巴-->
     <div class="footer">
         <div class="foote-top">
             <ul class="foote-content">
                 <div>婚攝服務</div>
-                <li><a href="">拍婚紗</a></li>
+                <li><a href="<%=request.getContextPath()%>/front_end/workphoto/browseHome.html">拍婚紗</a></li>
             </ul>
             <ul class="foote-content">
                 <div>婚宴服務</div>
@@ -239,18 +242,17 @@ ul {
             </ul>
             <ul class="foote-content">
                 <div>婚禮週邊</div>
-                <li><a href="">婚禮小物</a></li>
-                <li><a href="">婚鞋</a></li>
-                <li><a href="">婚戒</a></li>
+                <li><a href="<%=request.getContextPath()%>/front_end/product/ProductSubGoods.html">婚禮小物</a></li>
+                <li><a href="<%=request.getContextPath()%>/front_end/product/ProductSubShoes.html">婚鞋</a></li>
+                <li><a href="<%=request.getContextPath()%>/front_end/product/ProductSubRing.html">婚戒</a></li>
             </ul>
             <ul class="foote-content">
                 <div>專欄討論</div>
-                <li><a href="">幸福專欄</a></li>
-                <li><a href="">幸福聊聊</a></li>
+                <li><a href="<%=request.getContextPath()%>/front_end/post/forumindex.html">幸福專欄</a></li>
             </ul>
         </div>
         <div class="foote-between">
-            <img src="<%=request.getContextPath()%>/front_end/locationroom/images/MHlogo_01.svg" alt="">
+            <img src="<%=request.getContextPath()%>/front_end/index/images/MHlogo_01.svg" alt="">
             <p class="f-logo">2021 MarryHappiness 嫁給幸福</p>
         </div>
     </div>

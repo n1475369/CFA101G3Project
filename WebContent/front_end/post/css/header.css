@@ -6,15 +6,14 @@
 .top {
     position: fixed;
     top: 0;
-    z-index: 100;
+    z-index: 1;
     display: flex;
     justify-content: end;
 }
 
 .top ul {
     display: inline-block;
-    padding-left: 75%;
-    margin-bottom: 0;
+    float: right;
 }
 
 .top ul li {

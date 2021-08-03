@@ -135,6 +135,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 <link rel="stylesheet" href="../product/css/newCart.css">
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/friendchat.css">
+    <link rel="stylesheet" href="css/footer.css">
 <title>嫁給幸福｜MarryHappiness</title>
 </head>
 <style>
@@ -176,6 +177,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 
                 <li><a href="../index/index.jsp">首頁</a></li>
                 <li><a href="../member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
+				<li><a href="../../member/loginServlet?action=logout"><i class="fas fa-sign-out-alt"></i>登出</a></li>
                 <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
                 <li class="headcart">
                     <a href="javascript:void(0)" id="cartModal">
@@ -189,7 +191,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
         <!--上面增加的小色塊-->
         <div class="nav1"></div>
         <ul class="nav2">
-            <li><a href="#">婚禮攝影<br>Photography
+            <li><a href="../workphoto/browseHome.html">婚禮攝影<br>Photography
 				</a></li>
             <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
 				</a></li>
@@ -397,7 +399,33 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 			</div>
 		</div>
 	</div>
-
+    <!--尾巴-->
+    <div class="footer">
+        <div class="foote-top">
+            <ul class="foote-content">
+                <div>婚攝服務</div>
+                <li><a href="../workphoto/browseHome.html">拍婚紗</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>婚宴服務</div>
+                <li><a href="../locationprogram/LocIndex.html">婚宴場地</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>婚禮週邊</div>
+                <li><a href="../product/ProductSubGoods.html">婚禮小物</a></li>
+                <li><a href="../product/ProductSubShoes.html">婚鞋</a></li>
+                <li><a href="../product/ProductSubRing.html">婚戒</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>專欄討論</div>
+                <li><a href="../post/forumindex.html">幸福專欄</a></li>
+            </ul>
+        </div>
+        <div class="foote-between">
+            <img src="images/MHlogo_01.svg" alt="">
+            <p class="f-logo">2021 MarryHappiness 嫁給幸福</p>
+        </div>
+    </div>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script src="js/friendchat.js"></script>
 
