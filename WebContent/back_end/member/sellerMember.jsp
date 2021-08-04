@@ -11,11 +11,42 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/back_end/member/css/all.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/back_end/member/css/sellerMember.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/back_end/member/css/header.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/back_end/member/css/footer.css">
+
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>賣家會員帳號管理系統</title>
 </head>
+<style>
+li{ 
+	list-style: none;
+}
+</style>
 <body>
+    <!--大頭-->
+    <header>
+        <div class="top">
+            <ul>
+                <li><a href="<%=request.getContextPath()%>/front_end/index/index.jsp">首頁</a></li>
+            </ul>
+        </div>
+        <!--上面增加的小色塊-->
+        <div class="nav1"></div>
+        <ul class="nav2">
+            <li><a href="<%=request.getContextPath()%>/front_end/workphoto/browseHome.html">婚禮攝影<br>Photography
+				</a></li>
+            <li><a href="<%=request.getContextPath()%>/front_end/locationprogram/LocIndex.html">婚禮場地<br>Location
+				</a></li>
+            <li>
+                <a href="<%=request.getContextPath()%>/front_end/index/index.jsp" class="logo"><img src="<%=request.getContextPath()%>/back_end/member/images/MHlogo_01.svg"></a>
+            </li>
+            <li><a href="<%=request.getContextPath()%>/front_end/product/ProductMain.html">婚禮週邊<br>Product
+				</a></li>
+            <li><a href="<%=request.getContextPath()%>/front_end/post/forumindex.html">專欄討論<br>Post
+				</a></li>
+        </ul>
+    </header>
 	<div class="wrap">
 		<div class="side-bar">
 			<ul class="menu">
@@ -208,6 +239,33 @@
 			</div>
 		</div>
 	</div>
+    <!--尾巴-->
+    <div class="footer">
+        <div class="foote-top">
+            <ul class="foote-content">
+                <div>婚攝服務</div>
+                <li><a href="<%=request.getContextPath()%>/front_end/workphoto/browseHome.html">拍婚紗</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>婚宴服務</div>
+                <li><a href="<%=request.getContextPath()%>/front_end/locationprogram/LocIndex.html">婚宴場地</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>婚禮週邊</div>
+                <li><a href="<%=request.getContextPath()%>/front_end/product/ProductSubGoods.html">婚禮小物</a></li>
+                <li><a href="<%=request.getContextPath()%>/front_end/product/ProductSubShoes.html">婚鞋</a></li>
+                <li><a href="<%=request.getContextPath()%>/front_end/product/ProductSubRing.html">婚戒</a></li>
+            </ul>
+            <ul class="foote-content">
+                <div>專欄討論</div>
+                <li><a href="<%=request.getContextPath()%>/front_end/post/forumindex.html">幸福專欄</a></li>
+            </ul>
+        </div>
+        <div class="foote-between">
+            <img src="<%=request.getContextPath()%>/front_end/index/images/MHlogo_01.svg" alt="">
+            <p class="f-logo">2021 MarryHappiness 嫁給幸福</p>
+        </div>
+    </div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script>
 		//取得會員個人資料

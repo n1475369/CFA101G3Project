@@ -55,7 +55,7 @@
             <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
 				</a></li>
             <li>
-                <a href="../workphoto/browseHome.html" class="logo"><img src="images/MHlogo_01.svg"></a>
+                <a href="../index/index.jsp" class="logo"><img src="images/MHlogo_01.svg"></a>
             </li>
             <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
 				</a></li>
@@ -106,8 +106,8 @@
                                 <tr>
                                     <th scope="row"><i class="SHname">價格:</i></th>
                                     <td>
-                                        <input type="text" class="SHinput2" id="searchPriceH" name="SHinput2"> 至
-                                        <input type="text" class="SHinput2" id="searchPriceL" name="SHinput3">
+                                        <input type="text" class="SHinput2" id="searchPriceH" name="SHinput2" maxlength="8"> 至
+                                        <input type="text" class="SHinput2" id="searchPriceL" name="SHinput3" maxlength="8">
                                     </td>
                                 </tr>
                                 <tr>
@@ -405,7 +405,7 @@
 
                 $.ajax({
                     url: "../../product/ProSearchSelServlet",
-                    type: "get",
+                    type: "post",
                     dataType: "JSON",
                     data: {
                         "searchPriceH": searchPriceH,

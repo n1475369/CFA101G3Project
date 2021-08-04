@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import com.admin.model.AdmService;
 import com.admin.model.AdmVO;
+import com.member.model.MemService;
+import com.member.model.MemVO;
 
 @WebServlet("/admin/adminServlet")
 public class AdminServlet extends HttpServlet {
@@ -52,10 +54,15 @@ public class AdminServlet extends HttpServlet {
 				}
 				
 				AdmService service = new AdmService();
+				MemService memService = new MemService();
 				AdmVO admin = service.findByUsernameAndPassword(username, password);
+				MemVO user = memService.login(username, password);
 				if(admin != null) {
 					HttpSession session = request.getSession();
 					session.setAttribute("admin", admin);
+					if(user != null) {
+						session.setAttribute("user", user);
+					}
 					response.sendRedirect(request.getContextPath()+"/member/memberServlet?action=buyMember");
 				}else {
 					errorMsgs.put("username", "帳號或密碼錯誤");
@@ -64,6 +71,18 @@ public class AdminServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", e.getMessage());
 				request.getRequestDispatcher("/back_end/admin/login.jsp").forward(request, response);
+			}
+		}
+		
+		//確認是否為管理員登入
+		if("check".equals(action)) {
+			HttpSession session = request.getSession();
+			AdmVO admin = (AdmVO)session.getAttribute("admin");
+			MemVO user = (MemVO)session.getAttribute("user");
+			if(admin!=null && user != null  && user.getMem_username().equals(admin.getAdm_username())) {
+				response.getWriter().print(true);
+			}else {
+				response.getWriter().print(false);
 			}
 		}
 	}

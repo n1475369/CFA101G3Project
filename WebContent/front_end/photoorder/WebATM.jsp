@@ -162,7 +162,7 @@
         <form action="<%=request.getContextPath()%>/photoorder/phooByBmemServlet" method="post" id="submit-form">
             <input type="hidden" name="action" value="webATM">
             <input type="hidden" name="pay" id="pay">
-			<input type="hidden" name="payment" id="payment">
+			<input type="hidden" name="PHOO_DEPOSIT" id="PHOO_DEPOSIT">
         </form>
     </div>
     <script>

@@ -54,7 +54,7 @@
             <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
 				</a></li>
             <li>
-                <a href="../workphoto/browseHome.html" class="logo"><img src="images/MHlogo_01.svg"></a>
+                <a href="../index/index.jsp" class="logo"><img src="images/MHlogo_01.svg"></a>
             </li>
             <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
 				</a></li>
@@ -363,6 +363,20 @@
                 $("#postcontent").append(tmp);
                 $("#select-profession").val(response.CAT_ID);
                 $("#select-status").val(response.POST_STATUS);
+
+
+                //確認是否為管理員
+                $.ajax({
+                    type: "post",
+                    url: "../../admin/adminServlet?action=check",
+                    dataType: "json",
+                    success: function(response) {
+                        if (response) {
+                            let tmp = `<option value="6">官方文章</option>`;
+                            $('#select-profession').append(tmp);
+                        }
+                    }
+                });
             }
 
         });

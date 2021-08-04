@@ -9,7 +9,7 @@ $.ajax({
         "action": "getBmemId",
     },
     dataType: "json",
-    success: function (member) {
+    success: function(member) {
         $("#bmem_id").prop("value", member.MEM_ID);
         $("#bmem_name").prop("value", member.MEM_NAME);
     }
@@ -23,7 +23,7 @@ $.ajax({
         "phog_smem_id": param
     },
     dataType: "json",
-    success: function (member) {
+    success: function(member) {
         let element =
             `<div class="mem-logo"><img src="data:image/*;base64,${member.MEM_SHOP_LOGO}"></div>
                 <ul class="mem-wed" id="mem-wed-id">
@@ -37,13 +37,13 @@ $.ajax({
             type: "get",
             url: "../../photoprogram/phopOneSmemIdServlet",
             data: {
-                "phop_smem_id":param
+                "phop_smem_id": param
             },
             dataType: "json",
-            success: function (phop) {
-                if(phop.phop_status!=0){
-                    let element = 
-                    `<li class="wor-phop" id="wor-phop-id">
+            success: function(phop) {
+                if (phop.phop_status != 0) {
+                    let element =
+                        `<li class="wor-phop" id="wor-phop-id">
                         <span>方案(${phop.length})</span>
                     </li>`;
                     $("#mem-wed-id").append(element);
@@ -55,14 +55,14 @@ $.ajax({
             type: "get",
             url: "../../photographer/phogGetWork",
             data: {
-                "phog_smem_id":param
+                "phog_smem_id": param
             },
             dataType: "json",
-            success: function (phog) {
+            success: function(phog) {
                 // console.log(phog);
-                if(phog.phog_status!=0){
-                    let element = 
-                    `<span>作品(${phog.length})</span>`;
+                if (phog.phog_status != 0) {
+                    let element =
+                        `<span>作品(${phog.length})</span>`;
                     $("#wor-phop-id").append(element);
                 }
             }
@@ -77,7 +77,7 @@ $.ajax({
         "phog_smem_id": param
     },
     dataType: "json",
-    success: function (phog) {
+    success: function(phog) {
         for (let i = 0; i < phog.length; i++) {
             //狀態0不顯示
             if (phog[i].phog_status != 0) {
@@ -89,25 +89,25 @@ $.ajax({
     }
 });
 //選擇攝影師過濾已被預約的時間
-$(function(){
-    $("#phog_name").on("change",function(e){
+$(function() {
+    $("#phog_name").on("change", function(e) {
         let phog = $(e.target).val();
         // console.log(phog);
         $.ajax({
             type: "get",
             url: "../../photoorder/phooBySmemServlet",
             data: {
-                "action":"getTime",
-                "phoo_phog_id":phog
+                "action": "getTime",
+                "phoo_phog_id": phog
             },
             dataType: "json",
-            success: function (reserve) {
+            success: function(reserve) {
                 // console.log(reserve);
                 $.datetimepicker.setLocale("zh");
                 $("#phoo_reserve_time").datetimepicker({
                     timepicker: false,
                     format: "Y-m-d",
-                    disabledDates: reserve,//阻擋店家攝影師已被預約的時間
+                    disabledDates: reserve, //阻擋店家攝影師已被預約的時間
                     value: new Date(),
                     minDate: "-1970-01-01",
                 });
@@ -123,7 +123,7 @@ $.ajax({
         "phop_smem_id": param
     },
     dataType: "json",
-    success: function (phop) {
+    success: function(phop) {
         for (let i = 0; i < phop.length; i++) {
             //狀態0不顯示
             if (phop[i].phop_status != 0) {
@@ -135,7 +135,7 @@ $.ajax({
     }
 });
 //方案價錢
-$("#phop_name").on("change", function (e) {
+$("#phop_name").on("change", function(e) {
     let program = $(e.target).val();
     $.ajax({
         type: "get",
@@ -144,14 +144,14 @@ $("#phop_name").on("change", function (e) {
             "phop_id": program
         },
         dataType: "json",
-        success: function (phop) {
+        success: function(phop) {
             $("#phoo_totalprice").prop("value", phop.PHOP_PRICE);
-            $("#phoo_deposit").prop("value", (phop.PHOP_PRICE) * 0.2);//收取二成$訂金
+            $("#phoo_deposit").prop("value", (phop.PHOP_PRICE) * 0.2); //收取二成$訂金
         }
     });
 });
 //送出預約表
-$("#confirm-reserve").on("click", function (e) {
+$("#confirm-reserve").on("click", function(e) {
     let phoo_place = $("input[name=phoo_place]:checked").val();
     let phoo_paytype = $("input[name=phoo_paytype]:checked").val();
     let phoo_bmem_id = $("#bmem_id").val();
@@ -179,11 +179,12 @@ $("#confirm-reserve").on("click", function (e) {
             "phoo_note": phoo_note
         },
         dataType: "json",
-        success: function (reserve) {
+        success: function(reserve) {
             if (reserve == 0) {
                 alert("日期已被預約，請重選擇日期");
             } else {
                 alert(reserve.msg);
+                window.location.href = "../member/BuyerOrder.html"
             }
         }
     });
@@ -191,9 +192,9 @@ $("#confirm-reserve").on("click", function (e) {
     e.preventDefault();
 });
 //設置驗證旗幟
-let phop_flag = false;//方案
-let phog_flag = false;//攝影師
-let reserve_flag = false;//預約日期
+let phop_flag = false; //方案
+let phog_flag = false; //攝影師
+let reserve_flag = false; //預約日期
 //確認旗幟均為true按鈕才能按
 function checkFlag() {
     if (phop_flag && phog_flag && reserve_flag) {
@@ -203,15 +204,15 @@ function checkFlag() {
     }
 }
 //監聽方案是否選擇
-$("#phop_name").on("change", function (e) {
+$("#phop_name").on("change", function(e) {
     $("#phop-prompt").text("");
     if (e.target.value != "") {
-        $(".form-control:focus").css("border-color","#28a745");
-        $(".form-control:focus").css("box-shadow","0 0 0 0.2rem rgba(40, 167, 69, 0.25)");
+        $(".form-control:focus").css("border-color", "#28a745");
+        $(".form-control:focus").css("box-shadow", "0 0 0 0.2rem rgba(40, 167, 69, 0.25)");
         phop_flag = true;
     } else {
-        $(".form-control:focus").css("border-color","#ff5549");
-        $(".form-control:focus").css("box-shadow","0 0 0 0.2rem rgba(255, 76, 76, 0.25)");
+        $(".form-control:focus").css("border-color", "#ff5549");
+        $(".form-control:focus").css("box-shadow", "0 0 0 0.2rem rgba(255, 76, 76, 0.25)");
         $("#phop-prompt").text("請選擇方案");
         $("#phop-prompt").css("color", "red");
         $("#phop-prompt").css("font-size", "6px");
@@ -221,15 +222,15 @@ $("#phop_name").on("change", function (e) {
     checkFlag();
 });
 //監聽攝影師是否選擇
-$("#phog_name").on("change", function (e) {
+$("#phog_name").on("change", function(e) {
     $("#phog-prompt").text("");
     if (e.target.value != "") {
-        $(".form-control:focus").css("border-color","#28a745");
-        $(".form-control:focus").css("box-shadow","0 0 0 0.2rem rgba(40, 167, 69, 0.25)");
+        $(".form-control:focus").css("border-color", "#28a745");
+        $(".form-control:focus").css("box-shadow", "0 0 0 0.2rem rgba(40, 167, 69, 0.25)");
         phog_flag = true;
     } else {
-        $(".form-control:focus").css("border-color","#ff5549");
-        $(".form-control:focus").css("box-shadow","0 0 0 0.2rem rgba(255, 76, 76, 0.25)");
+        $(".form-control:focus").css("border-color", "#ff5549");
+        $(".form-control:focus").css("box-shadow", "0 0 0 0.2rem rgba(255, 76, 76, 0.25)");
         $("#phog-prompt").text("請選擇攝影師");
         $("#phog-prompt").css("color", "red");
         $("#phog-prompt").css("font-size", "6px");
@@ -240,17 +241,17 @@ $("#phog_name").on("change", function (e) {
 });
 $("#phoo_reserve_time").on("change", function(e) {
     $("#reserve-prompt").text("");
-    if (e.target.value!=""){
-        $(".form-control:focus").css("border-color","#28a745");
-        $(".form-control:focus").css("box-shadow","0 0 0 0.2rem rgba(40, 167, 69, 0.25)");
+    if (e.target.value != "") {
+        $(".form-control:focus").css("border-color", "#28a745");
+        $(".form-control:focus").css("box-shadow", "0 0 0 0.2rem rgba(40, 167, 69, 0.25)");
         reserve_flag = true;
     } else {
-        $(".reserve").css("border-color","#ff5549");
-        $(".reserve").css("box-shadow","0 0 0 0.2rem rgba(255, 76, 76, 0.25)");
+        $(".reserve").css("border-color", "#ff5549");
+        $(".reserve").css("box-shadow", "0 0 0 0.2rem rgba(255, 76, 76, 0.25)");
         $("#reserve-prompt").text("請選擇預約日期");
-        $("#reserve-prompt").css("color","red");
-        $("#reserve-prompt").css("font-size","6px");
-        $("#reserve-prompt").css("margin-top","5px");
+        $("#reserve-prompt").css("color", "red");
+        $("#reserve-prompt").css("font-size", "6px");
+        $("#reserve-prompt").css("margin-top", "5px");
         reserve_flag = false;
     }
     checkFlag();

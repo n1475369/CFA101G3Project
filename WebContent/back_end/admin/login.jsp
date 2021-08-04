@@ -24,7 +24,6 @@
                 <h3 id="p-prompt" class="p-prompt">${errorMsgs.password}</h3>
                 <input type="submit" id="login" value="登入">
                 <input type="hidden" name="action" value="login"/>
-                <a href="javascript:void(0)" id="forget">忘記密碼</a>
             </form>
         </div>
     </div>

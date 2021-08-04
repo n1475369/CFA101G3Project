@@ -7,18 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>article-message</title>
     <link rel="icon" href="images/logo-icon01.ico" type="image/x-icon" />
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
     <link rel="stylesheet" href="css/cssreset.css">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/show_article_message.css">
-    <link rel="stylesheet" href="css/friendchat.css">
-    <link rel="stylesheet" href="css/newCart.css">
-    <script src="js/newCart.js"></script>
 </head>
 
 <body>
@@ -28,34 +27,29 @@
         <div class="top">
             <ul>
                 <!-- 購物車圖片Icon -->
-
-                <li><a href="../index/index.jsp">首頁</a></li>
-                <li><a href="../member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
-                <li><a href="../../member/loginServlet?action=logout"><i class="fas fa-sign-out-alt"></i>登出</a></li>
-                <li><a href="../../member/checkServlet"><i class="fas fa-home"></i> 會員系統</a></li>
-                <li class="headcart">
-                    <a href="javascript:void(0)" id="cartModal">
-                        <i class="fas fa-shopping-cart" id="cartIcon"></i></a>
+                <li><a href="#">首頁</a></li>
+                <li><a href="/CFA101G3/front_end/member/login.html"><i class="fas fa-sign-out-alt"></i>登入</a></li>
+                <li><a href="/CFA101G3/front_end/member/memberBuyProfile.html"><i class="fas fa-home"></i> 會員系統</a>
                 </li>
+                <li class="headcart"><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        id="cartModal">
+                        <i class="fas fa-shopping-cart" id="cartIcon"></i></a></li>
 
             </ul>
         </div>
 
-
         <!--上面增加的小色塊-->
         <div class="nav1"></div>
         <ul class="nav2">
-            <li><a href="../workphoto/browseHome.html">婚禮攝影<br>Photography
-				</a></li>
-            <li><a href="../locationprogram/LocIndex.html">婚禮場地<br>Location
-				</a></li>
-            <li>
-                <a href="../workphoto/browseHome.html" class="logo"><img src="images/MHlogo_01.svg"></a>
-            </li>
-            <li><a href="../product/ProductMain.html">婚禮週邊<br>Product
-				</a></li>
-            <li><a href="../post/forumindex.html">專欄討論<br>Post
-				</a></li>
+            <li><a href="#">婚禮攝影<br>Photography
+                </a></li>
+            <li><a href="#">婚禮場地<br>Location
+                </a></li>
+            <li><a href="#" class="logo"><img src="images/MHlogo_01.svg"></a></li>
+            <li><a href="/CFA101G3/front_end/product/ProductMain.html">婚禮週邊<br>Product
+                </a></li>
+            <li><a href="/CFA101G3/front_end/post/forumindex.html">專欄討論<br>Post
+                </a></li>
         </ul>
     </header>
 
@@ -78,7 +72,8 @@
                 <span>
                     我要回應
                 </span>
-                <textarea cols="80" class="message-area" id="message-area" name="message-area" maxlength="255" placeholder="輸入留言(250字)..."></textarea>
+                <textarea cols="80" class="message-area" id="message-area" name="message-area" maxlength="255"
+                    placeholder="輸入留言(250字)..."></textarea>
                 <!--textarea要用.val()來取值 可編輯的div用.html()取值-->
                 <span id="span1"></span>
                 <div class="reply-box">
@@ -123,12 +118,10 @@
             <div class="sidebar">
                 <section class="ad">
                     <ul>
-                        <li>
-                            <a href="#" target="_blank"><img src="images/ad01.jpg" alt="" title="" width="300" border="0"></a>
-                        </li>
-                        <li>
-                            <a href="#" target="_blank"><img src="images/ad02.jpg" alt="" title="" width="300" border="0"></a>
-                        </li>
+                        <li><a href="#" target="_blank"><img src="images/ad01.jpg" alt="" title="" width="300"
+                                    border="0"></a></li>
+                        <li><a href="#" target="_blank"><img src="images/ad02.jpg" alt="" title="" width="300"
+                                    border="0"></a></li>
                     </ul>
                 </section>
 
@@ -157,34 +150,10 @@
         </div>
 
     </div>
-    <!--尾巴-->
-    <div class="footer">
-        <div class="foote-top">
-            <ul class="foote-content">
-                <div>婚攝服務</div>
-                <li><a href="../workphoto/browseHome.html">拍婚紗</a></li>
-            </ul>
-            <ul class="foote-content">
-                <div>婚宴服務</div>
-                <li><a href="../locationprogram/LocIndex.html">婚宴場地</a></li>
-            </ul>
-            <ul class="foote-content">
-                <div>婚禮週邊</div>
-                <li><a href="../product/ProductSubGoods.html">婚禮小物</a></li>
-                <li><a href="../product/ProductSubShoes.html">婚鞋</a></li>
-                <li><a href="../product/ProductSubRing.html">婚戒</a></li>
-            </ul>
-            <ul class="foote-content">
-                <div>專欄討論</div>
-                <li><a href="../post/forumindex.html">幸福專欄</a></li>
-            </ul>
-        </div>
-        <div class="foote-between">
-            <img src="images/MHlogo_01.svg" alt="">
-            <p class="f-logo">2021 MarryHappiness 嫁給幸福</p>
-        </div>
-    </div>
+    <footer></footer>
     <script>
+
+
         //頁面載入即顯示熱門文章
         hotPost();
 
@@ -197,7 +166,7 @@
                     "action": "hotPost",
                 },
                 dataType: "json",
-                success: function(response) {
+                success: function (response) {
                     if (response.length < 5) {
                         for (let key = 0; key < response.length; key++) {
                             let tmp = `<a href="show-article-message.html?post_id=${response[key].MES_POST_ID}"><li>${response[key].CAT_NAME}//${response[key].POST_TITLE}</li></a>`;
@@ -227,7 +196,7 @@
                     "post_id": param,
                     "action": "getPost"
                 },
-                success: function(result) {
+                success: function (result) {
                     console.log(result);
                     let template = ` <div class="post-box">
                      <div class="post-top">
@@ -277,7 +246,7 @@
                     "action": "getTag"
                 },
                 // result是list 用for of取值
-                success: function(result) {
+                success: function (result) {
                     console.log(result)
                     for (const tags of result) {
                         if (tags.tagVO.tag_name != "") {
@@ -296,7 +265,7 @@
                 data: {
                     "mes_post_id": param
                 },
-                success: function(result) {
+                success: function (result) {
                     console.log(result);
                     for (let i = 0; i < result.length; i++) {
                         let template = `<div class="message-top">
@@ -323,7 +292,7 @@
             });
 
             // 按下留言按鈕 會抓到輸入的內容
-            $("#reply_btn").on('click', function() {
+            $("#reply_btn").on('click', function () {
                 let message = $("#message-area").val();
                 //當遇到兩個空白轉換成兩個   是因有其他考量,如果只是純文字資料沒有其他標籤符號則轉換一個空白就行了
                 message2 = message.replace(/  /g, "  ");
@@ -337,7 +306,7 @@
                         "mes_post_id": param,
                         "mes_content": message2
                     },
-                    success: function(result) {
+                    success: function (result) {
                         alert(result);
                         window.location.reload();
                     }
@@ -346,7 +315,7 @@
         }
 
         // 判斷留言框裡是否有文字  有的話送出鈕才會出現
-        $('#message-area').on('input propertychange', function() {
+        $('#message-area').on('input propertychange', function () {
             ifcommnull();
         });
 
@@ -367,8 +336,15 @@
             return datetime;
             console.log(date)
         }
+
+
+
+
+
     </script>
-    <script src="js/friendchat.js"></script>
+
+    <!-- 購物車 -->
+    <script src="js/cart.js"></script>
 </body>
 
 </html>

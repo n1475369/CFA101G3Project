@@ -37,7 +37,12 @@ $.ajax({
         $("#phop-content-id").append(html);
         //我要預約
         $("#reserve").on("click", function() {
-            location.href = `../photoorder/reserveWeddimg.html?mem_id=${result.MEM_ID}`;
+            if(chat_mem_id != undefined){
+                location.href = `../photoorder/reserveWeddimg.html?mem_id=${result.MEM_ID}`;
+            }else{
+                alert("請先登入後在預約");
+                window.location.href="../member/login.html";
+            }
         });
         let mem_id = result.MEM_ID;
         document.getElementById('talk').dataset.mem_id = mem_id; //我要聊聊

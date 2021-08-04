@@ -41,9 +41,9 @@ public class PostDAOImpl implements PostDAO {
 	private static final String GET_POST = "select p.POST_ID,p.POST_TITLE,p.POST_CONTENT,p.POST_TIME, c.CAT_NAME,m.MEM_NAME,m.MEM_HEADSHOT,p.POST_STATUS from `MEMBER` m join CFA101G3.POST p on m.MEM_ID = p.POST_MEM_ID join CFA101G3.CATEGORY c on p.POST_CAT_ID = c.CAT_ID WHERE POST_STATUS = 1 order by POST_ID";
  
 	//找文章總數
-	private static final String Find_Total_Count = "SELECT COUNT(*) FROM CFA101G3.POST";
+	private static final String Find_Total_Count = "SELECT COUNT(*) FROM CFA101G3.POST where POST_STATUS = 1";
 	//當下分頁的起始 與每頁顯示的文章數
-	private static final String Find_By_Page = "select p.POST_ID,p.POST_TITLE,p.POST_CONTENT,p.POST_TIME, c.CAT_NAME,m.MEM_NAME,m.MEM_HEADSHOT,p.POST_STATUS,m.MEM_ID from `MEMBER` m join CFA101G3.POST p on m.MEM_ID = p.POST_MEM_ID join CFA101G3.CATEGORY c on p.POST_CAT_ID = c.CAT_ID order by POST_ID desc LIMIT ? , ?";
+	private static final String Find_By_Page = "select p.POST_ID,p.POST_TITLE,p.POST_CONTENT,p.POST_TIME, c.CAT_NAME,m.MEM_NAME,m.MEM_HEADSHOT,p.POST_STATUS,m.MEM_ID from `MEMBER` m join CFA101G3.POST p on m.MEM_ID = p.POST_MEM_ID join CFA101G3.CATEGORY c on p.POST_CAT_ID = c.CAT_ID where POST_STATUS = 1 order by POST_ID desc LIMIT ? , ?";
 	//用作者ID找文章資訊
 	private static final String Find_By_Writer = "SELECT * FROM CFA101G3.POST WHERE POST_MEM_ID = ?";
 	

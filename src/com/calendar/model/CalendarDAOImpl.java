@@ -212,7 +212,7 @@ public class CalendarDAOImpl implements CalendarDAO {
 	@Override
 	public List<CalendarVO> getPhomemStroke(Integer mem_id) {
 		
-		String sql = "SELECT * FROM PHOTO_ORDER PO JOIN PHOTOGRAPHER P ON PO.PHOO_PHOG_ID = P.PHOG_ID JOIN MEMBER ON MEM_ID = PHOO_BMEM_ID WHERE PO.PHOO_SMEM_ID = ?";
+		String sql = "SELECT * FROM PHOTO_ORDER PO JOIN PHOTOGRAPHER P ON PO.PHOO_PHOG_ID = P.PHOG_ID JOIN `MEMBER` ON MEM_ID = PHOO_BMEM_ID WHERE PO.PHOO_SMEM_ID = ?";
 		List list = new ArrayList();
 		HashMap map = null;
 		CalendarVO calVO = null;

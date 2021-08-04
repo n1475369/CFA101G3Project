@@ -1,50 +1,61 @@
 /*頁面*/
-.container{
+
+.container {
     margin-bottom: 30px;
 }
 
+
 /*店家資訊*/
-.mem-information{
+
+.mem-information {
     height: 100px;
     background-color: #d5cb8e;
     border-radius: 15px;
     display: flex;
     align-items: center;
-    opacity:0.5;
+    opacity: 0.5;
 }
 
+
 /*LOGO*/
-.mem-logo{
+
+.mem-logo {
     width: 70px;
     height: 70px;
-    overflow: hidden; /*隱藏邊框外*/
+    overflow: hidden;
+    /*隱藏邊框外*/
     background-color: white;
     border-radius: 30%;
     margin-left: 30px;
-    opacity:0.8; /*刷淡*/
+    opacity: 0.8;
+    /*刷淡*/
     display: flex;
     align-items: center;
 }
 
-.mem-logo img{
+.mem-logo img {
     max-width: 100%;
     max-height: 100%;
 }
 
+
 /*婚攝店家*/
-.mem-wed{
+
+.mem-wed {
     margin-left: 10px;
 }
 
-.mem-shop{
-    margin-bottom:8px;
+.mem-shop {
+    margin-bottom: 8px;
     font-size: 16px;
     font-family: 微軟正黑體;
     letter-spacing: 2px;
 }
 
+
 /*地標*/
-.mem-map{
+
+.mem-map {
     display: flex;
     align-items: center;
     font-size: 10px;
@@ -52,28 +63,34 @@
     margin-bottom: 8px;
 }
 
-.mem-map img{
+.mem-map img {
     width: 15px;
     height: 15px;
 }
 
+
 /*作品+方案*/
-.wor-phop{
+
+.wor-phop {
     font-size: 10px;
     color: #000000;
 }
 
+
 /*店家資訊*/
-.top-content{
+
+.top-content {
     height: 100px;
     background-color: #d5cb8e;
     margin-top: 35px;
     border-radius: 15px;
-    opacity:0.5;
+    opacity: 0.5;
 }
 
+
 /*方案資訊*/
-h1{
+
+h1 {
     text-align: center;
     font-size: 25px;
     padding: 20px;
@@ -82,27 +99,29 @@ h1{
     letter-spacing: 2px;
 }
 
-.phop-price{
+.phop-price {
     text-align: center;
     color: #eeb8b8;
     font-weight: bold;
     font-size: 25px;
 }
 
-.phop-price span{
+.phop-price span {
     font-size: 12px;
     color: #6e6d6d;
     margin-right: 5px;
 }
 
+
 /*按鈕*/
-.phop-button{
+
+.phop-button {
     display: flex;
     justify-content: center;
     margin: 30px 0;
 }
 
-.btn-outline-danger{
+.btn-outline-danger {
     padding: 10px 35px;
     margin: 10px;
     border: 1px solid #eeb8b8;
@@ -112,24 +131,27 @@ h1{
     border-radius: 20px;
 }
 
-.btn-outline-danger:hover{
+.btn-outline-danger:hover {
     border: 1px solid #fadcda;
     background-color: #fadcda;
 }
 
-.btn-outline-danger a{
+.btn-outline-danger a {
     text-decoration: none;
     color: white;
     width: 126px;
     height: 46px;
 }
-/*方案內容*/ 
-.phop-content{
+
+
+/*方案內容*/
+
+.phop-content {
     display: flex;
     justify-content: center;
 }
 
-.phop-left{
+.phop-left {
     font-size: 25px;
     color: #6e6d6d;
     font-weight: bold;
@@ -137,12 +159,12 @@ h1{
     margin-right: 20px;
 }
 
-.store{
-    border-top:1px solid #c5c5c5;
+.store {
+    border-top: 1px solid #c5c5c5;
     width: 200px;
 }
 
-.phop-rigth{
+.phop-rigth {
     width: 500px;
     margin-left: 20px;
     font-size: 16px;
@@ -150,13 +172,15 @@ h1{
     line-height: 30px;
 }
 
+
 /*圖片*/
-.work{
+
+.work {
     display: flex;
     justify-content: center;
 }
 
-h5{
+h5 {
     padding: 10px 50px;
     border-bottom: 1px solid #c5c5c5;
     color: #6e6d6d;
@@ -164,23 +188,30 @@ h5{
     letter-spacing: 3px;
 }
 
-.phop-img{
+.phop-img {
     width: 550px;
     display: block;
     margin: 10px auto;
 }
 
+
 /*麵包屑*/
-.breadcrumb{
-    background-color: transparent; /*取消背景顏色*/
+
+.breadcrumb {
+    background-color: transparent;
+    /*取消背景顏色*/
     font-size: 12px;
 }
 
-.breadcrumb a{
+.breadcrumb a {
     text-decoration: none;
-    color:#414141;
+    color: #414141;
 }
 
-.breadcrumb a:hover{
+.breadcrumb a:hover {
     color: #eeb8b8;
+}
+
+.breadcrumb-item.active {
+    background: #fff;
 }

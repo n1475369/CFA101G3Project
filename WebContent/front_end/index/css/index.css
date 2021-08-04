@@ -3,6 +3,10 @@ a {
     display: block;
 }
 
+.container {
+    margin-bottom: 30px;
+}
+
 .wedding-heading p,
 .location-heading p,
 .post-heading p,

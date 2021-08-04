@@ -32,7 +32,7 @@ public class CheckServlet extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/front_end/photographer/weddingShopPage.html");
 			}
 		}else {
-			response.sendRedirect(request.getContextPath()+"/front_end/index/index.jsp");
+			response.sendRedirect(request.getContextPath()+"/front_end/member/login.html");
 		}
 	}
 
