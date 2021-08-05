@@ -246,7 +246,7 @@
                     "action": "hotStore",
                 },
                 dataType: "json",
-                success: function(response) {
+                success: async function(response) {
                     console.log(response)
                     if (response.length < 5) {
                         for (let i = 0; i < response.length; i++) {
@@ -258,7 +258,7 @@
 
 					<div class="sidebar_right_info">
 						<ul>
-							<li><a class="sidebar_storename" href="javascript:void(0)">${getShopName(response[i].SMEM_ID)}</a></li>
+							<li><a class="sidebar_storename" href="javascript:void(0)">${await getShopNameAsync(response[i].SMEM_ID)}</a></li>
 							<li>共${response[i].REV_COUNT}則評價 </li>
 							<li>平均${response[i].AVG_SCORE}/5顆星<i class="fas fa-star" style="color: rgb(247, 183, 9);"></i></li>
 						</ul>
@@ -278,7 +278,7 @@
 
 					<div class="sidebar_right_info">
 						<ul>
-							<li><a class="sidebar_storename" href="javascript:void(0)">${getShopName(response[i].SMEM_ID)}</a></li>
+							<li><a class="sidebar_storename" href="javascript:void(0)">${await getShopNameAsync(response[i].SMEM_ID)}</a></li>
 							<li>共${response[i].REV_COUNT}則評價 </li>
 							<li>平均${response[i].AVG_SCORE}/5顆星<i class="fas fa-star" style="color: rgb(247, 183, 9);"></i></li>
 						</ul>
@@ -306,7 +306,7 @@
                     "action": "showBmemReview"
                 },
                 //< img src = "data:image/*;base64,${result[i].MEM_HEADSHOT}" width = "40" >
-                success: function(result) {
+                success: async function(result) {
                     for (let i = 0; i < result.length; i++) {
                         let template = `
 							<div class="message-top">
@@ -316,8 +316,8 @@
 
 						<div class="right_info">
 							<ul>
-								<li class="mem_author">${getMemberNameSync(result[i].BMEM_ID)}<span>&emsp;評價了</span><a class="storename"
-										href="javascript:void(0)">${getShopName(result[i].SMEM_ID)}</a></li>
+								<li class="mem_author">${await getMemberNameAsync(result[i].BMEM_ID)}<span>&emsp;評價了</span><a class="storename"
+										href="javascript:void(0)">${await getShopNameAsync(result[i].SMEM_ID)}</a></li>
 								──&ensp;${result[i].REV_SCORE}顆星${conutStar(result[i].REV_SCORE)}
 							</ul>
 						</div>
@@ -359,42 +359,46 @@
 
 
 
-        //會員編號找到買家名字
-        function getMemberNameSync(mem_id) {
-            let mem_name = "";
-            $.ajax({
-                type: "post",
-                url: "../../member/memServlet",
-                data: {
-                    "action": "getMemberVO",
-                    "mem_id": mem_id
-                },
-                async: false,
-                dataType: "json",
-                success: function(response) {
-                    mem_name = response.mem_name;
-                }
+        //會員編號找到會員名稱
+        function getMemberNameAsync(mem_id) { //做一個 Promise 物件
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: "../../member/memServlet",
+                    type: "post",
+                    data: {
+                        "action": "getMemberVO",
+                        "mem_id": mem_id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        resolve(res.mem_name); // 成功的結果用 resolve
+                    },
+                    error: function(res) {
+                        reject("error"); // 失敗的結果用 reject
+                    }
+                });
             });
-            return mem_name;
         }
 
         //會員編號找到商店名稱
-        function getShopName(mem_id) {
-            let mem_name = "";
-            $.ajax({
-                type: "post",
-                url: "../../member/memServlet",
-                data: {
-                    "action": "getMemberVO",
-                    "mem_id": mem_id
-                },
-                async: false,
-                dataType: "json",
-                success: function(response) {
-                    mem_shop_name = response.mem_shop_name;
-                }
+        function getShopNameAsync(mem_id) {
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    url: "../../member/memServlet",
+                    type: "post",
+                    data: {
+                        "action": "getMemberVO",
+                        "mem_id": mem_id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        resolve(res.mem_shop_name); // 成功的結果用 resolve
+                    },
+                    error: function(res) {
+                        reject("error"); // 失敗的結果用 reject
+                    }
+                });
             });
-            return mem_shop_name;
         }
 
         //返回星星數

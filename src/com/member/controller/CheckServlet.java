@@ -29,7 +29,9 @@ public class CheckServlet extends HttpServlet {
 			}else if(mem_role.equals(30)) {
 				response.sendRedirect(request.getContextPath()+"/front_end/member/LocSellerProfile.html?action=profile");
 			}else if(mem_role.equals(40)) {
-				response.sendRedirect(request.getContextPath()+"/front_end/photographer/weddingShopPage.html");
+				response.sendRedirect(request.getContextPath()+"/front_end/photographer/wedSellerProfile.html?action=profile");
+			}else if(mem_role.equals(50)) {
+				response.sendRedirect(request.getContextPath()+"/front_end/member/memberBuyProfile.html?action=profile");
 			}
 		}else {
 			response.sendRedirect(request.getContextPath()+"/front_end/member/login.html");

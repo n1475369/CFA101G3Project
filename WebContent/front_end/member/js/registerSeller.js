@@ -138,7 +138,9 @@ $(function() {
             },
             success: function(result) {
                 if (result == "1") {
-                    window.location.href = "../../member/checkServlet";
+                    swal("已發驗證信至您的信箱", "請至信箱啟用您的帳號", "success").then((result) => {
+                        window.location.href = "../member/login.html";
+                    });
                 } else {
                     $('#u-prompt').text("註冊失敗");
                     $('#u-prompt').css('color', 'red');

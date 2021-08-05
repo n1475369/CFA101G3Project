@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.workphoto.model.WorService;
 import com.workphoto.model.WorVO;
 
@@ -28,6 +29,17 @@ public class WorGetOneServlet extends HttpServlet {
 			Integer wor_id = new Integer(request.getParameter("wor_id"));// 作品集ID
 			WorService worSvc = new WorService();
 			WorVO worVO = worSvc.getWorId(wor_id);
+			
+			String action = request.getParameter("action");
+			if("getOne".equals(action)) {
+				if(worVO != null) {
+			    	response.setContentType("text/html;charset=UTF-8");
+			    	ObjectMapper mapper = new ObjectMapper();
+			    	mapper.writeValue(response.getWriter(), worVO);
+			    	return;
+				}
+			}
+			
 			if (worVO != null) {
 				byte[] wor_img = worVO.getWor_logo();//LOGO
 				ServletOutputStream out = response.getOutputStream();// 輸出

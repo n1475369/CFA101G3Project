@@ -76,16 +76,16 @@ li{
 						<option value="">請選擇</option>
 						<option value="0" id="find_shop_status0">未開通店家身份</option>
 						<option value="1" id="find_shop_status1">已開通店家身份</option>
-						<option value="2" id="find_shop_status2">申請開店中</option>
+						<%-- <option value="2" id="find_shop_status2">申請開店中</option>
 						<option value="3" id="find_shop_status3">商店上架</option>
-						<option value="4" id="find_shop_status4">商店下架</option>
+						<option value="4" id="find_shop_status4">商店下架</option> --%>
 					</select>
 					<label for="">店家身份</label>
 					<select name="mem_role">
 						<option value="">請選擇</option>
-						<option value="20" id="find_mem_role20">婚攝店家</option>
+						<option value="20" id="find_mem_role20">週邊店家</option>
 						<option value="30" id="find_mem_role30">場地店家</option>
-						<option value="40" id="find_mem_role40">週邊店家</option>
+						<option value="40" id="find_mem_role40">婚攝店家</option>
 					</select>
 					<button type="submit" class="btn btn-primary">送出查詢</button>
 				</form>
@@ -126,7 +126,7 @@ li{
 								<c:if test="${memVO.mem_shop_status==1}">
 									<td class="text-dark">已開通店家身份</td>
 								</c:if>
-								<c:if test="${memVO.mem_shop_status==2}">
+								<%-- <c:if test="${memVO.mem_shop_status==2}">
 									<td class="text-dark">申請開店中</td>
 								</c:if>
 								<c:if test="${memVO.mem_shop_status==3}">
@@ -134,15 +134,15 @@ li{
 								</c:if>
 								<c:if test="${memVO.mem_shop_status==4}">
 									<td class="text-dark">商店下架</td>
-								</c:if>
+								</c:if> --%>
 								<c:if test="${memVO.mem_role==20}">
-									<td class="text-dark">婚攝店家</td>
+									<td class="text-dark">週邊店家</td>
 								</c:if>
 								<c:if test="${memVO.mem_role==30}">
 									<td class="text-dark">場地店家</td>
 								</c:if>
 								<c:if test="${memVO.mem_role==40}">
-									<td class="text-dark">週邊店家</td>
+									<td class="text-dark">婚攝店家</td>
 								</c:if>
 								<td><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-memid="${memVO.mem_id}">編輯</button></td>
 							</tr>
@@ -213,18 +213,19 @@ li{
 								<input type="radio" name="mem_shop_status" value="0" id="shop_status0">
 								<label for="shop_status1">已開通店家身份</label>
 								<input type="radio" name="mem_shop_status" value="1" id="shop_status1">
-								<label for="shop_status2">申請開店中</label>
+								<%-- <label for="shop_status2">申請開店中</label>
 								<input type="radio" name="mem_shop_status" value="2" id="shop_status2">
 								<label for="shop_status3">商店上架</label>
 								<input type="radio" name="mem_shop_status" value="3" id="shop_status3">
 								<label for="shop_status4">商店下架</label>
-								<input type="radio" name="mem_shop_status" value="4" id="shop_status4"><br>
+								<input type="radio" name="mem_shop_status" value="4" id="shop_status4"> --%>
+								<br>
 								<label for="" style="margin-top: 5px">會員身份</label><br>
-								<label for="mem_role20">婚攝店家</label>
+								<label for="mem_role20">週邊店家</label>
 								<input type="radio" name="mem_role" value="20" id="mem_role20">
 								<label for="mem_role30">場地店家</label>
 								<input type="radio" name="mem_role" value="30" id="mem_role30">
-								<label for="mem_role40">週邊店家</label>
+								<label for="mem_role40">婚攝店家</label>
 								<input type="radio" name="mem_role" value="40" id="mem_role40">
 
 

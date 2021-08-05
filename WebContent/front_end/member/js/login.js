@@ -57,8 +57,23 @@ $(function() {
                 "action": "login"
             },
             success: function(result) {
-                if (result == "1") {
+                if (result == "0") {
+                    $('#u-prompt').text("信箱尚未啟用");
+                    $('#u-prompt').css('color', 'red');
+                    $('#u-prompt').css('font-size', '10px');
+                    $('#username').css('border', '2px solid red')
+                } else if (result == "1") {
                     window.location.href = "../../member/checkServlet";
+                } else if (result == "2") {
+                    $('#u-prompt').text("此帳號已經被停權");
+                    $('#u-prompt').css('color', 'red');
+                    $('#u-prompt').css('font-size', '10px');
+                    $('#username').css('border', '2px solid red')
+                } else if (result == "3") {
+                    $('#u-prompt').text("此帳號目前審核中");
+                    $('#u-prompt').css('color', 'red');
+                    $('#u-prompt').css('font-size', '10px');
+                    $('#username').css('border', '2px solid red')
                 } else {
                     $('#u-prompt').text("帳號或密碼錯誤");
                     $('#u-prompt').css('color', 'red');

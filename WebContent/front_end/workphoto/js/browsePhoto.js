@@ -2,26 +2,21 @@ let urlParams = new URLSearchParams(window.location.search);
 let param = urlParams.get("wor_id");
 //console.log(param);
 $.ajax({
-    type: "get",
-    url: "../../workphoto/worServlet",
+    type: "post",
+    url: "../../workphoto/worGetOneServlet?action=getOne",
+    data: { "wor_id": param },
     dataType: "json",
     success: function(result) {
-        // console.log(result);
-        for (let i = 0; i < result.length; i++) {
-            var id = result[i].wor_id;
-            if (id == param) {
-                //麵包屑
-                let name =
-                    `<li class="breadcrumb-item active" aria-current="page">${result[i].wor_name}</li>`;
-                $("#name-id").append(name);
-                //作品集資料
-                let element =
-                    `<h1>${result[i].mem_shop_name}｜${result[i].wor_name}</h1>
-                <p class="phog-name"><span>${result[i].phog_name}</span></p>`;
-                $("#wor-content-id").prepend(element);
-                break;
-            }
-        }
+        console.log(result);
+        //麵包屑
+        let name =
+            `<li class="breadcrumb-item active" aria-current="page">${result.wor_name}</li>`;
+        $("#name-id").append(name);
+        //作品集資料
+        let element =
+            `<h1>${result.mem_shop_name}｜${result.wor_name}</h1>
+                <p class="phog-name"><span>${result.phog_name}</span></p>`;
+        $("#wor-content-id").prepend(element);
     }
 });
 $.ajax({
@@ -68,11 +63,11 @@ $.ajax({
         $("#mem-information-id").append(element);
         //我要預約
         $("#reserve").on("click", function() {
-            if(chat_mem_id != undefined){
+            if (chat_mem_id != undefined) {
                 location.href = `../photoorder/reserveWeddimg.html?mem_id=${shopInfo.MEM_ID}`;
-            }else{
+            } else {
                 alert("請先登入後在預約");
-                window.location.href="../member/login.html";
+                window.location.href = "../member/login.html";
             }
         });
         let mem_id = shopInfo.MEM_ID;

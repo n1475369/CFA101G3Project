@@ -2,7 +2,8 @@
 
 .container {
     display: flex;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    max-width: 1300px;
 }
 
 
@@ -23,7 +24,7 @@
     border-radius: 10px;
     display: block;
     margin: auto;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .s-user-name {
@@ -94,6 +95,18 @@
     border-radius: 5px;
 }
 
+/*show選單*/
+
+.work {
+    font-size: 13px;
+    padding: 10px;
+    background-color: #f8cbcb;
+    border-radius: 5px;
+}
+
+.menu-work li {
+    line-height: 20px;
+}
 
 /*右側*/
 
@@ -157,4 +170,16 @@ table th {
 
 .fc-event-title {
     color: #000000;
+}
+
+/*大頭圖片*/
+.s-user-name{
+    margin-bottom:20px;
+}
+.side-bar img{
+    width: 120px;
+    height: 120px;
+}
+.user-hr{
+    margin-bottom:-30px;
 }

@@ -44,8 +44,7 @@ public class RegisterBuyServlet extends HttpServlet {
 			SendEmail se = new SendEmail(username);
 			se.start();
 			se = null;
-			RequestDispatcher rd = request.getRequestDispatcher("/member/loginServlet?action=login");
-			rd.forward(request, response);
+			response.getWriter().print("1");
 		}else {
 			response.getWriter().print("0");
 		}

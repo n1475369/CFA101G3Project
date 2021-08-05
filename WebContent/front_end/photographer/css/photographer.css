@@ -2,12 +2,12 @@
 
 .container {
     display: flex;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    max-width: 1300px;
 }
 
 
 /*左欄*/
-
 .side-bar {
     width: 25%;
     border-radius: 15px;
@@ -92,6 +92,19 @@
     color: #495057;
     background: #eeb8b8;
     border-radius: 5px;
+}
+
+/*show選單*/
+
+.work {
+    font-size: 13px;
+    padding: 10px;
+    background-color: #f8cbcb;
+    border-radius: 5px;
+}
+
+.menu-work li {
+    line-height: 20px;
 }
 
 
@@ -204,4 +217,16 @@ table th {
 
 .table tr:nth-of-type(even) {
     background-color: #e9e0cf;
+}
+
+/*大頭圖片*/
+.s-user-name{
+    margin-bottom:10px;
+}
+.side-bar img{
+    width: 120px;
+    height: 120px;
+}
+.user-hr{
+    margin-bottom:-30px;
 }

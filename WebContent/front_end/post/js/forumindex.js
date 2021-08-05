@@ -10,7 +10,7 @@ function hotPost() {
             "action": "hotPost",
         },
         dataType: "json",
-        success: function (response) {
+        success: function(response) {
             if (response.length < 6) {
                 for (let key = 0; key < response.length; key++) {
                     let tmp = `<a href="show-article-message.html?post_id=${response[key].MES_POST_ID}"><li>${response[key].CAT_NAME}<span>//</span>${response[key].POST_TITLE}</li></a>`;
@@ -31,7 +31,7 @@ $.ajax({
     type: "post",
     url: "../../category/categoryServlet",
     dataType: 'json',
-    success: function (result) {
+    success: function(result) {
         // 點選所有話題一定會到第一頁
         let tem = `<li><a href="forumindex.html?currentPage=1&rows=5">所有話題<span id="AllCatSum"></span></a></li>`;
         $("#category-data").append(tem);
@@ -66,7 +66,7 @@ if (param != null) {
         data: {
             "cat_id": param
         },
-        success: function (result) {
+        success: function(result) {
             console.log(result);
             for (let i = 0; i < result.length; i++) {
                 let template = ` <div class="postone">
@@ -122,7 +122,7 @@ if (param != null) {
             "currentPage": currentPage,
             "rows": rows
         },
-        success: function (result) {
+        success: function(result) {
             console.log(result);
             for (let i = 0; i < result.list.length; i++) {
                 let template = ` <div class="postone">
@@ -180,10 +180,13 @@ if (param != null) {
 
             //下一頁字樣(如果是在最末頁，就不會出現)
             if (result.currentPage == result.totalPage) {
+                $("#activePage" + currentPage).addClass("active");
                 return
             }
             let temp3 = `<a  href = "forumindex.html?currentPage=${(result.currentPage) + 1}&rows=5" >   下一頁»</a > `;
             $("#page").append(temp3);
+
+            $("#activePage" + currentPage).addClass("active");
         }
     });
 }
@@ -200,7 +203,7 @@ function getCount(post_id) {
         data: {
             "mes_post_id": post_id
         },
-        success: function (result) {
+        success: function(result) {
             count = result.length;
         }
     });
@@ -209,9 +212,9 @@ function getCount(post_id) {
 
 //動態抓讀者點到的頁數 把active css加入
 //window.onload是確保所有東西都載入後再執行這個function
-window.onload = function activePage() {
-    $("#activePage" + currentPage).addClass("active");
-}
+// window.onload = function activePage() {
+//     $("#activePage" + currentPage).addClass("active");
+// }
 
 function TIME(time) {
     //new Date()可以接毫秒數
@@ -224,7 +227,7 @@ function TIME(time) {
 
 
 //按下我要發文時 判斷是否已登入
-$('#wantpost').on('click', function () {
+$('#wantpost').on('click', function() {
     $.ajax({
         type: "post",
         url: "../../post/postActionServlet",
@@ -233,7 +236,7 @@ $('#wantpost').on('click', function () {
         data: {
             "action": "mem_post"
         },
-        success: function (result) {
+        success: function(result) {
             if (result == 0) {
                 swal("請先登入", "才可以發文喔", "info");
             } else if (result == 1) {
@@ -246,7 +249,7 @@ $('#wantpost').on('click', function () {
 })
 
 
-$('#mypostbtn').on('click', function () {
+$('#mypostbtn').on('click', function() {
     $.ajax({
         type: "post",
         url: "../../post/postActionServlet",
@@ -255,7 +258,7 @@ $('#mypostbtn').on('click', function () {
         data: {
             "action": "mem_post"
         },
-        success: function (result) {
+        success: function(result) {
             console.log(result);
             if (result == 0) {
                 swal("請先登入", "才可以編輯喔", "info");

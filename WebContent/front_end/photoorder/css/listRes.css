@@ -2,10 +2,9 @@
 
 .container {
     display: flex;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    max-width: 1300px;
 }
-
-
 /*左欄*/
 
 .side-bar {
@@ -23,7 +22,7 @@
     border-radius: 10px;
     display: block;
     margin: auto;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .s-user-name {
@@ -92,6 +91,19 @@
     color: #495057;
     background: #eeb8b8;
     border-radius: 5px;
+}
+
+/*show選單*/
+
+.work {
+    font-size: 13px;
+    padding: 10px;
+    background-color: #f8cbcb;
+    border-radius: 5px;
+}
+
+.menu-work li {
+    line-height: 20px;
 }
 
 
@@ -174,4 +186,16 @@ h5 {
     font-size: 13px;
     float: right;
     margin: 5px;
+}
+
+/*大頭圖片*/
+.s-user-name{
+    margin-bottom:20px;
+}
+.side-bar img{
+    width: 120px;
+    height: 120px;
+}
+.user-hr{
+    margin-bottom:-30px;
 }

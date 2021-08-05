@@ -290,6 +290,8 @@
         let post_id = urlParams.get("post_id");
         console.log(post_id)
 
+
+        let tagArray = []; //tags陣列
         // 依文章id抓文章資訊
         $.ajax({
             type: "post",
@@ -377,14 +379,16 @@
                         }
                     }
                 });
+
+                //取得tags
+                getTags();
             }
 
         });
 
-        let tagArray = []; //tags陣列
         // 用文章id取得標籤們
         // function getTagName(demo) {
-        window.onload = function() {
+        function getTags() {
             let tags = "";
             $.ajax({
                 type: "post",

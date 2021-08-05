@@ -27,10 +27,32 @@ public class LoginServlet extends HttpServlet {
 			MemVO user = service.login(username,password);
 			HttpSession session = request.getSession();
 			if(user != null) {
-				session.setAttribute("user", user);
-				response.getWriter().print("1");
+				Integer mem_status = user.getMem_status();
+				Integer mem_shop_status = user.getMem_shop_status();
+				Integer mem_role = user.getMem_role();
+				if(mem_status.equals(0)) {
+					response.getWriter().print("0");
+				}else if(mem_status.equals(1)) {
+					
+					if(mem_role.equals(10)) {
+						session.setAttribute("user", user);
+						response.getWriter().print("1");
+					}else {
+						
+						if(mem_shop_status.equals(1)) {
+							session.setAttribute("user", user);
+							response.getWriter().print("1");
+						}else {
+							response.getWriter().print("3");
+						}
+						
+					}
+					
+				}else if(mem_status.equals(2)) {
+					response.getWriter().print("2");
+				}
 			}else {
-				response.getWriter().print("0");
+				response.getWriter().print("4");
 			}
 		}
 		

@@ -151,3 +151,7 @@ textarea{
 .breadcrumb a:hover{
     color: #eeb8b8;
 }
+
+.breadcrumb-item.active {
+    background: #fff;
+}

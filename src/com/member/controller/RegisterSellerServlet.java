@@ -51,7 +51,7 @@ public class RegisterSellerServlet extends HttpServlet {
 		member.setMem_name(name);
 		member.setMem_role(role);
 		member.setMem_phone(phone);
-		member.setMem_shop_name(name);
+		member.setMem_shop_name(shopname);
 		member.setMem_city(city);
 		member.setMem_cityarea(cityarea);
 		member.setMem_street(street);
@@ -78,8 +78,7 @@ public class RegisterSellerServlet extends HttpServlet {
 			SendEmail se = new SendEmail(username);
 			se.start();
 			se = null;
-			RequestDispatcher rd = request.getRequestDispatcher("/member/loginServlet?action=login");
-			rd.forward(request, response);
+			response.getWriter().print("1");
 		}else {
 			response.getWriter().print("0");
 		}

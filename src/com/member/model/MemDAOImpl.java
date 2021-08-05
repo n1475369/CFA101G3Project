@@ -563,7 +563,7 @@ public class MemDAOImpl implements MemDAO{
 	//賣家分頁顯示返回多重查詢總筆數
 	@Override
 	public int getSellerMemberRowNumber(String find_username, String find_name, String find_status,String find_shop_status,String mem_role) {
-		String sql = "select count(*) from `MEMBER` where mem_role != 10";
+		String sql = "select count(*) from `MEMBER` where (mem_role = 20 or mem_role = 30 or mem_role = 40)";
 		StringBuilder sb = new StringBuilder();
 		sb.append(sql);
 		if(find_username != null && !find_username.trim().isEmpty()) {
@@ -625,7 +625,7 @@ public class MemDAOImpl implements MemDAO{
 	//分頁顯示返回賣家會員list集合 start:從哪頁開始查詢 rowsPerPage:每次查幾筆
 	@Override
 	public List<MemVO> findSellerMemberByPagination(int start, int rowsPerPage, String find_username, String find_name, String find_status, String find_shop_status, String mem_role) {
-		String sql = "select * from `MEMBER` where mem_role != 10";
+		String sql = "select * from `MEMBER` where (mem_role = 20 or mem_role = 30 or mem_role = 40)";
 		StringBuilder sb = new StringBuilder();
 		sb.append(sql);
 		if(find_username != null && !find_username.trim().isEmpty()) {

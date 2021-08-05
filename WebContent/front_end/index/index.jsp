@@ -330,7 +330,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 					<h2>拍婚紗</h2>
 					<p>新娘最喜歡的婚紗照</p>
 				</div>
-				<a href="">
+				<a href="<%=request.getContextPath()%>/front_end/workphoto/browseWedding.html">
 					<div class="wedding-more">看更多作品</div>
 				</a>
 			</div>
@@ -338,7 +338,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 				<div class="row">
 					<c:forEach var="worVO" items="${worList}" begin="0" end="2">
 						<div class="wed-box col">
-							<a href=""> <c:forEach var="wedVO" items="${wedImgList}">
+							<a href="<%=request.getContextPath()%>/front_end/workphoto/browsePhoto.html?wor_id=${worVO.wor_id}"> <c:forEach var="wedVO" items="${wedImgList}">
 									<c:if test="${wedVO.wed_wor_id == worVO.wor_id}">
 										<img
 											src="<%=request.getContextPath()%>/weddingphoto/wedPhotoServlet?wed_id=${wedVO.wed_id}">
@@ -352,7 +352,7 @@ pageContext.setAttribute("mesCountMap",mesCountMap);
 				<div class="row">
 					<c:forEach var="worVO" items="${worList}" begin="3" end="5">
 						<div class="wed-box col">
-							<a href=""> <c:forEach var="wedVO" items="${wedImgList}">
+							<a href="<%=request.getContextPath()%>/front_end/workphoto/browsePhoto.html?wor_id=${worVO.wor_id}"> <c:forEach var="wedVO" items="${wedImgList}">
 									<c:if test="${wedVO.wed_wor_id==worVO.wor_id }">
 										<img
 											src="<%=request.getContextPath()%>/weddingphoto/wedPhotoServlet?wed_id=${wedVO.wed_id}">

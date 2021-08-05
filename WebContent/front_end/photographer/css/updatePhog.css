@@ -2,7 +2,8 @@
 
 .container {
     display: flex;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    max-width: 1300px;
 }
 
 
@@ -23,7 +24,7 @@
     border-radius: 10px;
     display: block;
     margin: auto;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .s-user-name {
@@ -145,11 +146,6 @@ label {
     letter-spacing: 1px;
 }
 
-.btn-light {
-    font-size: 14px;
-    margin-top: 10px;
-}
-
 .profile label {
     padding-left: 5px;
     margin-right: 10px;
@@ -161,10 +157,40 @@ label {
     font-weight: 350;
 }
 
+/*隊長按鈕*/
+
+.edit-submit {
+    display: inline-block;
+    background: #eeb8b8;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    width: 33%;
+    height: 35px;
+    border: 1px solid #eeb8b8;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.edit-submit:hover {
+    background: #eeb8b8;
+}
 
 /*改變input顏色*/
 
 .form-control:focus {
     border-color: #fadcda;
     box-shadow: 0 0 0 0.2rem rgba(255, 198, 193, 0.25);
+}
+
+/*大頭圖片*/
+.s-user-name{
+    margin-bottom:20px;
+}
+.side-bar img{
+    width: 120px;
+    height: 120px;
+}
+.user-hr{
+    margin-bottom:-30px;
 }
